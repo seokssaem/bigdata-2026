@@ -1,12 +1,14 @@
 [project]
-name = "streamlit-labs-2222"
+name = "streamlit-labs-3333"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "ipykernel>=7.2.0",
     "matplotlib>=3.10.9",
     "numpy>=2.4.4",
+    "openpyxl>=3.1.5",
     "pandas>=3.0.2",
     "seaborn>=0.13.2",
     "streamlit>=1.56.0",
