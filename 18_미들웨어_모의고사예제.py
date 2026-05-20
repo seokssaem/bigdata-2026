@@ -88,16 +88,16 @@ def book_movie(title):
 
 def check_age(age):
     if age >= 15:
-        print('가능')
+        print('[나이확인]관람 가능합니다')
         return True
     else:
-        print('못봄')
+        print('[나이확인]15세 미만은 관람 불가합니다')
         return False
 
 if __name__ == "__main__":  
-    age = int(input('나이 입력? : '))
+    age = int(input('나이를 입력하세요? : '))
     if check_age(age):
-        title = input ('영화제목? : ')
+        title = input ('예매할 영화 제목을 입력하세요? : ')
         book_movie(title)
   
 
@@ -123,15 +123,15 @@ if __name__ == "__main__":
 
 # def check_membership(membership):
 #     if membership == '유효':
-#         print('입장가능')
+#         print('[회원권확인]입장가능')
 #         return True
 #     else:
-#         print('회원권 없음')
+#         print('[회원권확인]유효한 회원권 없음')
 #         return False
 
 
 # if __name__ == "__main__":
 #     membership = input('회원권 상태(유효/만료) : ')
 #     if check_membership(membership):
-#         name = input('이름?? : ')
+#         name = input('이름을 입력하세요 : ')
 #         enter_gym(name)
