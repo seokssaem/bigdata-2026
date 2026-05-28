@@ -1,0 +1,40 @@
+body {
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #7c8b85;
+}
+p {
+    text-align: center;
+}
+
+.travel-card {
+    float: left;
+    width: 250px;
+    height: 340px;
+    margin-right: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.travel-card img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.travel-card h3 {
+  font-size: 16px;
+  color: #333;
+}
+
+.travel-card p {
+  font-size: 13px;
+  color: #555;
+}
