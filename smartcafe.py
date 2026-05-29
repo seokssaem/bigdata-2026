@@ -51,29 +51,44 @@ for group, items in menu.items():
     for name, price in items.items():
         all_menu[name] = price
 
+def reset():
+    
+    return choice
+
 print()
 print("스마트 카페에 오신 것을 환영합니다.")
+print()
+print("-- 스마트 카페 메뉴 목록 --")
 
-choice = 0
+for name, price in all_menu.items():
+    print(name, end=" ")
+print()
+
+loop = False
+
+# 메뉴 조회 후 메인 화면으로 가려면 아래 두 줄을 비활성화하세요.
+# 메뉴 조회 후 주문 화면으로 가려면 아래 두 줄을 활성화하세요.
+# 104번, 120번
+
+# 주문 종료 후 기능으로 돌아가려면 아래 줄을 비활성화 하세요.
+# 168번
 
 while True:
-    print()
-    print("-------기능-------")
-    
-    # 메뉴 조회 후 바로 주문으로 넘어가려면 아래 조건문을 사용하세요.
-
-    if choice == 1 or choice ==2: 
-        choice =3
-    else:
-        choice = int(input("1.가격별 메뉴 조회\n2.종류별 메뉴 조회\n3.주문\n0.종료\n\n기능을 선택하세요. : "))
+    if not loop:
         print()
+        print("-----  기능  -----")
+        choice = input("1.가격별 메뉴 조회\n2.종류별 메뉴 조회\n3.주문\n0.종료\n\n기능을 선택하세요. : ")
+    else:
+        choice = "3"
 
-    # 메뉴 조회 후 다시 메인으로 돌아오려면 위 조건문을 주석처리하고 아래 두 줄을 사용하세요.
-
-    # choice = int(input("1.가격별 메뉴 조회\n2.종류별 메뉴 조회\n3.주문\n0.종료\n\n기능을 선택하세요. : ")) 
-    # print() 
-
+    if choice == "1" or choice == "2" or choice == "3" or choice == "0":
+            choice = int(choice)
+            print()
+    else:
+        print("잘못 입력하셨습니다. 처음부터 다시 진행해주세요.")
+        
     if choice == 0:
+        print("감사합니다. 안녕히 가세요.")
         break
 
     elif choice == 1:
@@ -86,8 +101,10 @@ while True:
                 if min_price <= price <= max_price:
                     print(f"{name} : {price:,}원")
                     check = True
+                    loop = True # 메뉴 조회 후 메인 화면으로 가려면 비활성화하세요. 메뉴 조회 후 주문 화면으로 가려면 활성화하세요.
             if not check:
                 print("조회된 메뉴가 없습니다. 처음부터 다시 진행해주세요.")
+                
         else:
             print("잘못 입력하셨습니다. 처음부터 다시 진행해주세요.")
 
@@ -100,11 +117,14 @@ while True:
                 for name, price in items.items():
                     print(f"{name} : {price:,}원")
                 check = True
+                loop = True # 메뉴 조회 후 메인 화면으로 가려면 비활성화하세요. 메뉴 조회 후 주문 화면으로 가려면 활성화하세요.
         if not check:
             print("잘못 입력하셨습니다. 처음부터 다시 진행해주세요.")
+            print()
+            continue
         
     elif choice ==3:
-        sum_price = 0
+        total_price = 0
         order_list = {}
         while True:
             order = input("무슨 메뉴를 주문하시겠습니까?(예: 에스프레소)(주문 종료: 0): ")
@@ -121,7 +141,11 @@ while True:
                             first = False
                         else:
                             print(f", {name} {count}잔", end=" ")
-                    print(f"총 금액은 {sum_price:,}원입니다. 감사합니다.")
+                    print(f"총 금액은 {total_price:,}원입니다.")
+                    gold = int(input("얼마를 지불 하시겠습니까? : "))
+                    print()
+                    print(f"{gold:,}원 받았습니다. 거스름 돈 {gold - total_price:,}원 입니다. 감사합니다.") 
+                    print()
                 break
 
             elif order not in all_menu:
@@ -132,10 +156,13 @@ while True:
                 order_count = int(input("수량을 입력해주세요.(예: 3): "))
                 print(f"{order} {order_count}잔")
                 print()
-                order_list[order] = order_count
-                sum_price += all_menu[order] * order_count
+                total_price += all_menu[order] * order_count
+                if order in order_list:
+                    order_list[order] += order_count
+                    
+                else:
+                    order_list[order] = order_count
+
             else:
                 break
-        break
-    else:
-        print("잘못 입력하셨습니다. 처음부터 다시 진행해주세요.")
+        break # 주문 종료 후 기능으로 돌아가려면 비활성화 하세요.
