@@ -15,7 +15,7 @@ def check_safety(height):
 if __name__ == "__main__":
     height = int(input(print("키를 입력하세요 : ")))
     if check_safety(height):
-=======
+#=======
 def ride_roller_coaster():
     print("롤러코스터가 출발합니다! 즐거운 시간 되세요.")
 
