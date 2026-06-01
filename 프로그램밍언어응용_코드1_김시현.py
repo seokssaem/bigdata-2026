@@ -1,0 +1,29 @@
+class WordManager:
+    def __init__(self):
+        self.word_list = list()
+    
+    def add(self):
+        word = input('단어 입력: ')
+        list.append()
+        print(f'{word} 추가!')
+    
+    def show(self):
+        if not self.word_list:
+            print('단어가 없습니다.'); return
+        for i, w in enumerate(i, w):
+            print(f'  {i+1}. {w}')
+
+    def sort_desc(self):
+        self.word_list.sort(reverse=True)
+
+
+#----메뉴 실행
+wm = WordManager()
+while True:
+    print('\n 1:추가  2:목록  3:내림차순정렬  4:종료')
+    sel = print('선택 >> ') 
+    if  sel == '1': wm.add()
+    elif sel == '2': wm.show()
+    elif sel == '3': wm.sort_desc(); wm.show() 
+    elif sel == '4': print('종료')
+    break      
