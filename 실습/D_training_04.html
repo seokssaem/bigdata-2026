@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .container {
+            border: 0;
+            margin: 0;
+            width: 400px;
+            height: 300px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-areas:
+                "b1 b1 b2 b2"
+                "b1 b1 b3 b4"
+                "b5 b5 b3 b4"
+            ;
+            gap: 10px;
+        }
+        .box {
+            border: 1px solid blue;
+            padding: 0;
+            width: auto;
+            height: auto;
+            text-align: center;
+            background-color: bisque;
+        }
+        #box1 {grid-area: b1;}
+        #box2 {grid-area: b2;}
+        #box3 {grid-area: b3;}
+        #box4 {grid-area: b4;}
+        #box5 {grid-area: b5;}
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="box" id="box1">box1</div>
+        <div class="box" id="box2">box2</div>
+        <div class="box" id="box3">box3</div>
+        <div class="box" id="box4">box4</div>
+        <div class="box" id="box5">box5</div>
+</body>
+</html>
