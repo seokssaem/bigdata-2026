@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FC 온라인 소개</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        font-family:Arial, sans-serif;
+        background-color:#f4f4f4;
+    }
+
+    header{
+        background-color:#333;
+        color:white;
+        text-align:center;
+        padding:20px;
+    }
+
+    main{
+        padding:20px;
+    }
+
+    .card-container{
+        display:flex;
+        gap:20px;
+    }
+
+    .card{
+        background:white;
+        padding:20px;
+        border:1px solid #ddd;
+        flex:1;
+    }
+
+    footer{
+        background-color:#333;
+        color:white;
+        text-align:center;
+        padding:20px;
+        margin-top:20px;
+    }
+
+    /* 반응형 */
+    @media (max-width:768px){
+        .card-container{
+            flex-direction:column;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>FC 온라인 소개</h1>
+    <p>내가 가장 좋아하는 축구 게임</p>
+</header>
+
+<main>
+
+    <div class="card-container">
+
+        <div class="card">
+            <h2>좋아하는 선수</h2>
+            <p>리오넬 메시</p>
+            <p>뛰어난 드리블과 득점 능력을 가진 최고의 선수입니다.</p>
+        </div>
+
+        <div class="card">
+            <h2>좋아하는 축구 클럽</h2>
+            <p>FC 바르셀로나</p>
+            <p>메시가 활약했던 팀이며 화려한 패스, 티키타카 축구로 유명합니다.</p>
+        </div>
+
+        <div class="card">
+            <h2>좋아하는 모드</h2>
+            <p>선수 강화하기</p>
+            <p>강화 성공의 짜릿함과 팀 가치 상승의 재미를 좋아합니다.</p>
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>빅데이터 과제</p>
+</footer>
+
+</body>
+</html>
