@@ -4,37 +4,37 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="시작" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#FFFFCC);fontColor=light-dark(#000000,#000000);" value="시작" vertex="1">
           <mxGeometry height="80" width="120" x="380" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="&lt;font&gt;공공데이터 포털 API url 준비&lt;br&gt;(평생학습포털_강좌조회서비스 → 인증키)&lt;/font&gt;" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#B266FF);fontColor=light-dark(#000000,#000000);" value="&lt;font&gt;공공데이터 포털 API url 준비&lt;br&gt;(평생학습포털_강좌조회서비스 → 인증키)&lt;/font&gt;" vertex="1">
           <mxGeometry height="80" width="280" x="300" y="240" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="python 라이브러리 → requests.get() 호출&lt;br&gt;API 응답 수신" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#B266FF);fontColor=light-dark(#000000,#000000);" value="python 라이브러리 → requests.get() 호출&lt;br&gt;API 응답 수신" vertex="1">
           <mxGeometry height="80" width="280" x="300" y="360" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-5" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="응답 상태&lt;div&gt;200 OK?&lt;/div&gt;" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-5" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#FFFFCC);fontColor=light-dark(#000000,#000000);" value="응답 상태&lt;div&gt;200 OK?&lt;/div&gt;" vertex="1">
           <mxGeometry height="80" width="120" x="380" y="480" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="XML → pandas 라이브러리 이용&lt;div&gt;DataFrame 변환&lt;/div&gt;" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#66CC00);fontColor=light-dark(#000000,#000000);" value="XML → pandas 라이브러리 이용&lt;div&gt;DataFrame 변환&lt;/div&gt;" vertex="1">
           <mxGeometry height="80" width="280" x="560" y="480" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="강좌명, 개강 및 종강 일시,&amp;nbsp; 운영 지역 컬럼 추출" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#66CC00);fontColor=light-dark(#000000,#000000);" value="강좌명, 개강 및 종강 일시,&amp;nbsp; 운영 지역 컬럼 추출" vertex="1">
           <mxGeometry height="80" width="280" x="560" y="600" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="전처리 작업 → 결측치 처리, 중복 데이터 삭제" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#66CC00);fontColor=light-dark(#000000,#000000);" value="전처리 작업 → 결측치 처리, 중복 데이터 삭제" vertex="1">
           <mxGeometry height="80" width="280" x="560" y="720" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="SQL 소프트웨어 활용&lt;br&gt;DB 저장 (기존 데이터 덮어쓰기)" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#66CC00);fontColor=light-dark(#000000,#000000);" value="SQL 소프트웨어 활용&lt;br&gt;DB 저장 (기존 데이터 덮어쓰기)" vertex="1">
           <mxGeometry height="80" width="280" x="560" y="840" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="DB 쿼리 처리&lt;br&gt;강좌 조회 서비스 제공" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fontColor=light-dark(#000000,#000000);fillColor=light-dark(#FFFFFF,#3399FF);" value="DB 쿼리 처리&lt;br&gt;강좌 조회 서비스 제공" vertex="1">
           <mxGeometry height="80" width="280" x="560" y="960" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="&lt;font&gt;오류 메세지 출력 → 파이썬 예외처리 이용&lt;/font&gt;&lt;div&gt;&lt;font&gt;(try - excep)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font&gt;재시도안내&lt;/font&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#FF0000);fontColor=light-dark(#000000,#000000);" value="&lt;font&gt;오류 메세지 출력 → 파이썬 예외처리 이용&lt;/font&gt;&lt;div&gt;&lt;font&gt;(try - excep)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font&gt;재시도안내&lt;/font&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="80" width="280" x="40" y="480" as="geometry" />
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="종료" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#FFFFCC);fontColor=light-dark(#000000,#000000);" value="종료" vertex="1">
           <mxGeometry height="80" width="120" x="120" y="600" as="geometry" />
         </mxCell>
         <mxCell id="pgZvLX8oRIopvgS3tJMS-15" edge="1" parent="1" source="pgZvLX8oRIopvgS3tJMS-1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" target="pgZvLX8oRIopvgS3tJMS-2" value="">
@@ -107,10 +107,10 @@
             <mxPoint x="179.65999999999997" y="600" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pgZvLX8oRIopvgS3tJMS-31" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="종료" vertex="1">
+        <mxCell id="pgZvLX8oRIopvgS3tJMS-31" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#FFFFCC);fontColor=light-dark(#000000,#000000);" value="종료" vertex="1">
           <mxGeometry height="80" width="120" x="840" y="1080" as="geometry" />
         </mxCell>
-        <mxCell id="xzy52qoncoX2HSWTh_jA-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;개설 강좌 조회 서비스&lt;br&gt;(강좌 조회 시스템에서 가장 기본적이면서도 최종적으로 실행되어야 하는 서비스라고 생각하기 때문에 이 것으로 결정하였습니다.)&lt;/font&gt;" vertex="1">
+        <mxCell id="xzy52qoncoX2HSWTh_jA-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=14;fontStyle=0" value="&lt;font&gt;개설 강좌 조회 서비스&lt;br&gt;(강좌 조회 시스템에서 가장 기본적이면서도 최종적으로 실행되어야 하는 서비스라고 생각하기 때문에 이 것으로 결정하였습니다.)&lt;/font&gt;" vertex="1">
           <mxGeometry height="50" width="800" x="40" y="40" as="geometry" />
         </mxCell>
         <mxCell id="xzy52qoncoX2HSWTh_jA-3" edge="1" parent="1" source="pgZvLX8oRIopvgS3tJMS-10" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xzy52qoncoX2HSWTh_jA-7" value="">
@@ -119,7 +119,7 @@
             <mxPoint x="500" y="950" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="xzy52qoncoX2HSWTh_jA-7" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;" value="반복 조회?" vertex="1">
+        <mxCell id="xzy52qoncoX2HSWTh_jA-7" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=교보 손글씨 2020 박도연;fontSize=15;fillColor=light-dark(#FFFFFF,#FFFFCC);fontColor=light-dark(#000000,#000000);" value="반복 조회?" vertex="1">
           <mxGeometry height="80" width="120" x="640" y="1080" as="geometry" />
         </mxCell>
         <mxCell id="xzy52qoncoX2HSWTh_jA-8" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontFamily=교보 손글씨 2020 박도연;fontSize=15;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="pgZvLX8oRIopvgS3tJMS-31" value="">
