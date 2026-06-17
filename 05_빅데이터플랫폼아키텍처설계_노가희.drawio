@@ -1,0 +1,195 @@
+<mxfile host="app.diagrams.net" pages="2">
+  <diagram name="유스케이스" id="cydumpEbxNIQn5ISzq9F">
+    <mxGraphModel dx="1178" dy="626" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-37" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" value="" vertex="1">
+          <mxGeometry height="405" width="720" x="20" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-22" edge="1" parent="1" source="uy1YpIKiyaeFDxPebOn4-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uy1YpIKiyaeFDxPebOn4-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="영화 관계자" vertex="1">
+          <mxGeometry height="60" width="30" x="675" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-19" edge="1" parent="1" source="uy1YpIKiyaeFDxPebOn4-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uy1YpIKiyaeFDxPebOn4-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-20" edge="1" parent="1" source="uy1YpIKiyaeFDxPebOn4-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uy1YpIKiyaeFDxPebOn4-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#bac8d3;strokeColor=#23445d;" value="시민" vertex="1">
+          <mxGeometry height="60" width="30" x="40" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-23" edge="1" parent="1" source="uy1YpIKiyaeFDxPebOn4-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uy1YpIKiyaeFDxPebOn4-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-8" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366;" value="영화진흥위원회 API" vertex="1">
+          <mxGeometry height="60" width="30" x="310" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-9" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="박스오피스 데이터 수집" vertex="1">
+          <mxGeometry height="40" width="140" x="130" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-26" edge="1" parent="1" source="uy1YpIKiyaeFDxPebOn4-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;dashed=1;" target="uy1YpIKiyaeFDxPebOn4-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-27" edge="1" parent="1" source="uy1YpIKiyaeFDxPebOn4-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;dashed=1;" target="uy1YpIKiyaeFDxPebOn4-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-10" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;" value="일별 박스오피스 조회" vertex="1">
+          <mxGeometry height="40" width="130" x="170" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-11" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;" value="날짜별 박스오피스 조회" vertex="1">
+          <mxGeometry height="40" width="140" x="170" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;" value="상세정보 조회" vertex="1">
+          <mxGeometry height="40" width="110" x="385" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-13" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;" value="관객수 순 정렬" vertex="1">
+          <mxGeometry height="40" width="120" x="385" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-34" edge="1" parent="1" source="uy1YpIKiyaeFDxPebOn4-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;dashed=1;" target="uy1YpIKiyaeFDxPebOn4-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;" value="관객수 기준 필터링" vertex="1">
+          <mxGeometry height="40" width="130" x="580" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-15" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="CSV 파일 다운로드" vertex="1">
+          <mxGeometry height="40" width="130" x="495" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-16" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="데이터 통계 조회" vertex="1">
+          <mxGeometry height="40" width="120" x="505" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-21" edge="1" parent="1" source="uy1YpIKiyaeFDxPebOn4-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uy1YpIKiyaeFDxPebOn4-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-28" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=default;align=center;verticalAlign=middle;rounded=0;" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry height="15" width="60" x="325" y="172.5" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-32" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uy1YpIKiyaeFDxPebOn4-9" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="90" y="370" />
+            </Array>
+            <mxPoint x="90" y="220" as="sourcePoint" />
+            <mxPoint x="90" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-33" connectable="0" parent="uy1YpIKiyaeFDxPebOn4-32" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-35" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="520" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="uy1YpIKiyaeFDxPebOn4-36" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=14;" value="영화 박스오피스 조회" vertex="1">
+          <mxGeometry height="30" width="130" x="290" y="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="RYaZLd_Q4tygzAlQPkm6" name="플로우차트">
+    <mxGraphModel dx="1664" dy="2053" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xR8pgn047pvMecIFjWGP-30" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" value="" vertex="1">
+          <mxGeometry height="920" width="520" x="50" y="-50" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-15" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillStyle=auto;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="시작" vertex="1">
+          <mxGeometry height="40" width="100" x="330" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-16" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="영화진흥위원회 API url 준비" vertex="1">
+          <mxGeometry height="40" width="180" x="290" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-17" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="requests.get() 호출&lt;div&gt;API 응답 수신&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="130" x="315" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-4" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;" value="응답 200" vertex="1">
+          <mxGeometry height="50" width="120" x="320" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-23" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="JSON 데이터&lt;div&gt;DataFrame 변환&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="310" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-24" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="순위, 제목, 누적 관객수 컬럼 추출" vertex="1">
+          <mxGeometry height="40" width="190" x="285" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-25" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="전처리 - 데이터 형식 날짜 변환,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 결측치 처리, 중복값 제거&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="195" x="282.5" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-26" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="seaborn, matplotlib 라이브러리 이용&lt;div&gt;순위 차트 생성&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="207.5" x="276.25" y="584.5" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-28" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="HTML, streamlit 이용&lt;div&gt;대시보드 생성&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="143.75" x="308.13" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-29" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="분석 결과 PDF로 내보내기" vertex="1">
+          <mxGeometry height="40" width="161.88" x="299.07" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillStyle=auto;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="종료" vertex="1">
+          <mxGeometry height="40" width="100" x="330.01" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-22" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f7ed;strokeColor=#36393d;" value="&lt;div&gt;파이썬 예외처리 이용&lt;/div&gt;오류 메시지 출력, 재시도 안내" vertex="1">
+          <mxGeometry height="50" width="180" x="70" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillStyle=auto;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="종료" vertex="1">
+          <mxGeometry height="40" width="100" x="110" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-18" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-4" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-5" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="330" as="sourcePoint" />
+            <mxPoint x="540" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-19" connectable="0" parent="xR8pgn047pvMecIFjWGP-18" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" value="Yes" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-20" edge="1" parent="1" source="xR8pgn047pvMecIFjWGP-4" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xR8pgn047pvMecIFjWGP-13" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="295" />
+            </Array>
+            <mxPoint x="140" y="300" as="sourcePoint" />
+            <mxPoint x="240" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xR8pgn047pvMecIFjWGP-21" connectable="0" parent="xR8pgn047pvMecIFjWGP-20" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" value="No" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-exuQs2iw24j68sTs0vh-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;labelBorderColor=light-dark(#000000,#000000);" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&amp;nbsp;- 선택 기능 : 일별 박스오피스 조회&lt;div&gt;&amp;nbsp;- 선택 이유 : 가장 많이 이용될 것으로 예상되는 기능이며, 다른 기능을&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 이용하기 위해 거의 필수적으로 거쳐야 하는 기능이기 때문이다.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="405" x="110" y="-30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
