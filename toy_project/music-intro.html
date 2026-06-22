@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노래 소개 페이지</title>
+
+    <style>
+        body {
+            text-align: center;
+        }
+        header {
+            margin-bottom: 50px;
+        }
+        .head {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .emoji {
+            width: 50px;
+            height: 50px;
+            background: url(../image/cd.png) no-repeat;
+            background-size: 100%;
+            animation: rotate 4s infinite linear;
+        }
+        main .container {
+            width: 800px;
+            margin: 10px auto;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            border: 1px solid #222;
+            border-radius: 10px;
+        }
+        main .card {
+            border: 1px solid #ccc;
+            margin: 20px auto;
+            padding: 10px 20px;
+        }
+        main .album {
+            width: 150px;
+            margin: 5px auto;
+        }
+        main .album img {
+            width: 100%;
+        }
+        main .title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+        main .singer {
+            margin-top: 5px;
+        }
+        main .genre {
+            font-size: 13px;
+            color: #444;
+        }
+        main .card a {
+            font-size: 13px;
+            text-decoration: none;
+            color: var(--main-text-color);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        main .card a:hover {
+            color: darkgrey;
+        }
+        @media (max-width: 768px) {
+            main .container {
+                width: 100%;
+                margin: 10px auto;
+                display: block;
+            }
+            main .card {
+                margin: 20px;
+            }
+        }
+        :root {
+            --main-text-color: #222;
+        }
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="head">
+            <div class="emoji"></div>
+            <h1>플레이리스트 소개</h1>
+            <div class="emoji"></div>
+        </div>
+        <p>나의 플레이리스트 안에 있는 노래 3곡을 소개합니다</p>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="card">
+                <div class="album">
+                    <img src="../image/love-attack.jpg" alt="pinball">
+                </div>
+                <p class="title">Pinball</p>
+                <p class="singer">리센느</p>
+                <p class="genre">K-POP</p>
+                <a href="https://youtu.be/6tTsZnKysBc?si=_UHxsLcf4Xs4ccZa" target="_blank">▶️PLAY</a>
+            </div>
+            <div class="card">
+                <div class="album">
+                    <img src="../image/s.jpg" alt="s">
+                </div>
+                <p class="title">S</p>
+                <p class="singer">OSUN</p>
+                <P class="genre">HIP-HOP</P>
+                <a href="https://youtu.be/OmMYfMrtXyI?si=-2haq9WWHFXfIv8j" target="_blank">▶️PLAY</a>
+            </div>
+            <div class="card">
+                <div class="album">
+                    <img src="../image/somelikeithot.jpg" alt="some like it hot" class="photo">
+                </div>
+                <p class="title">Some Like It Hot!!</p>
+                <p class="singer">SPYAIR</p>
+                <p class="genre">J-POP</p>
+                <a href="https://youtu.be/eMa_cXrnVgw?si=mJ0yqKuDBhfd28V3" target="_blank">▶️PLAY</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+</html>
