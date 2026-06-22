@@ -6,9 +6,11 @@
 
 ---
 
-## 2026-06-16
+## 2026-06-22
 
 ### 오늘 개별 공부한 것들
-- 유스케이스 실습
-- 플로우차트
-- FastAPI 앱 정의 + CRUD 라우터 5개
+- transform
+- Transition
+- animation
+- button
+- p482, p483 문제
