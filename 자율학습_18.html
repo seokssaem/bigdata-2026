@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 440px;
+            height: 50px;
+            border: 1px solid #333;
+        }
+        .box {
+            width: 30px;
+            height: 30px;
+            padding: 5px 5px;
+            animation: translate 3s linear infinite alternate, changeColor 3s infinite;
+        }
+
+        @keyframes translate {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(400px);
+            }
+        }
+
+        @keyframes changeColor {
+            0% {
+                background-color: #ffe867;
+            }
+            50% {
+                background-color: #ff5e62;
+            }
+            100% {
+                background-color: #17bdff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box"></div>
+    </div>
+</body>
+</html>

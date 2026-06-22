@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .ball img{
+            width: 100px;
+            height: 100px;
+            padding: 10px;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: perspective(120px) rotate(0deg)
+            }
+            to {
+                transform: perspective(120px) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ball">
+        <img src="../images/ball.png" alt="">
+    </div>
+</body>
+</html>
