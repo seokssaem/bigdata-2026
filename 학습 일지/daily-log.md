@@ -21,3 +21,13 @@
 
 ## 2026-06-17
 - html + css를 활용하여 대시보드 웹페이지 만들기 복습
+
+## 2026-06-22
+- html 애니매이션을 활용하기 
+    - translate     (현재 위치에서 x,y축으로 이동)
+    - scale         (확대 or 축소)
+    - rotate        (중심축 기준으로 회전)
+    - perpective    (3D변형할 때입체감)
+    - skew          (비틀거나 기울임)
+    - product       ()
+    - animation     (시간에 따라 변화시킴)
