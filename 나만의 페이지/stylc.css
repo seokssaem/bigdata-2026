@@ -29,7 +29,7 @@ header{
     background: linear-gradient(
         rgba(0, 0, 0, 0.7),
         rgba(0 ,0, 0, 0.7)
-    ), url('/images/istockphoto-1957612313-612x612.jpg') center no-repeat;
+    ), url('/나만의 페이지/images/istockphoto-1957612313-612x612.jpg') center no-repeat;
     background-size: cover;
     padding: 10px 8%;
     position: relative;
