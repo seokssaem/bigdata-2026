@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미스터리 어드벤처</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- 헤더 영역 -->
+    <header>
+        <!-- 네비게이션 바 -->
+        <nav>
+            <!-- 로고 텍스트 -->
+            <h1 class="logo">미스터리 정기구독</h1>
+            <div>
+                <!-- 언어 선택 버튼 : 폰트 어썸 아이콘 -->
+                <button class="lang">
+                    한국어
+                </button>
+                <!-- 로그인 버튼 -->
+                <button>로그인</button>
+            </div>
+        </nav>
+
+        <!-- 헤더 중앙 컨텐츠 -->
+        <div class="header-content">
+            <h2>매주 특별한 미스터리 어드벤처</h2>
+            <h3>원하는 테마의 어드벤처를 즐겨보세요!</h3>
+            <p>이메일 주소 보내주시면 구독 안내문과 새로운 소식을 보내드립니다!</p>
+            
+            <!-- 이메일 구독 폼 -->
+            <form action="" class="add-email">
+                <input type="email" placeholder="이메일 주소" required>
+                <button type="submit">보내기</button>
+
+            </form>
+
+        </div>
+    </header>
+
+    <!-- 섹션 : 배너 -->
+    <section id="banner">
+        <div class="banner-content">
+            <h3>치밀하게 설계된 미스터리 어드벤처가 매주 이어집니다.</h3>
+            <p>영화 속 주인공이 되는 놀라운 경험을 집에서도 즐기세요.</p>
+            <button>자세히 알아보기</button>
+        </div>
+        <h2>지금 바로 현실이 됩니다</h2>
+
+        <!-- 테마 장르 선택 드롭다운 -->
+        <select class="select-menu">
+            <option value="adventure">모험</option>
+            <option value="escape">탈출</option>
+            <option value="comic">코믹</option>
+            <option value="infiltration">잠입</option>
+        </select>
+
+    </section>
+
+    <!-- 섹션 : 멤버쉽 -->
+    <section id="membership">
+        <h2>회원이 되시면</h2>
+
+        <!-- 배경 이미지 + 그라디언트 오버레이 -->
+        <div class="membership-content">
+            <h3>월간 미스터리 회원 혜택</h3>
+            <p>미스터리 온라인 구매 시 어드벤처 테마, 탈출 테마 상품 10% 할인</p>
+            <p>미스터리 온라인 5,000원 상품권 증정</p>
+        </div>
+
+    </section>
+
+    <!-- 섹션 : 타입별 선택 가이드 -->
+    <section id="choice">
+        <h2>타입별 선택 가이드</h2>
+        
+        <!--  Flexbox로 카드 4개 배치(PC: 가로 4개, 태블랫/스마트폰: 가로 2개) -->
+        <div class="choice-content">
+            <!-- 카드 1 -->
+            <div class="card">
+                <h3>어드벤처</h3>
+                <p>신비한 모험, 놀라운 경험</p>
+                <div class="card-img">
+                    <img src="./image/logo.png">
+                </div>                
+            </div>
+
+            <!-- 카드 2 -->
+            <div class="card">
+                <h3>탈출</h3>
+                <p>복잡한 퍼즐, 자유의 열망</p>
+                <div class="card-img">
+                    <img src="./image/logo.png">
+                </div>                
+            </div>
+
+            <!-- 카드 3 -->
+            <div class="card">
+                <h3>코믹</h3>
+                <p>웃음이 가득한 경험, 즐거운 시간</p>
+                <div class="card-img">
+                    <img src="./image/logo.png">
+                </div>                
+            </div>
+
+            <!-- 카드 4 -->
+            <div class="card">
+                <h3>잠입</h3>
+                <p>화려한 변장, 짜릿한 긴장감</p>
+                <div class="card-img">
+                    <img src="./image/logo.png">
+                </div>                
+            </div>
+        </div>
+    </section>
+
+    <!-- 섹션 : FAQ 아코디언 -->
+    <section id="faq">
+        <h2>자주하는 질문과 답변</h2>
+        <u1 class="accordion">
+            <li>
+                <input type="radio" name="accordion" id="first">
+                <label for="first">게임은 어떻게 할 수 있나요?</label>
+                <div class="content">
+                    <p>구독하면 매주 집 앞으로 우편이 배달됩니다.</p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="accordion" id="second">
+                <label for="second">게임을 하다가 힌트가 필요하면 어떻게 할까요?</label>
+                <div class="content">
+                    <p>홈페이지에서 힌트 배너를 찾아가시면 됩니다.</p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="accordion" id="third">
+                <label for="third">한 번하고 나면 다시 못 하나요?</label>
+                <div class="content">
+                    <p>게임은 손상되지 않지만 스토리와 퍼즐의 답은 변하지 않습니다.</p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="accordion" id="fourth">
+                <label for="fourth">게임이 마음에 들지 않으면 어떡하나요?</label>
+                <div class="content">
+                    <p>홈페이지에서 문의 후 환불이 가능합니다..</p>
+                </div>
+            </li>
+        </u1>
+
+        <!-- FAQ 하단 뉴스레터 구독 폼 -->
+        <div class="newsletter">
+            <p>이메일 주소 보내주시면 구독 안내문과 새로운 소식을 보내드립니다!</p>
+            <form class="add-email">
+                <input type="email" placeholder="이메일 주소" required>
+                <button type="submit">보내기</button>
+            </form>
+        </div>
+
+    </section>
+
+    <!-- 푸터 영역 -->
+    <footer>
+        <div class="footer-content">
+            <!-- 왼쪽 : 내비게이션 링크 + 사업자 정보 -->
+            <div class="col left">
+                <ul class="footer-nav">
+                    <li><a href="#">홈페이지안내</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보 취급방침</a></li>
+                    <li><a href="#">이용안내</a></li>
+                </ul>
+                <!-- 상호 등 -->
+                <div class="footer-info">
+                    <p>상호: 미어게임즈 (대표:구미호)</p>
+                    <p>주소: 대구광역시 환계 제 3번지</p>
+                    <p>전화: 999-999-9999</p>
+                    <p>사업자등록번호: 999-99-99999</p>
+                </div>
+            </div>
+            <!-- 가운데 : 고객센터 + SNS 아이콘 -->
+            <div class="col center">
+                <h2>고객센터</h2>
+                <h3>999-999-9999</h3>
+                <p>월-금 09:00 - 18:00</p>
+                <ul class="socials">
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+            <!-- 오른쪽 : 커뮤니티 링크 -->
+            <div class="col right">
+                <h2>커뮤니티</h2>
+                <p><a href="#">공지사항</a></p>
+                <p><a href="#">이벤트</a></p>
+                <p><a href="#">상품 Q&A</a></p>
+            </div>
+        </div>
+
+        <!-- 저작권 표시 -->
+        <div class="copyright">
+            <p>copyright &copy;</p>
+        </div>
+
+    </footer>
+
+
+</body>
+</html>
