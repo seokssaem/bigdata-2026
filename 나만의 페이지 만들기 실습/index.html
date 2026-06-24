@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게이밍 장비 매거진</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- 헤더 영역 -->
+    <header>
+        <!-- 내비게이션 바 -->
+        <nav>
+            <!-- 로고 텍스트 -->
+            <h1 class="logo">CONSOLE WARE</h1>
+            <div>
+                <!-- 언어 선택 버튼 : 폰트 어썸 아이콘 -->
+                <button class="lang">
+                    <i class="fa-solid fa-globe"></i>한국어<i class="fa-solid fa-angle-down"></i>
+                </button>
+                <!-- 로그인 버튼 -->
+                <button>로그인</button>
+            </div>
+        </nav>
+        <!-- 헤더 중앙 컨텐츠 -->
+            <div class="header-content">
+                <h2>콘솔 기어 완벽 가이드</h2>
+                <h3>당신의 콘솔을 완벽하게 마스터할 하드웨어 가이드리포트</h3>
+                <p>이메일 주소를 등록하시면 매달 새로운 장비 정보와 셋업 팁을 보내 드립니다</p>
+                <!-- 이메일 구독 폼 -->
+                <form class="add-email">
+                    <input type="email" placeholder="이메일 주소" required>
+                    <button type="submit">구독하기</button>
+                </form>
+            </div>    
+    </header>
+    
+    <!-- 섹션 : 배너 -->
+    <section id="banner">
+        <div class="banner-content">
+            <h3>0.1초의 차이를 만드는 압도적 성능, 게이머를 위한 매달의 장비 진화</h3>
+            <p>초보자부터 하드웨어 마니아까지, 실패 없는 주변 기기 선택을 도와드립니다.</p>
+            <button>리포트 보러가기</button>
+        </div>
+        <h2>실시간 트렌드 장비</h2>
+        
+        <!-- 콘솔 플랫폼 선택 드롭다운 -->
+        <select class="select-menu">
+            <option value="ps5">PlayStation 5</option>
+            <option value="switch">Nintendo Switch</option>
+            <option value="xbox">Xbox Series X/S</option>
+        </select>
+    </section>
+    
+    <!-- 섹션 : 멤버십 -->
+    <section id="membership">
+        <h2>멤버십 회원이 되시면</h2>
+        <!-- 배경이미지 + 그라디언트 오버레이 -->
+        <div class="membership-content">
+            <h3>콘솔웨어 멤버십 혜택</h3>
+            <p>매달 발간되는 제휴 브랜드 게이밍 장비/소모품 10% 단독 할인</p>
+            <p>하드웨어 전문 에디터의 1:1 맞춤형 데스크 셋업 컨설팅 기회 제공</p>
+        </div>
+    </section>
+
+    <!-- 섹션 : 타입별 선택 가이드 -->
+    <section id="choice">
+        <h2>이달의 핵심 기어 카테고리</h2>
+
+        <!-- Flexbox로 카드 4개 배치(pc: 가로 4개, 태블릿/스마트폰: 가로 2개) -->
+        <div class="choice-content">
+            <!-- 카드 1 -->
+            <div class="card">
+                <h3>스위치 기어 커스텀</h3>
+                <p>쏠림 없는 홀이펙트 조이콘, 휴대용 독(Dock) 등 성능 극대화 가이드</p>
+                <div class="bean-img">
+                    <img src="images/card.png">
+                </div>
+            </div>
+            <!-- 카드 2 -->
+            <div class="card">
+                <h3>플스 하이엔드 셋업</h3>
+                <p>추천 M.2 SSD 비교, 커스텀 패드 및 차세대 VR 장비 정밀 분석</p>
+                <div class="bean-img">
+                    <img src="images/card.png">
+                </div>
+            </div>
+            <!-- 카드 3 -->
+            <div class="card">
+                <h3>엑스박스 에코시스템</h3>
+                <p>엘리트 패드 완벽 세팅법 및 PC 호환 서드파티 가성비 컨트롤러 추천</p>
+                <div class="bean-img">
+                    <img src="images/card.png">
+                </div>
+            </div>
+            <!-- 카드 4 -->
+            <div class="card">
+                <h3>올인원 데스크 세팅</h3>
+                <p>게이밍 모니터(4K 120Hz) 고르는 법과 사운드 플레이 헤드셋 비교</p>
+                <div class="bean-img">
+                    <img src="images/card.png">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 섹션 : FAQ 아코디언 -->
+    <section id="faq">
+        <h2>자주하는 질문과 답변</h2>
+        <ul class="accordion">
+            <li>
+                <input type="radio" name="accordion" id="first">
+                <label for="first">장비를 직접 판매하거나 대여해 주는 서비스인가요?</label>
+                <div class="content">
+                    <p>아닙니다! 본 구독 서비스는 전 세계의 다양한 콘솔 장비, 주변 기기, 컨트롤러의 성능을 직접 테스트하고 비교 분석하여 매달 디지털 리포트로 정보를 소개해 주는 '하드웨어 정보 큐레이션 서비스'입니다.</p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="accordion" id="second">
+                <label for="second">콘솔 초보자인데 내용을 이해하기 어렵지 않을까요?</label>
+                <div class="content">
+                    <p>전혀 걱정하실 필요 없습니다. 매달 발간되는 리포트에는 기기 연결법, 선 정리 꿀팁, 디스플레이 설정(HDR/120Hz 세팅 등)과 같은 기초적인 가이드부터 전문가용 커스텀 패드 세팅법까지 단계별로 친절하게 설명되어 있습니다.</p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="accordion" id="third">
+                <label for="third">내가 가진 기기의 장비 정보만 골라볼 수 있나요?</label>
+                <div class="content">
+                    <p>네, 가능합니다. 구독 시 본인의 주력 콘솔 기기를 등록해 두시면 웹페이지 메인 화면과 매달 발송되는 이메일 리포트가 해당 기기의 장비 매뉴얼 및 추천 주변 기기 정보 중심으로 맞춤형 정렬되어 제공됩니다.</p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="accordion" id="fourth">
+                <label for="fourth">추천된 장비의 할인 혜택도 제공되나요?</label>
+                <div class="content">
+                    <p>네, 멤버십 회원분들에게는 리포트에 소개된 주요 서드파티 기어 브랜드(컨트롤러, 장패드, 케이블 등)의 공식 파트너사 할인 코드가 함께 제공되므로 합리적인 구매가 가능합니다.</p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- FAQ 하단 뉴스레터 구독 폼 -->
+        <div class="newsletter">
+            <p>이메일 주소를 등록하시면 장비 가이드와 새로운 소식들을 매달 보내 드립니다.</p>
+            <form class="add-email">
+                <input type="email" placeholder="이메일 주소" required>
+                <button type="submit">보내기</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-content">
+            <!-- 왼쪽 : 내비게이션 링크 + 사업자 정보 -->
+            <div class="col left">
+                <ul class="footer-nav">
+                    <li><a href="#">회사소개</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보 취급방침</a></li>
+                    <li><a href="#">제휴제안</a></li>
+                </ul>
+                <!-- 상호 등 -->
+                <div class="footer-info">
+                    <p>상호: xxxxx (대표 : 홍길동)</p>
+                    <p>주소: 제주특별자치도 제주시 해안마을 5길</p>
+                    <p>전화: 000-0000-0000</p>
+                    <p>사업자등록번호: 000-00-0000</p>
+                </div>
+            </div>
+            <!-- 가운데 : 고객센터 + SNS 아이콘 -->
+            <div class="col center">
+                <h2>고객센터</h2>
+                <h3>070-000-0000</h3>
+                <p>월-금 09:00-18:00</p>
+                <ul class="socials">
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-kakao-talk"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-telegram"></i></a></li>
+                </ul>
+            </div>
+            <!-- 오른쪽 : 커뮤니티 링크 -->
+            <div class="col right">
+                <h2>커뮤니티</h2>
+                <p><a href="#">공지사항</a></p>
+                <p><a href="#">장비 리뷰 게시판</a></p>
+                <p><a href="#">셋업 Q&A</a></p>
+            </div>
+        </div>
+        <!-- 저작권 표시 -->
+        <div class="copyright">
+            <p>Copyright &copy; CONSOLE WARE. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

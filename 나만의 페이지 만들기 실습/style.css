@@ -1,0 +1,395 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 적용 */
+body {
+    background-color: #0b0a0f;
+    color: #fff;
+    
+}
+body a {
+    text-decoration: none;
+    color: #fff;
+}
+section {
+    padding: 40px 10%;
+}
+section h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+section h3 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* 헤더 영역 */
+header {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(11, 10, 15, 0.5),
+        rgba(11, 10, 15, 0.65)
+    ), url(images/console.jpg) center 30% no-repeat;
+    background-size: cover;
+    padding: 10px 8%;
+    position: relative;
+}
+
+/* 내비게이션 : 로고 왼쪽, 버튼 오른쪽 배치 */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+nav .logo {
+    font-size: 32px;
+    color: #bd00ff;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(189, 0, 255, 1);
+}
+
+nav button {
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    background-color: #bd00ff;
+    color: #fff;
+    padding: 10px 24px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* 언어 버튼 : 투명 배경 + 흰 테두리 */
+.lang {
+    display: inline-flex; /* 아이콘과 텍스트 가로 정렬 */
+    align-items: center;
+    border: 1px solid #fff;
+    background-color: transparent;
+}
+
+/* 아이콘 마진 */
+.lang i:nth-child(1) {
+    margin-right: 8px;
+}
+.lang i:nth-child(2) {
+    margin-left: 5px;
+}
+
+/* 헤더 중앙 컨텐츠 : 수직, 수평 완전 중앙 정렬 */
+.header-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.header-content h2 {
+    font-size: 60px;
+    line-height: 1.4;
+    font-weight: 800;
+    max-width: 750px;
+    color: #bd00ff;
+    margin-bottom: 20px;
+}
+
+/* 이메일 입력 폼 */
+.add-email {
+    background-color: #fff;
+    border-radius: 4px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.add-email input {
+    border: 0;
+    outline: 0;
+    flex: 1;
+    margin-left: 20px;
+    color: #333;
+}
+.add-email button {
+    border: 0;
+    background-color: #bd00ff;
+    color: #fff;
+    font-size: 16px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+/* 헤더 반응형 - max-width: 768px */
+@media only screen and (max-width: 768px) {
+    /* 모바일(768보다 작은 것)에서 헤더 재배치 */
+    .logo {
+        font-size: 20px;
+    }
+    nav button {
+        padding: 5px 10px;
+    }
+    .lang {
+        padding: 4px 8px;
+    }
+
+    .header-content {
+        position: unset;  /* 포지션 해제 - 기본설정 */
+        transform: none;  /* 중앙 정렬 해제 */
+        padding-top: 150px;
+    }
+    .header-content h2 {
+        font-size: 48px;
+        line-height: 50px;
+    }
+    .header-content h3 {
+        font-size: 20px;
+    }
+
+    .add-email button {
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+
+}
+
+/* pc - 배너*/
+.banner-content {
+    border-radius: 6px;
+    background: linear-gradient(135deg, #231242 0%, #0d071a 100%);
+    padding: 40px;
+    margin-bottom: 40px;
+}
+#banner p {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+#banner button {
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    background: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 드롭다운 셀렉트 : 투명 배경 + 흰 테두리 */
+.select-menu {
+    border: 1px solid #bd00ff;
+    background-color: transparent;
+    color: #bd00ff;
+    padding: 10px 24px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.select-menu option {
+    background-color: #19122b;
+    color: #fff;
+}
+
+/* 멤버십 */
+.membership-content {
+    border-radius: 6px;
+    background: linear-gradient(to right,
+    rgba(11, 10, 15, 1) 0%,
+    rgba(11, 10, 15, 0.9) 40%,
+    rgba(11, 10, 15, 0) 70%
+    ),
+    url(images/membership.jpg) no-repeat right center;
+    padding: 60px 40px;
+    margin-bottom: 40px;
+    background-size: cover;
+}
+
+/* 타입별 선택 카드 */
+.choice-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+}
+
+.card {
+    flex: 1;
+    border-radius: 10px;
+    background: linear-gradient(to bottom,
+    #1d1136 0%,
+    #0b0617 100%
+    );
+    border: 1px solid rgba(189, 0, 255, 0.4);
+    padding: 40px;
+    height: 300px;
+    position: relative;
+}
+
+
+/* 원두 이미지 : 카드 오른쪽 하단에 위치 */
+.bean-img {
+    width: 80px;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+}
+.bean-img img {
+    width: 100%;
+    height: auto;
+}
+
+/* 반응형 - 미디어 쿼리 (한 줄의 카드 개수) */
+@media only screen and (max-width: 768px) {
+    .card {
+        flex-basis: 100%; /* 모바일: 카드 1개씩 전체 너비 */
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1220px) {
+    .card {
+        flex-basis: calc(50% - 15px);
+    }
+}
+
+.accordion li {
+    list-style: none;
+    width: 100%;
+    padding: 5px;
+}
+/* FAQ - 아코디언 효과 CSS */
+.accordion li label {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-size: 25px;
+    font-weight: 500;
+    background-color: #191428;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 2px;
+    border-left: 4px solid #bd00ff;
+}
+
+/* + ('\2b')아이콘 추가 : 유니코드 문자로 추가 */
+.accordion li label::after {
+    content: '\2b';
+    font-size: 40px;
+    position: absolute;
+    right: 20px;
+    transition: 0.5s;
+}
+
+/* radio input 자체는 숨긴다 */
+.accordion input[type="radio"] {
+    display: none;
+}
+
+/* 컨텐츠 기본 : 높이 0 (숨겨진다) */
+.accordion .content {
+    background-color: #120e1c;
+    font-size: 22px;
+    line-height: 1.6;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+}
+
+/* 라디오 버튼 체크(선택) -> 답변이 나와야 한다 -> 높이 다시 준다  */
+.accordion input[type="radio"]:checked + label + .content {
+    max-height: 600px;
+    padding: 30px 20px;
+}
+
+/* 체크 했을 때 + --> x 형태로 회전 */
+.accordion input[type="radio"]:checked + label::after {
+    transform: rotate(-135deg);
+}
+
+/* 뉴스 레터 */
+.newsletter {
+    padding: 60px 10%;
+}
+
+/* 푸터 */
+footer {
+    padding: 60px 10%;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.5);
+    border-top: 1px solid rgba(189, 0, 255, 0.3);
+}
+
+footer i {
+    color: rgba(255,255,255,0.6);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;  /* 각 열 상단 정렬 */
+    gap: 30px;
+}
+
+.footer-content a {
+    color: rgba(255,255,255,0.6);
+}
+
+
+/* 3열 너비 비율 : 60% / 20% / 20% */
+.left {
+    flex-basis: 60%;
+}
+.center, .right {
+    flex-basis: 20%;
+    vertical-align: top;
+}
+
+/* 내비게이션 링크 가로 나열 */
+.footer-nav {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin-bottom: 40px;
+    color: rgba(255,255,255,0.6);
+}
+
+/* 마지막 li제외 오른쪽에 구분선 */
+.footer-nav li:not(:last-child) {
+    padding-right: 20px;
+    border-right: 1px solid #eee;
+}
+
+/* SNS 아이콘 가로 나열 */
+.socials {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+}
+
+.footer-content h2 {
+    font-size: 36px;
+
+}
+
+.copyright {
+    margin-top: 40px;
+    padding-bottom: 50px;
+}
+
+/* 반응형 - 푸터 : 모바일 */
+@media only screen and (max-width: 768px) {
+    .footer-content {
+        display: flex;
+        flex-direction: column; /* 세로 방향으로 전환 */
+    }
+    .col {
+        flex-basis: 100%; /* 각 열 전체 너비 */
+    }
+}
