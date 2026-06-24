@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style_과제.css">
+    <title>축구 Time</title>
+</head>
+<body>
+
+    <header>
+         <nav>
+             <h1 class="logo">축구 Time</h1>
+             <div>
+                <button>로그인</button>
+             </div>
+         </nav>
+
+          <div class="header-content">
+            <h2>여러 리그들에서 뛰고있는 선수들 소식을 한번에 보세요</h2>
+            <h3>구독자님이 좋아하는 선수의 소식을 만나보세요</h3>
+            <p></p>
+
+            <form class="add-emil">
+                <input type="email" placeholder="선수이름검색" required>
+                <button type="submit">검색</button>
+            </form>
+          </div>
+    </header>
+
+
+    <section id="banner">
+        <div class="banner-content">
+            <h3>좋아하는 리그, 좋아하는 선수를 구독하세요</h3>
+            <p>당신이 알아보지 못한 여러 나라의 선수들이 아직 관심을 기다리고 있습니다.</p>
+            <button>구독하러가기</button>
+        </div>
+    <section id="league-section">
+        <h2>리그 선택</h2>
+
+        <select class="Football-league-list">
+            <option value="premier">프리미어리그</option>
+            <option value="laliga">라리가</option>
+            <option value="serie">세리에 A</option>
+            <option value="ligue1">리그앙</option>
+            <option value="bundes">분데스리가</option>
+        </select>
+    </section>
+
+        <section class="Football-player">
+            <h2>선수 팔로우하기</h2>
+
+            <div class="Football-player-Follow">
+                <p>좋아하는 선수 팔로우</p>
+                <p>좋아하는 선수를 팔로우하면 소식을 빠르게 전달받을 수 있습니다.</p>
+                <p>해당선수의 훈련장 사진, 경기사진, 팬아트 검색 가능</p>
+            </div>
+        </section>
+
+        <section id="choice">
+            <h2>리그 선택 가이드</h2>
+
+             <div class="choice-content">
+
+                <div class="card">
+                    <h3>프리미어리그</h3>
+                    <p>세계에서 가장 막대한 자본력과 압도적인 인기</p>
+                    <p>주요 팀: 맨체스터시티, 아스날, 리버풀, 맨체스터 유나이티드, 토트넘훗스퍼, 첼시</p>
+                    <div class="Premier">
+                        <img src="images/premier.PNG" alt="프리미어리그로고">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>라리가</h3>
+                    <p>화려한 개인기와 기술적인 패스 플레이를 중시</p>
+                    <p>주요 팀: FC 바르셀로나, 아틀레티코 마드리드, 레알마드리드, 비야레알, 레알소시에다드</p>
+                    <div class="laliga">
+                        <img src="images/laliga.PNG" alt="라리가로고">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>세리에A</h3>
+                    <p>철통 같은 수비 조직력으로 유명</p>
+                    <p>주요 팀: 인터 밀란, AC 밀란, 유벤투스, 나폴리</p>
+                    <div class="Serie">
+                        <img src="images/seriea.PNG" alt="세리에A로고">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>리그앙</h3>
+                    <p>뛰어난 유망주들이 두각을 나타남</p>
+                    <p>주요 팀: 파리 생제르맹(PSG), AS 모나코, 올림피크 리옹</p>
+                    <div class="Ligue">
+                        <img src="images/ligue1.PNG" alt="리그앙로고">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>분데스리가</h3>
+                    <p>게겐프레싱이 대표적인 무대이며 거친몸싸움으로 유명</p>
+                    <p>주요 팀: 바이에른 뮌헨, 보루시아 도르트문트, 바이어 04 레버쿠젠</p>
+                    <div class="Bundesliga">
+                        <img src="images/bundesliga.PNG" alt="분데스리가로고">
+                    </div>
+                </div>
+
+             </div>
+        </section>
+
+        <section id="faq-section">
+            <h2>자주 묻는 질문 (Q&A)</h2>
+            
+            <ul class="accordion">
+                <li>
+                    <input type="radio" name="soccer-faq" id="faq-ans1" checked> <!-- 첫 번째는 기본으로 열려있게 설정 -->
+                    <label for="faq-ans1">해외 축구 리그(EPL, 라리가 등) 중계는 어디서 볼 수 있나요?</label>
+                    <div class="content">
+                        <p>현재 국내에서는 SPOTV NOW, 쿠팡플레이 등을 통해 공식 생중계 및 하이라이트를 시청하실 수 있습니다. 각 리그별 독점 중계권에 따라 플랫폼이 다를 수 있으니 상단 '리그 선택 가이드'를 참고해 주세요.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <input type="radio" name="soccer-faq" id="faq-ans2">
+                    <label for="faq-ans2">경기 일정과 킥오프 시간은 한국 시간 기준인가요?</label>
+                    <div class="content">
+                        <p>네, 저희 사이트에 업데이트되는 모든 라운드별 경기 일정과 시간은 현지 시간이 아닌 <strong>대한민국 표준시(KST)</strong> 기준으로 변환되어 표시됩니다. 시차 계산 없이 편하게 확인하세요!</p>
+                    </div>
+                </li>
+
+                <li>
+                    <input type="radio" name="soccer-faq" id="faq-ans3">
+                    <label for="faq-ans3">좋아하는 선수를 팔로우하면 어떤 소식을 받나요?</label>
+                    <div class="content">
+                        <p>선수를 팔로우하시면 해당 선수의 선발 라인업 포함 여부, 경기 중 골/어시스트 기록, 최신 이적 루머 및 부상 업데이트 소식을 실시간 알림과 커뮤니티 피드를 통해 가장 빠르게 받아보실 수 있습니다.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <input type="radio" name="soccer-faq" id="faq-ans4">
+                    <label for="faq-ans4">커뮤니티 게시판 이용 시 주의할 점이 있나요?</label>
+                    <div class="content">
+                        <p>타 팀 및 특정 선수에 대한 비방, 비속어 사용, 무분별한 어그로성 게시글은 이용 약관에 따라 제재될 수 있습니다. 건전하고 즐거운 축구 토론 문화를 위해 서로 존중하는 태도를 부탁드립니다.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+         <footer>
+            <div class="footer-content">
+                <div class="col left">
+                    <ul class="footer-nav">
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보 취급방침</a></li>
+                        <li><a href="#">이용안내</a></li>
+                    </ul>
+
+                <div class="footer-info">
+                        <p>상호: XXXXX (대표: 장장장)</p>
+                        <p>전화: 000-0000-0000</p>
+                        <p>사업자등록번호: 0000-00-00000</p>
+                    </div>
+                </div>
+
+                <div class="col center">
+                    <h2>문의사항</h2>
+                    <h3>오픈채팅 링크: xxx.xxx//xxxxxxxxxxx.com</h3>
+                    <p>월-금 09:00-18:00</p>
+                    <p>토,일 13:00-20:00</p>
+                </div>
+
+                <div class="col right">
+                    <h2>커뮤니티</h2>
+                    <p><a href="#">공지사항</a></p>
+                    <p><a href="#">이벤트</a></p>
+                    <p><a href="#">라이브 경기 대화</a></p>
+                    <p><a href="#">게시판</a></p>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>Copyright &copy; 축구5대리그. All rights reserved.</p>
+            </div>
+
+         </footer>
+</body>
+</html>
