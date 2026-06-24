@@ -1,0 +1,431 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 적용 */
+body{
+    background-color: #fff;
+    color: #fff;
+}
+section{
+    padding: 40px 10% ;
+}
+section h2{
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+section h3{
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* 헤더 영역 */
+header{
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.7),
+        rgba(0 ,0, 0, 0.7)
+    ), url('/나만의 페이지/images/istockphoto-1957612313-612x612.jpg') center no-repeat;
+    background-size: cover;
+    padding: 10px 8%;
+    position: relative;
+}
+
+/* 내비게이션 : 로고 왼쪽, 버튼 오른쪽 배치 */
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+nav .logo{
+    font-size: 32px;
+    color: blueviolet;
+    cursor: pointer;
+}
+nav button{
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    background-color: blueviolet;
+    color: #fff;
+    padding: 10px 24px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* 언어 버튼 : 투명 배경 + 흰 테두리 */
+.lang{
+    display: inline-flex;   /* 아이콘과 텍스트 가로 정룔 */
+    align-items: center;
+    border: 1px solid #fff;
+    background-color: transparent;
+}
+
+/* 아이콘 마진 */
+.lang i:nth-child(1){
+    margin-right: 8px;
+}
+.lang i:nth-child(2){
+    margin-left: 5px;
+}
+
+/* 헤더 중앙 컨텐츠 : 수직, 수평 완전 중앙 정렬 */
+.header-content{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+.header-content h2{
+    font-size: 60px;
+    line-height: 1.4;
+    font-weight: 600;
+    max-width: 650px;
+    margin-bottom: 20px;
+}
+
+.header-content h3{
+    margin-bottom: 30px;
+}
+
+/* 이메일 입력 폼 */
+.add-email{
+    background-color: #fff;
+    border-radius: 4px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.add-email input{
+    border: 0;
+    outline: 0;
+    flex: 1;
+    margin-left: 20px;
+    color: #333;
+}
+.add-email button{
+    border: 0;
+    background-color: blueviolet;
+    color: #ccc;
+    font-size: 16px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+/* 헤더 반응형 -max-width: 765px */
+@media only screen and (max-width: 768px) {
+    /* 모바일(768보다 작은 것)에서 헤더 재배치 */
+    .logo{
+        font-size: 20px;
+    }
+    nav button{
+        padding: 5px 10px;
+    }
+    .lang {
+        padding: 4px 8px;
+    }
+    .header-content{
+        position: unset; /* 포지션 해제 - 기본설정 */
+        transform: none; /* 중앙 정렬 해제 */
+    }
+    .header-content h2{
+        font-size: 48px;
+        line-height: 50px;
+    }
+    .header-content h3{
+        font-size: 20px;
+    }
+    .add-email button{
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+}
+
+/* pc - 배너 */
+.banner-content{
+    border-radius: 6px;
+    background: linear-gradient(to right, #651c3d 0%, #280a2b 60%);
+    padding: 40px;
+    margin-bottom: 40px;
+}
+#banner h2{
+    color: #333;
+}
+#banner p {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+#banner button{
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    background: rgba(128, 128, 128, 0.4);
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 드롭다운 셀렉트 : 투명 배경 + 흰 테두리 */
+.select-menu{
+    background-color: transparent;
+    border: 1px solid #333;
+    color: #333 ;
+    padding: 10px 24px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.select-menu option{
+    background-color: #fff;
+    color: #333;
+}
+
+/* 멤버쉽 */
+.membership-content{
+    border-radius: 6px;
+    background: linear-gradient(to right, 
+    rgba(101, 28, 61, 0.9) 0%,
+    rgba(40, 10,43,0.5)60%),
+    url('/나만의 페이지/images/peggy_marco-to-learn-3325484_1280.jpg') no-repeat right center;
+    padding: 60px 40px;
+    margin-bottom: 40px;
+}
+#membership h2{
+    color: #333;
+}
+
+/* 타입별 선택 카드 */
+.choice-content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+}
+#choice h2{
+    color: #333;
+}
+.card{
+    flex: 1;
+    border-radius: 10px;
+    background: linear-gradient(to bottom,
+    rgba(25, 32, 68, 1) 0%,
+    rgba(32, 19, 34, 1) 62%);
+    padding: 40px;
+    height: 300px;
+    position: relative;
+}
+.card p{
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* 원두 이미지 : 카드 오른쪽 하단에 위치 */
+.books-emoji{
+    width: 50px;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+}
+.books-emoji img{
+    width: 100%;
+    height: auto;
+}
+
+/* 반응형 - 미디어 쿼리 (한 줄의 카드 개수) */
+@media only screen and (max-width: 768px) {
+    .card{
+        flex-basis: 100%; /* 모바일 카드 1개씩 전체 너비 */
+    }
+}
+@media only screen and (min-width: 769px) and (max-width: 1220px) {
+    .card{
+        flex-basis: calc(50% - 15px);
+    }    
+}
+#faq h2{
+    color: #333;
+}
+.accordion{
+    list-style: none;
+}
+/* FAQ - 아코디언 효과 CSS */
+.accordion li label{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-size: 25px;
+    font-weight: 500;
+    background-color: #303030;
+    cursor: pointer;
+    position: relative;
+    margin: 5px;
+    margin-bottom: 15px;
+}
+
+/* + 아이콘 추가 : 유니코드 문자로 추가 */
+.accordion li label::after{
+    content: '\2b';
+    font-size: 40px;
+    position: absolute;
+    right: 20px;
+    transition: 0.5s;
+}
+/* radio input 자체는 숨긴다 */
+.accordion input[type="radio"] {
+    display: none;
+}
+/* 컨텐츠 기본 : 높이 0 (숨겨진다) */
+.accordion .content{
+    background-color: #3b3b3b;
+    font-size: 22px;
+    line-height: 1.6;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+}
+
+/* 라디오 버튼 체크 (선택) -> 답변이 나와야 한다 -> 높이 다시 준다 */
+.accordion input[type="radio"]:checked + label + .content{
+    max-height: 600px;
+    padding: 30px 20px;
+    margin-top: -12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+/* 체크 했을 때 + --> x 형태로 회전 */
+.accordion input[type="radio"]:checked + label::after{
+    transform: rotate(-135deg);
+}
+
+.newsletter p{
+    color: #333;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 30px;
+}
+.add-email1{
+    background-color: #333;
+    border-radius: 4px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.add-email1 input{
+    border: 0;
+    outline: 0;
+    flex: 1;
+    margin-left: 20px;
+    color: #333;
+    background: transparent;
+}
+.add-email1 button{
+    border: 0;
+    background-color: blueviolet;
+    color: #ccc;
+    font-size: 16px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+/* 푸터 */
+footer {
+  padding: 60px 10%;
+}
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 30px;
+}
+.footer-content a {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  text-decoration: none;
+}
+.left {
+  flex-basis: 60%;
+}
+.center,
+.right {
+  flex-basis: 20%;  
+  vertical-align: top;
+}
+.col h2 {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+.col h3 {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+.footer-nav {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  margin-bottom: 40px;
+}
+.footer-nav li:not(:last-child) {
+  padding-right: 20px;
+  border-right: 1px solid #eee;
+}
+.footer-info {
+  margin-top: 20px;
+  color: rgba(0, 0, 0, 0.7);
+}
+.socials {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+}
+.socials a {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+}
+.copyright {
+  margin-top: 20px;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+} 
+.footer-content p {
+  font-size: 14px;
+  line-height: 0.6;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 20px;
+}
+
+/* ---- 반응형 (푸터) ---- */
+@media only screen and (max-width: 768px) {
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .col {
+    flex-basis: 100%;
+  }
+  .col h2 {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .col h3 {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+}
