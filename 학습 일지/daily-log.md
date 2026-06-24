@@ -41,3 +41,20 @@
 - html총 정리 (원두 사이트)
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%84%B7%ED%94%8C%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0/index.html
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%84%B7%ED%94%8C%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0/stylc.css
+
+## 2026-06-24
+- SQLE 기초 공부
+    SELECT   컬럼명           -- 1. 뭘 볼지
+    FROM     테이블명          -- 2. 어디서
+    WHERE    조건             -- 3. 어떤 조건으로
+    GROUP BY 그룹기준          -- 4. 어떻게 묶을지
+    HAVING   그룹조건          -- 5. 묶은 결과 조건
+    ORDER BY 정렬기준          -- 6. 어떻게 정렬할지
+    LIMIT    숫자             -- 7. 몇 개만 볼지
+
+    안 쓰는 건 가능하지만 사용한다면 순서 지키기!
+
+
+- html 원두 사이트를 활용하여 나만의 페이지로 편집
+    https://github.com/TaeGaori/html_css_js/blob/main/%EB%82%98%EB%A7%8C%EC%9D%98%20%ED%8E%98%EC%9D%B4%EC%A7%80/index.html
+    https://github.com/TaeGaori/html_css_js/blob/main/%EB%82%98%EB%A7%8C%EC%9D%98%20%ED%8E%98%EC%9D%B4%EC%A7%80/stylc.css
