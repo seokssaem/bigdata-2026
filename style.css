@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color:#111;
+    color:#fff;
+}
+
+/* 헤더 영역 */
+header {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(images/vegetable_background.jpg) center no-repeat;
+    background-size: cover;
+    padding: 10px 8%;
+    position: relative;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+nav .logo {
+    font-size: 30px;
+    color: lab(50.08% 50.37 56.11);    
+}
+
+nav button {
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    background-color:lab(50.08% 50.37 56.11) ;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 10px 24px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.lang {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #fff;
+    background-color: transparent;
+}
+.lang i:nth-child(1) {
+    margin-right: 8px;
+}
+.lang i:nth-child(2) {
+    margin-left: 5px;
+}
+
+/* 헤더 중앙 */
+.header-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.header-content h2 {
+    font-size: 40px;
+    line-height:  1.4;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.header-content h3{
+    font-size: 18px;
+    line-height:  1.4;
+    margin-bottom: 30px;
+}
+.header-content p{
+    font-size: 16px;
+    color: lab(50.08% 50.37 56.11);
+    text-align: left;
+}
+
+.add-email {
+    width: 900px;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.add-email input {
+    border: 0;
+    outline: 0;
+    flex: 1;
+    margin-left: 20px;
+}
+.add-email button {
+    border: 0;
+    background-color:lab(50.08% 50.37 56.11);
+    color: #fff;
+    font-size: 16px;
+    padding: 15px 30px;
+    cursor: pointer;
+}
+
+/* 헤더 반응형 - max-width: 768px */
+@media only screen and (max-width: 768px) {
+    /* 모바일(768보다 작은 것)에서 해더 재배치 */
+    .logo {
+        font-size: 20px;
+    }
+    nav button {
+        padding: 5px 10px;
+    }
+    .lang { 
+        padding: 4px 8px;
+    }
+    .header-content {
+        position: unset;  /* 포지션 해제. 기본설정 */
+        transform: none;    /* 중앙 정렬 해제 */
+        padding-top: 150px;        
+    }
+    .header-content h2 {
+        font-size: 25px;
+        line-height: 50px;
+    }
+    .header-content h3 {
+        font-size: 12px;
+    }
+    .add-email button {
+        font-size: 12px;
+        padding: 10px 15px;    
+    }
+}
