@@ -58,3 +58,7 @@
 - html 원두 사이트를 활용하여 나만의 페이지로 편집
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%82%98%EB%A7%8C%EC%9D%98%20%ED%8E%98%EC%9D%B4%EC%A7%80/index.html
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%82%98%EB%A7%8C%EC%9D%98%20%ED%8E%98%EC%9D%B4%EC%A7%80/stylc.css
+
+
+## 2026-06-25
+- SQLE JOIN을 사용하여 두 테이블 연결하기
