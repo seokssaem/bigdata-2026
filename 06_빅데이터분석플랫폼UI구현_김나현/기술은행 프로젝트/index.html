@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국산업기술진흥원 기술은행 기술 매칭 포털</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <!-- 네비게이션 바1 -->
+        <nav>
+            <!-- 로고 텍스트 -->
+            <h1 class="logo">한국산업기술진흥원 기술은행 기술 매칭 포털</h1>
+            <div>
+                <!-- 언어 선택 버튼 : 폰트 어썸 아이콘 -->
+                <button class="lang">
+                    <i class="fa-solid fa-globe"></i>&nbsp;한국어&nbsp;<i class="fa-solid fa-angle-down"></i>
+                </button>
+                <!-- 로그인 버튼 -->
+                <button>로그인</button>
+            </div>
+        </nav>
+        <!-- 메뉴 아코디언 -->
+        <ul class="menu-accordion">
+            <li>
+                <label for="first">기술이전</label>
+                <div class="content">
+                    <p><a href="#">등록/수집기술</a></p>
+                </div>
+            </li>
+
+            <li>
+                <label for="second">기술사업화동향</label>
+                <div class="content">
+                    <p><a href="#">지원사업 공고</a></p>
+                </div>
+            </li>
+
+            <li>
+                <label for="third">창업지원</label>
+                <div class="content">
+                    <p><a href="#">창업커리큘럼 지원</a></p>
+                </div>
+            </li>
+
+            <li>
+                <label for="fourth">기술은행</label>
+                <div class="content">
+                    <p><a href="https://www.ntb.kr/main/mainPortal.do">NTB 기술은행</a></p>
+                </div>
+            </li>
+        </ul>
+
+
+        <div class="header-content">
+            <h1>함께 만드는 기술 생태계</h1>
+            <!-- 검색 -->
+            <form class="search">
+                <input type="text" placeholder="기술명" required>
+                <button type="submit">검색</button>
+            </form>
+        </div>
+        
+    </header>
+    
+    <main>
+        <section>
+            <!-- 기술 통계 섹션 -->
+            <h2>기술 통계</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-lable">월 평균 등록</span>
+                    <span class="stat-value" id="avg">15.2</span>
+                    <span class="stat-unit">건</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-lable">최다 등록 카테고리</span>
+                    <span class="stat-value" id="max">전기/전자</span>
+                    <span class="stat-unit"></span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-lable">최소 등록 카테고리</span>
+                    <span class="stat-value" id="min">세라믹</span>
+                    <span class="stat-unit"></span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-lable">최고 조회수</span>
+                    <span class="stat-value" id="avg25">72</span>
+                    <span class="stat-unit">건</span>
+                </div>
+            </div>
+            </section>
+        <!-- 검색 섹션 -->
+        <section>
+            <h2>기술 조회</h2>
+            <div class="search-content">          
+                <form class="search">
+                    <input type="text" placeholder="기술명" required>
+                    <button type="submit">검색</button>
+                </form>
+            </div>
+            
+
+            <!-- 카테고리 버튼 -->
+            <div class="search-category">
+                <div class="b1"><button><i class="fa-solid fa-gears"></i>기계/소재</button></div>
+                <div class="b2"><button><i class="fa-solid fa-bolt"></i>전기/전자</button></div>
+                <div class="b3"><button><i class="fa-regular fa-cloud"></i>정보통신</button></div>
+                <div class="b4"><button><i class="fa-solid fa-flask"></i>화학</button></div>
+                <div class="b5"><button><i class="fa-solid fa-dna"></i>바이오/의료</button></div>
+                <div class="b6"><button><i class="fa-solid fa-battery-three-quarters"></i>에너지/자원</button></div>
+                <div class="b7"><button><i class="fa-solid fa-hands-holding"></i>지식서비스</button></div>
+                <div class="b8"><button><i class="fa-solid fa-c"></i>세라믹</button></div>
+
+            </div>
+            
+
+        </section>
+    </main>
+    
+
+    <!-- 푸터 -->
+    <footer>
+        <!-- 저작권 표시 -->
+        <div class="copyright">
+            <p>Copyright &copy; 기술은행매칭. ALL rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
