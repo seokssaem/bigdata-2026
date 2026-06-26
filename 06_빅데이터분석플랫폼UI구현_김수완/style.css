@@ -1,0 +1,213 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: bisque;
+    text-decoration: none;
+}
+
+
+
+header {
+    background-color: #1a6fd4;
+    color: #fff;
+    padding: 24px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+section {
+    margin-bottom: 32px;
+}
+
+section h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-left: 5px solid #1a6fd4;
+    padding-left: 8px;
+    margin-bottom: 14px;
+}
+
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.stat-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stat-title {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a6fd4;
+}
+
+.stat-unit {
+    display: block;
+    font-size: 0.6rem;
+    color:#888;
+    margin-top: 2px;
+}
+
+
+.charts-wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+.chart-card {
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+.chart-card h3 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+.chart-desc {
+    font-size: 0.7rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background: #1a6fd4;
+    color: white;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+tbody tr:hover {
+    background: #e8f1ff;
+}
+
+
+
+
+footer {
+    background: #333;
+    color: #ccc;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.75rem;
+}
+
+
+
+@media (max-width:1024px){
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .charts-wrap{
+        flex-direction:column;
+    }
+
+    header h1{
+        font-size:1.5rem;
+    }
+
+}
+
+
+@media (max-width:767px){
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .charts-wrap{
+        flex-direction:column;
+    }
+
+    header h1{
+        font-size:1.2rem;
+    }
+
+    header p{
+        font-size:0.75rem;
+    }
+
+    .stat-value{
+        font-size:1.6rem;
+    }
+
+    table{
+        font-size:0.75rem;
+    }
+
+    th,
+    td{
+        padding:8px;
+    }
+
+}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고속도로 교통정보 대시보드</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>고속도로 교통정보 대시보드</h1>
+        <p>한국도로공사 Open API 기반 실시간 교통정보</p>
+    </header>
+
+    <main>
+
+        <!-- 핵심 통계 -->
+        <section>
+            <h2>핵심 통계</h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span class="stat-title">평균 속도</span>
+                    <span class="stat-value" id="avgSpeed">-</span>
+                    <span class="stat-unit">km/h</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-title">최대 교통량</span>
+                    <span class="stat-value" id="maxTraffic">-</span>
+                    <span class="stat-unit">대</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-title">평균 통행시간</span>
+                    <span class="stat-value" id="avgTime">-</span>
+                    <span class="stat-unit">분</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-title">전체 구간</span>
+                    <span class="stat-value" id="roadCount">-</span>
+                    <span class="stat-unit">개</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 차트 -->
+        <section>
+            <h2>교통 데이터 시각화</h2>
+            <div class="charts-wrap">
+                <div class="chart-card">
+                    <h3>구간별 교통량</h3>
+                    <p class="chart-desc">
+                        막대그래프 영역
+                    </p>
+                    <canvas id="barChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <h3>구간별 평균속도</h3>
+                    <p class="chart-desc">
+                        선그래프 영역
+                    </p>
+                    <canvas id="barChart2"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 표 -->
+        <section>
+            <h2>구간별 교통정보</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>구간명</th>
+                        <th>교통량 (대)</th>
+                        <th>평균속도 (km/h)</th>
+                        <th>통행시간 (분)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>기흥IC-수원신갈IC</td>
+                        <td>73</td>
+                        <td>37</td>
+                        <td>43</td>
+                    </tr>
+
+                    <tr>
+                        <td>목포TG-무안IC</td>
+                        <td>35</td>
+                        <td>20</td>
+                        <td>113</td>
+                    </tr>
+
+                    <tr>
+                        <td>금토JC-당재IC</td>
+                        <td>47</td>
+                        <td>21</td>
+                        <td>168</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            데이터 출처 : <a href="https://data.ex.co.kr/" target="_blank">
+                고속도로 공공데이터 포털 (data.ex.co.kr)</a>
+            - 한국도로공사 Open API
+        </p>
+    </footer>
+
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+
+        /* ===== 샘플 데이터 (한국도로공사 Open API 예시) ===== */
+
+        const roads = [
+            '기흥IC-수원신갈IC',
+            '목포TG-무안IC',
+            '금토JC-당재IC',       
+            '동탄JC-기흥IC',
+            '안성JC-남사IC',
+            '수원IC-동탄JC',
+            '남사IC-오산IC',
+            '오산IC-기흥IC'
+        ];
+
+        const traffic = [73, 35, 82, 61, 95, 68, 58, 77];
+
+        const speed = [37, 20, 25, 42, 65, 58, 49, 34];
+
+        const time = [43, 113, 115, 75, 30, 35, 47, 58];
+
+        const grade = [3, 3, 4, 2, 1, 2, 2, 3];
+
+        /* ===== 통계 계산 ===== */
+
+        const avgSpeed = Math.round(
+            speed.reduce((a, b) => a + b, 0) / speed.length
+        );
+
+        const maxTraffic = Math.max(...traffic);
+
+        const avgTime = Math.round(
+            time.reduce((a, b) => a + b, 0) / time.length
+        );
+
+        const roadCount = roads.length;
+
+        document.getElementById("avgSpeed").textContent = avgSpeed;
+        document.getElementById("maxTraffic").textContent = maxTraffic;
+        document.getElementById("avgTime").textContent = avgTime;
+        document.getElementById("roadCount").textContent = roadCount;
+
+        new Chart(document.getElementById('barChart').getContext('2d'), {
+
+            type: 'bar',
+            data: {
+                labels: roads,
+                datasets: [{
+                    label: '교통량 (대)',
+                    data: traffic,
+                    backgroundColor: 'rgba(54,162,235,0.6)',
+                    borderColor: 'rgb(54,162,235)',
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+
+                        title: {
+                            display: true,
+                            text: '교통량'
+                        }
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('barChart2').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: roads,
+                datasets: [{
+                    label: '평균속도 (km/h)',
+                    data: speed,
+                    borderColor: 'rgb(255,99,132)',
+                    backgroundColor: 'rgba(255,99,132,0.2)',
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '속도(km/h)'
+                        }
+                    }
+                }
+            }
+        });
+        </script>
+</body>
+</html>
