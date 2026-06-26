@@ -1,0 +1,125 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 적용 */
+body{
+    background-color: #fff;
+    color: #333;
+}
+section{
+    padding: 40px 10% ;
+}
+
+/* 헤더 영역 */
+header{
+    width: 100%;
+    height: 15vh;
+    background: linear-gradient(
+        rgba(229, 255, 0, 0.7),
+        rgba(238, 255, 0, 0.7)
+    );
+    background-size: cover;
+    padding: 10px 8%;
+    position: relative;
+    font-size: 20px;
+    color: blueviolet;
+    text-align: center;
+}
+.logo{
+    margin-bottom: 10px;
+}
+header p{
+    font-size: 13px;
+    text-align: right;
+}
+
+/* 메인 */
+main{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+section h2{
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-left: 8px;
+    margin-bottom: 14px;
+}
+
+/* 배너 */
+#banner{
+    text-align: center;
+    color: blueviolet;
+}
+
+/* 핵심 통계 카드 */
+.stats-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+@media only screen and (max-width: 768px) {
+    .stats-grid{
+        flex-basis: 100%; /* 모바일 카드 1개씩 전체 너비 */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
+.stat-card{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stat-label{
+    display: block;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.stat-value{
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color:  blueviolet;
+}
+
+.stat-unit{
+    display: block;
+    font-size: 1rem;
+    color: #888;
+    margin-top: 2px;
+}
+
+footer{
+    font-size: 10px;
+}
+
+/* 막대 그래프 media */
+.chart-container {
+    width: 100%;
+    max-width: 700px; /* PC 화면에서 최대 늘어날 수 있는 너비 */
+    height: 400px;    /* PC 화면에서의 그래프 고정 높이 */
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+@media only screen and (max-width: 768px) {
+    chart-container {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 8px; 
+    }
+    
+    /* 🛠️ 창 크기에 따라 그래프 크기가 유연하게 변하도록 세팅 */
+    .chart-container {
+        width: 100%;      /* 부모 창 크기에 100% 맞춰짐 */
+        height: 300px;    /* 모바일 창 크기에 최적화된 높이로 축소 */
+        margin: 20px auto;
+    }
+}
