@@ -9,3 +9,4 @@
 - 브라우저 실행 방법
     index.html와 style.scc파일을 같은 폴더에 넣는다
     평소 사용하는 브라우저와 연결하여 index.html를 연다
+    
