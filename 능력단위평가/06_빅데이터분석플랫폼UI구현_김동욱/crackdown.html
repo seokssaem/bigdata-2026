@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대구광역시 달서구 주차 단속 통계</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/crackdown.css">
+</head>
+<body>
+
+    <header>
+        <h1>대구광역시 달서구 주차 단속 통계</h1>
+        <p>공공데이터포털 대구시 달서구 교통안전 데이터 API | 기준일 : 2025-05-19<br>데이터 정보 : 2017년 ~ 2021년</p>
+    </header>
+
+    <nav>
+        <div id="link">
+            <ul>
+                <li class="tab">
+                    <a href="./crackdown.html">달서구 주차 단속<span class="break"> </span>통계 보기</a>
+                </li>
+                <li class="tab">
+                    <a href="./complaint.html">달서구 주차 민원<span class="break"> </span>통계 보기</a>
+                </li>
+                <li class="tab">
+                    <a href="./main.html">달서구 주차 통합<span class="break"> </span>통계 보기</a>
+                </li>
+            </ul>                    
+        </div>
+    </nav>
+    
+    <main>
+
+        <section>
+            <h2>핵심 통계</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="label">1개 동 최대 단속 건수</div>
+                    <div class="value" id="A-max">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">1개 동 최소 단속 건수</div>
+                    <div class="value" id="A-min">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">달서구 동별 단속 평균</div>
+                    <div class="value" id="A-avg">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">달서구 전체 단속 건수</div>
+                    <div class="value" id="A-total">-</div>
+                    <div class="unit">건</div>                
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>데이터 차트</h2>
+            <div class="chart">
+                <div class="chart-name">
+                    <h3>단속 상위 현황</h3>
+                    <p class="chart-card">동별 단속 상위 10곳 (단위: 건)</p>
+                    <canvas id="barA1"></canvas>
+                </div>
+                <div class="chart-name">
+                    <h3>전체 단속 건수</h3>
+                    <p class="chart-card">연도별 전체 단속 건수 (단위: 건)</p>
+                    <canvas id="barA2"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>데이터 출처: <a href="https://data.go.kr" target="_blank">
+            공공데이터포털 (data.go.kr)</a> - 대구광역시 달서구_교통안전데이터</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const crackdownData = [
+            { "dong": "용산동", "crackdown": 74402 },
+            { "dong": "월성동", "crackdown": 68538 },
+            { "dong": "이곡동", "crackdown": 52411 },
+            { "dong": "상인동", "crackdown": 43810 },
+            { "dong": "감삼동", "crackdown": 42926 },
+            { "dong": "본리동", "crackdown": 43653 },
+            { "dong": "진천동", "crackdown": 42471 },
+            { "dong": "두류동", "crackdown": 26471 },
+            { "dong": "신당동", "crackdown": 25536 },
+            { "dong": "대천동", "crackdown": 27164 },
+            { "dong": "장기동", "crackdown": 19107 },
+            { "dong": "도원동", "crackdown": 18072 },
+            { "dong": "송현동", "crackdown": 16285 },
+            { "dong": "유천동", "crackdown": 10736 },
+            { "dong": "호산동", "crackdown": 12127 },
+            { "dong": "성당동", "crackdown": 6774 },
+            { "dong": "본동", "crackdown": 7803 },
+            { "dong": "대곡동", "crackdown": 6100 },
+            { "dong": "죽전동", "crackdown": 5397 },
+            { "dong": "파호동", "crackdown": 3216 },
+            { "dong": "월암동", "crackdown": 1282 },
+            { "dong": "호림동", "crackdown": 496 },
+            { "dong": "장동", "crackdown": 279 },
+            { "dong": "내당동", "crackdown": 956 },
+            { "dong": "갈산동", "crackdown": 166 },
+            { "dong": "대명동", "crackdown": 77 }
+        ];
+
+        const crackdownTop10 = [
+            { "dong": "용산동", "crackdown": 74402 },
+            { "dong": "월성동", "crackdown": 68538 },
+            { "dong": "이곡동", "crackdown": 52411 },
+            { "dong": "상인동", "crackdown": 43810 },
+            { "dong": "본리동", "crackdown": 43653 },
+            { "dong": "감삼동", "crackdown": 42926 },
+            { "dong": "진천동", "crackdown": 42471 },
+            { "dong": "대천동", "crackdown": 27164 },
+            { "dong": "두류동", "crackdown": 26471 },
+            { "dong": "신당동", "crackdown": 25536 }
+        ];
+
+        const crackdownYearly = [
+            { "year": 2017, "crackdown": 1236 },
+            { "year": 2018, "crackdown": 1965 },
+            { "year": 2019, "crackdown": 3185 },
+            { "year": 2020, "crackdown": 3292 },
+            { "year": 2021, "crackdown": 2894 }
+        ];
+
+        const crackdownMax = 74402;
+        const crackdownMin = 77;
+        const crackdownAvg = 21394.4;
+        const crackdownTotal = 556255;
+
+        document.getElementById('A-max').textContent = crackdownMax;
+        document.getElementById('A-min').textContent = crackdownMin;
+        document.getElementById('A-avg').textContent = crackdownAvg;
+        document.getElementById('A-total').textContent = crackdownTotal;
+
+        const labelsA1 = crackdownTop10.map(item => item.dong);
+        const valuesA1 = crackdownTop10.map(item => item.crackdown);
+
+        new Chart(document.getElementById('barA1').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labelsA1,
+                datasets: [{
+                    label: '단속 건수 (건)',
+                    data: valuesA1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const index = context.dataIndex;
+                                const item = crackdownTop10[index];
+                                return `단속: ${item.crackdown}건`;
+                            }
+                        }
+                    },
+                    legend: {
+                        align: 'end'
+                    }
+                }
+            }
+        });
+
+        const labelsA2 = crackdownYearly.map(item => item.year);
+        const valuesA2 = crackdownYearly.map(item => item.crackdown);
+
+        new Chart(document.getElementById('barA2').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labelsA2,
+                datasets: [{
+                    label: '단속 건수 (건)',
+                    data: valuesA2
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const index = context.dataIndex;
+                                const item = crackdownYearly[index];
+                                return `단속: ${item.crackdown}건`;
+                            }
+                        }
+                    },
+                    legend: {
+                        align: 'end'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

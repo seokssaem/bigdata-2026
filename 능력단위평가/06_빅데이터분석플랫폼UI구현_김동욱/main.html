@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대구광역시 달서구 주차 단속 및 민원 통계</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+    <header>
+        <h1>대구광역시 달서구 주차 단속 및 민원 통계</h1>
+        <p>공공데이터포털 대구시 달서구 교통안전 데이터 API | 기준일 : 2025-05-19<br>데이터 정보 : 2017년 ~ 2021년</p>
+    </header>
+
+    <nav>
+        <div id="link">
+            <ul>
+                <li class="tab">
+                    <a href="./crackdown.html">달서구 주차 단속<span class="break"> </span>통계 보기</a>
+                </li>
+                <li class="tab">
+                    <a href="./complaint.html">달서구 주차 민원<span class="break"> </span>통계 보기</a>
+                </li>
+                <li class="tab">
+                    <a href="./main.html">달서구 주차 통합<span class="break"> </span>통계 보기</a>
+                </li>
+            </ul>                    
+        </div>
+    </nav>
+
+    <main>
+        <section>
+            <h2>핵심 통계</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="label">1개 동 최대 단속/민원 건수</div>
+                    <div class="value" id="AB-max">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">1개 동 최소 단속/민원 건수</div>
+                    <div class="value" id="AB-min">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">달서구 동별 단속/민원 평균</div>
+                    <div class="value" id="AB-avg">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">달서구 전체 단속/민원 건수</div>
+                    <div class="value" id="AB-total">-</div>
+                    <div class="unit">건</div>                
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>데이터 차트</h2>
+            <div class="chart">
+                <div class="chart-name">
+                    <h3>단속/민원 현황</h3>
+                    <p class="chart-card">동별 단속/민원 현황 TOP 10 (단위: 건)</p>
+                    <canvas id="bar1"></canvas>
+                </div>
+                <div class="chart-name">
+                    <h3>단속/민원 비율</h3>
+                    <p class="chart-card">동별 민원 비율 TOP 10 (단위: %)</p>
+                    <canvas id="bar2"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>데이터 출처: <a href="https://data.go.kr" target="_blank">
+            공공데이터포털 (data.go.kr)</a> - 대구광역시 달서구_교통안전데이터</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const totalCrackdown = 556255;
+        const totalComplaint = 134491;
+        const totalSum = 690746;
+
+        const maxDong = 84525;
+        const minDong = 77;
+        const avgTotal = 26567.2;
+        const dongCount = 26;
+
+        const top10Total = [
+            {
+                "dong": "용산동",
+                "crackdown": 74402,
+                "complaint": 10123,
+                "total": 84525
+            },
+            {
+                "dong": "월성동",
+                "crackdown": 68538,
+                "complaint": 7161,
+                "total": 75699
+            },
+            {
+                "dong": "이곡동",
+                "crackdown": 52411,
+                "complaint": 15094,
+                "total": 67505
+            },
+            {
+                "dong": "상인동",
+                "crackdown": 43810,
+                "complaint": 15945,
+                "total": 59755
+            },
+            {
+                "dong": "감삼동",
+                "crackdown": 42926,
+                "complaint": 8117,
+                "total": 51043
+            },
+            {
+                "dong": "본리동",
+                "crackdown": 43653,
+                "complaint": 7039,
+                "total": 50692
+            },
+            {
+                "dong": "진천동",
+                "crackdown": 42471,
+                "complaint": 8167,
+                "total": 50638
+            },
+            {
+                "dong": "두류동",
+                "crackdown": 26471,
+                "complaint": 10299,
+                "total": 36770
+            },
+            {
+                "dong": "신당동",
+                "crackdown": 25536,
+                "complaint": 6133,
+                "total": 31669
+            },
+            {
+                "dong": "대천동",
+                "crackdown": 27164,
+                "complaint": 2419,
+                "total": 29583
+            }
+        ];
+
+        const top10Ratio = [
+            {
+                "dong": "갈산동",
+                "ratio": 81.3,
+                "crackdown": 166,
+                "complaint": 722,
+                "total": 888
+            },
+            {
+                "dong": "장동",
+                "ratio": 74.9,
+                "crackdown": 279,
+                "complaint": 831,
+                "total": 1110
+            },
+            {
+                "dong": "호림동",
+                "ratio": 59.2,
+                "crackdown": 496,
+                "complaint": 719,
+                "total": 1215
+            },
+            {
+                "dong": "월암동",
+                "ratio": 53.0,
+                "crackdown": 1282,
+                "complaint": 1443,
+                "total": 2725
+            },
+            {
+                "dong": "성당동",
+                "ratio": 52.4,
+                "crackdown": 6774,
+                "complaint": 7443,
+                "total": 14217
+            },
+            {
+                "dong": "대곡동",
+                "ratio": 35.0,
+                "crackdown": 6100,
+                "complaint": 3291,
+                "total": 9391
+            },
+            {
+                "dong": "유천동",
+                "ratio": 34.9,
+                "crackdown": 10736,
+                "complaint": 5747,
+                "total": 16483
+            },
+            {
+                "dong": "두류동",
+                "ratio": 28.0,
+                "crackdown": 26471,
+                "complaint": 10299,
+                "total": 36770
+            },
+            {
+                "dong": "상인동",
+                "ratio": 26.7,
+                "crackdown": 43810,
+                "complaint": 15945,
+                "total": 59755
+            },
+            {
+                "dong": "장기동",
+                "ratio": 25.9,
+                "crackdown": 19107,
+                "complaint": 6669,
+                "total": 25776
+            }
+        ];
+
+        const allRows = [
+            {
+                "dong": "용산동",
+                "crackdown": 74402,
+                "complaint": 10123,
+                "total": 84525,
+                "ratio": 12.0
+            },
+            {
+                "dong": "월성동",
+                "crackdown": 68538,
+                "complaint": 7161,
+                "total": 75699,
+                "ratio": 9.5
+            },
+            {
+                "dong": "이곡동",
+                "crackdown": 52411,
+                "complaint": 15094,
+                "total": 67505,
+                "ratio": 22.4
+            },
+            {
+                "dong": "상인동",
+                "crackdown": 43810,
+                "complaint": 15945,
+                "total": 59755,
+                "ratio": 26.7
+            },
+            {
+                "dong": "감삼동",
+                "crackdown": 42926,
+                "complaint": 8117,
+                "total": 51043,
+                "ratio": 15.9
+            },
+            {
+                "dong": "본리동",
+                "crackdown": 43653,
+                "complaint": 7039,
+                "total": 50692,
+                "ratio": 13.9
+            },
+            {
+                "dong": "진천동",
+                "crackdown": 42471,
+                "complaint": 8167,
+                "total": 50638,
+                "ratio": 16.1
+            },
+            {
+                "dong": "두류동",
+                "crackdown": 26471,
+                "complaint": 10299,
+                "total": 36770,
+                "ratio": 28.0
+            },
+            {
+                "dong": "신당동",
+                "crackdown": 25536,
+                "complaint": 6133,
+                "total": 31669,
+                "ratio": 19.4
+            },
+            {
+                "dong": "대천동",
+                "crackdown": 27164,
+                "complaint": 2419,
+                "total": 29583,
+                "ratio": 8.2
+            },
+            {
+                "dong": "장기동",
+                "crackdown": 19107,
+                "complaint": 6669,
+                "total": 25776,
+                "ratio": 25.9
+            },
+            {
+                "dong": "도원동",
+                "crackdown": 18072,
+                "complaint": 5134,
+                "total": 23206,
+                "ratio": 22.1
+            },
+            {
+                "dong": "송현동",
+                "crackdown": 16285,
+                "complaint": 5624,
+                "total": 21909,
+                "ratio": 25.7
+            },
+            {
+                "dong": "유천동",
+                "crackdown": 10736,
+                "complaint": 5747,
+                "total": 16483,
+                "ratio": 34.9
+            },
+            {
+                "dong": "호산동",
+                "crackdown": 12127,
+                "complaint": 2432,
+                "total": 14559,
+                "ratio": 16.7
+            },
+            {
+                "dong": "성당동",
+                "crackdown": 6774,
+                "complaint": 7443,
+                "total": 14217,
+                "ratio": 52.4
+            },
+            {
+                "dong": "본동",
+                "crackdown": 7803,
+                "complaint": 2105,
+                "total": 9908,
+                "ratio": 21.2
+            },
+            {
+                "dong": "대곡동",
+                "crackdown": 6100,
+                "complaint": 3291,
+                "total": 9391,
+                "ratio": 35.0
+            },
+            {
+                "dong": "죽전동",
+                "crackdown": 5397,
+                "complaint": 1347,
+                "total": 6744,
+                "ratio": 20.0
+            },
+            {
+                "dong": "파호동",
+                "crackdown": 3216,
+                "complaint": 487,
+                "total": 3703,
+                "ratio": 13.2
+            },
+            {
+                "dong": "월암동",
+                "crackdown": 1282,
+                "complaint": 1443,
+                "total": 2725,
+                "ratio": 53.0
+            },
+            {
+                "dong": "호림동",
+                "crackdown": 496,
+                "complaint": 719,
+                "total": 1215,
+                "ratio": 59.2
+            },
+            {
+                "dong": "장동",
+                "crackdown": 279,
+                "complaint": 831,
+                "total": 1110,
+                "ratio": 74.9
+            },
+            {
+                "dong": "내당동",
+                "crackdown": 956,
+                "complaint": 0,
+                "total": 956,
+                "ratio": 0.0
+            },
+            {
+                "dong": "갈산동",
+                "crackdown": 166,
+                "complaint": 722,
+                "total": 888,
+                "ratio": 81.3
+            },
+            {
+                "dong": "대명동",
+                "crackdown": 77,
+                "complaint": 0,
+                "total": 77,
+                "ratio": 0.0
+            }
+        ];
+        document.getElementById('AB-max').textContent = maxDong;
+        document.getElementById('AB-min').textContent = minDong;
+        document.getElementById('AB-avg').textContent = avgTotal;
+        document.getElementById('AB-total').textContent = totalSum;
+        const labels1 = top10Total.map(item => item.dong);
+        const totalValues1 = top10Total.map(item => item.total);
+
+        const labels2 = top10Ratio.map(item => item.dong);
+        const ratioValues2 = top10Ratio.map(item => item.ratio);
+
+        new Chart(document.getElementById('bar1').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels1,
+                datasets: [{
+                    label: '단속+민원 합계 (건)',
+                    data: totalValues1
+                }]
+            },
+            options: {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const index = context.dataIndex;
+                                const item = top10Total[index];
+                                return [
+                                    `단속+민원: ${item.total}건`,
+                                    `단속: ${item.crackdown}건`,
+                                    `민원: ${item.complaint}건`
+                                ];
+                            }
+                        }
+                    },
+                    legend: {
+                        align: 'end'
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('bar2').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels2,
+                datasets: [{
+                    label: '민원 비율 (%)',
+                    data: ratioValues2
+                    }]
+                },
+            options: {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const index = context.dataIndex;
+                                const item = top10Ratio[index];
+                                return [
+                                    `민원 비율: ${item.ratio}%`,
+                                    `단속: ${item.crackdown}건`,
+                                    `민원: ${item.complaint}건`
+                                ];
+                            }
+                        }
+                    },
+                    legend: {
+                        align: 'end'
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

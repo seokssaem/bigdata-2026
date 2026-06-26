@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대구광역시 달서구 주차 민원 통계</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/complaint.css">
+</head>
+<body>
+
+    <header>
+        <h1>대구광역시 달서구 주차 민원 통계</h1>
+        <p>공공데이터포털 대구시 달서구 교통안전 데이터 API | 기준일 : 2025-05-19<br>데이터 정보 : 2017년 ~ 2021년</p>
+    </header>
+
+    <nav>
+        <div id="link">
+            <ul>
+                <li class="tab">
+                    <a href="./crackdown.html">달서구 주차 단속<span class="break"> </span>통계 보기</a>
+                </li>
+                <li class="tab">
+                    <a href="./complaint.html">달서구 주차 민원<span class="break"> </span>통계 보기</a>
+                </li>
+                <li class="tab">
+                    <a href="./main.html">달서구 주차 통합<span class="break"> </span>통계 보기</a>
+                </li>
+            </ul>                    
+        </div>
+    </nav>
+
+    <main>
+        <section>
+            <h2>핵심 통계</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="label">1개 동 최대 민원 건수</div>
+                    <div class="value" id="B-max">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">1개 동 최소 민원 건수</div>
+                    <div class="value" id="B-min">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">달서구 동별 민원 평균</div>
+                    <div class="value" id="B-avg">-</div>
+                    <div class="unit">건</div>                
+                </div>
+                <div class="card">
+                    <div class="label">달서구 전체 민원 건수</div>
+                    <div class="value" id="B-total">-</div>
+                    <div class="unit">건</div>                
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>데이터 차트</h2>
+            <div class="chart">
+                <div class="chart-name">
+                    <h3>민원 상위 현황</h3>
+                    <p class="chart-card">동별 민원 상위 10곳 (단위: 건)</p>
+                    <canvas id="barB1"></canvas>
+                </div>
+                <div class="chart-name">
+                    <h3>전체 민원 건수</h3>
+                    <p class="chart-card">연도별 전체 민원 건수 (단위: 건)</p>
+                    <canvas id="barB2"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>데이터 출처: <a href="https://data.go.kr" target="_blank">
+            공공데이터포털 (data.go.kr)</a> - 대구광역시 달서구_교통안전데이터</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const complaintData = [
+            { "dong": "용산동", "complaint": 10123 },
+            { "dong": "월성동", "complaint": 7161 },
+            { "dong": "이곡동", "complaint": 15094 },
+            { "dong": "상인동", "complaint": 15945 },
+            { "dong": "감삼동", "complaint": 8117 },
+            { "dong": "본리동", "complaint": 7039 },
+            { "dong": "진천동", "complaint": 8167 },
+            { "dong": "두류동", "complaint": 10299 },
+            { "dong": "신당동", "complaint": 6133 },
+            { "dong": "대천동", "complaint": 2419 },
+            { "dong": "장기동", "complaint": 6669 },
+            { "dong": "도원동", "complaint": 5134 },
+            { "dong": "송현동", "complaint": 5624 },
+            { "dong": "유천동", "complaint": 5747 },
+            { "dong": "호산동", "complaint": 2432 },
+            { "dong": "성당동", "complaint": 7443 },
+            { "dong": "본동", "complaint": 2105 },
+            { "dong": "대곡동", "complaint": 3291 },
+            { "dong": "죽전동", "complaint": 1347 },
+            { "dong": "파호동", "complaint": 487 },
+            { "dong": "월암동", "complaint": 1443 },
+            { "dong": "호림동", "complaint": 719 },
+            { "dong": "장동", "complaint": 831 },
+            { "dong": "내당동", "complaint": 0 },
+            { "dong": "갈산동", "complaint": 722 },
+            { "dong": "대명동", "complaint": 0 }
+        ];
+
+        const complaintTop10 = [
+            { "dong": "상인동", "complaint": 15945 },
+            { "dong": "이곡동", "complaint": 15094 },
+            { "dong": "두류동", "complaint": 10299 },
+            { "dong": "용산동", "complaint": 10123 },
+            { "dong": "진천동", "complaint": 8167 },
+            { "dong": "감삼동", "complaint": 8117 },
+            { "dong": "성당동", "complaint": 7443 },
+            { "dong": "월성동", "complaint": 7161 },
+            { "dong": "본리동", "complaint": 7039 },
+            { "dong": "장기동", "complaint": 6669 }
+        ];
+
+        const complaintYearly = [
+            { "year": 2017, "complaint": 2937 },
+            { "year": 2018, "complaint": 3153 },
+            { "year": 2019, "complaint": 4736 },
+            { "year": 2020, "complaint": 4900 },
+            { "year": 2021, "complaint": 4276 }
+        ];
+
+        const complaintMax = 15945;
+        const complaintMin = 0;
+        const complaintAvg = 5172.7;
+        const complaintTotal = 134491;
+
+        document.getElementById('B-max').textContent = complaintMax;
+        document.getElementById('B-min').textContent = complaintMin;
+        document.getElementById('B-avg').textContent = complaintAvg;
+        document.getElementById('B-total').textContent = complaintTotal;
+
+        const labelsB1 = complaintTop10.map(item => item.dong);
+        const valuesB1 = complaintTop10.map(item => item.complaint);
+
+        new Chart(document.getElementById('barB1').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labelsB1,
+                datasets: [{
+                    label: '민원 건수 (건)',
+                    data: valuesB1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const index = context.dataIndex;
+                                const item = complaintTop10[index];
+                                return `민원: ${item.complaint}건`;
+                            }
+                        }
+                    },
+                    legend: {
+                        align: 'end'
+                    }
+                }
+            }
+        });
+
+        const labelsB2 = complaintYearly.map(item => item.year);
+        const valuesB2 = complaintYearly.map(item => item.complaint);
+
+        new Chart(document.getElementById('barB2').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labelsB2,
+                datasets: [{
+                    label: '민원 건수 (건)',
+                    data: valuesB2
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const index = context.dataIndex;
+                                const item = complaintYearly[index];
+                                return `민원: ${item.complaint}건`;
+                            }
+                        }
+                    },
+                    legend: {
+                        align: 'end'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

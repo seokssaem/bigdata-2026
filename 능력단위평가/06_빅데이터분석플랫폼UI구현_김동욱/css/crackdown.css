@@ -1,0 +1,213 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Pretendard Variable', sans-serif;
+}
+
+header {
+    background-color: #994141;
+    color: #ffffff;
+    padding: 18px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-family: 'ParkDoyeon', sans-serif;
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+}
+
+nav {
+    background-color: rgb(200, 200, 200);
+}
+
+ul {
+    height: 25px;
+}
+
+#link ul {
+    list-style: none;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+li a {    
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.break {
+    display: inline;
+}
+
+.tab {
+    border-right: 1px solid rgba(0, 0, 0, 0.288);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.tab:last-child {
+    border-right: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+section {
+    margin-bottom: 32px;
+}
+
+section h2 {
+    font-size: 1.2rem;
+    border-left: 3px solid #4141ff;
+    padding-left: 8px;
+    margin-bottom: 14px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a6fd4;
+}
+
+.unit {
+    display: block;
+    font-size: 0.6rem;
+    color:#888;
+    margin-top: 2px;
+}
+
+.chart {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.chart-name {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+    flex: 1 1 0;
+    min-width: 300;
+}
+.chart-name h3 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.chart-name canvas {
+    max-width: 100%;
+}
+
+.chart-card {
+    font-size: 0.7rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #333;
+    color: #ccc;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+footer p a {
+    text-decoration: none;
+}
+
+/* 미디어 쿼리 (반응형) - 태블릿 (1024px 이하) */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    main {
+        padding: 20px 16px;
+    }
+}
+
+/* 미디어 쿼리 (반응형) -  스마트폰 (767px 이하) */
+@media (max-width: 767px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chart {
+        flex-direction: column;
+    }
+
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    header p {
+        font-size: 0.75rem;
+    }
+
+    .value {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 566px) {
+    .break {
+        display: block;
+    }
+
+    ul {
+        height: auto;
+        padding: 5px 0;
+    }
+}
