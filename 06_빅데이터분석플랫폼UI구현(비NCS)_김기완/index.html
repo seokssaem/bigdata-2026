@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Air INFO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <nav>
+            <h1 class="logo">K-Air INFO</h1>
+            <ul class="menu">
+                <li><a href="#">홈</a></li>
+                <li><a href="#">혼잡도 정보</a></li>
+                <li><a href="#">공항 이용안내</a></li>
+                <li><a href="#">고객센터</a></li>
+            </ul>
+        </nav>
+        <div class="header-content">
+            <h2>국내 공항 혼잡도 안내</h2>
+            <p>국내 주요 공항의 혼잡도와 이용 정보를 쉽고 빠르게 확인 하세요.</p>
+            <button>혼잡도 확인</button>
+        </div>
+    </header>
+    <!-- main -->
+    <main>
+        <!-- 공항 혼잡도 요약 -->
+        <section id="summary">
+            <h2>공항 혼잡도 요약</h2>
+            <div class="summary-content">
+                <div class="summary-card blue-card">
+                    <i class="fa-solid fa-plane"></i>
+                    <div class="summary-info">
+                        <h3>총 공항 수</h3>
+                        <p>5개</p>
+                    </div>
+                </div>
+                <div class="summary-card red-card">
+                    <i class="fa-solid fa-people-group"></i>
+                    <div class="summary-info">
+                        <h3>혼잡 공항</h3>
+                        <p>2개</p>
+                    </div>
+                </div>
+                <div class="summary-card green-card">
+                    <i class="fa-solid fa-person"></i>
+                    <div class="summary-info">
+                        <h3>여유 공항</h3>
+                        <p>1개</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 주요 공항 -->
+        <section id="airport">
+            <h2>국내 주요 공항</h2>
+            <div class="airport-content">
+                <div class="card">
+                    <h3>김포 공항</h3>
+                    <p>시간 : 09시</p>
+                    <p>전체 혼잡도 : <span class="yellow">보통 (2)</span></p>
+                    <p>A구역 : <span class="green">여유 (1)</span></p>
+                    <p>B구역 : <span class="yellow">보통 (2)</span></p>
+                    <p>C구역 : <span class="red">혼잡 (3)</span></p>
+                </div>
+                <div class="card">
+                    <h3>김해 공항</h3>
+                    <p>시간 : 10시</p>
+                    <p>전체 혼잡도 : <span class="red">혼잡 (3)</span></p>
+                    <p>A구역 : <span class="red">혼잡 (3)</span></p>
+                    <p>B구역 : <span class="yellow">보통 (2)</span></p>
+                    <p>C구역 : <span class="red">혼잡 (3)</span></p>
+                </div>
+                <div class="card">
+                    <h3>제주 공항</h3>
+                    <p>시간 : 11시</p>
+                    <p>전체 혼잡도 : <span class="green">여유 (1)</span></p>
+                    <p>A구역 : <span class="green">여유 (1)</span></p>
+                    <p>B구역 : <span class="green">여유 (1)</span></p>
+                    <p>C구역 : <span class="yellow">보통 (2)</span></p>
+                </div>
+                <div class="card">
+                    <h3>청주 공항</h3>
+                    <p>시간 : 12시</p>
+                    <p>전체 혼잡도 : <span class="yellow">보통 (2)</span></p>
+                    <p>A구역 : <span class="yellow">보통 (2)</span></p>
+                    <p>B구역 : <span class="yellow">보통 (2)</span></p>
+                    <p>C구역 : <span class="green">여유 (1)</span></p>
+                </div>
+                <div class="card">
+                    <h3>대구 공항</h3>
+                    <p>시간 : 13시</p>
+                    <p>전체 혼잡도 : <span class="red">혼잡 (3)</span></p>
+                    <p>A구역 : <span class="red">혼잡 (3)</span></p>
+                    <p>B구역 : <span class="yellow">보통 (2)</span></p>
+                    <p>C구역 : <span class="yellow">보통 (2)</span></p>
+                </div>
+            </div>
+        </section>
+        <!-- 공항 이용 안내 -->
+         <section id="guide">
+            <h2>공항 이용 안내</h2>
+            <div class="guide-content">
+                <div class="guide-card">
+                    <i class="fa-regular fa-clock"></i>
+                    <div class="guide-text">
+                        <h3>체크인 권장시간</h3>
+                        <p>국내선 : 출발 1시간 전</p>
+                        <p>국제선 : 출발 2~3시간 전</p>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <i class="fa-solid fa-people-group"></i>
+                    <div class="guide-text">
+                        <h3>혼잡도 기준</h3>
+                        <p>여유 / 보통 / 혼잡</p>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <i class="fa-solid fa-phone"></i>
+                    <div class="guide-text">
+                        <h3>고객지원</h3>
+                        <p>1234-5678</p>
+                        <p>평일 09:00 ~ 18:00</p>
+                    </div>
+                </div>
+            </div>
+         </section>
+    </main>
+    <!-- 푸터 -->
+    <footer>
+        <h2>K-Air Info</h2>
+        <p>국내 공항 이용 정보 제공 서비스</p>
+        <div class="footer-menu">
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">고객센터</a>
+        </div>
+        <p class="copy">
+            Copyright &copy; 2026 K-Air Info. All rights reserved.
+        </p>
+    </footer>
+</body>
+</html>

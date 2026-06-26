@@ -1,0 +1,366 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #f5f7fb;
+    color: #333;
+    line-height: 1.6;
+}
+a {
+    text-decoration: none;
+}
+section {
+    padding: 35px 8%;
+}
+section h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #003366;
+    margin-bottom: 40px;
+}
+/* header */
+header {
+    width: 100%;
+    height: 75vh;
+    background: linear-gradient(
+        rgba(0,40,80,.35),
+        rgba(0,40,80,.45)),
+        url(images/air.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 65%;
+    position: relative;
+    padding: 20px 8%;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    color: #fff;
+    font-size: 34px;
+    font-weight: bold;
+}
+.menu {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+}
+.menu a {
+    color: #fff;
+    font-size: 18px;
+    transition: 0.2s;
+}
+.menu a:hover {
+    color: #7fd3ff;
+}
+.header-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+}
+.header-content h2 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+.header-content p {
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+.header-content button {
+    border: none;
+    background-color: #008cff;
+    color: #fff;
+    padding: 12px 26px;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.header-content button:hover {
+    background: #006edb;
+}
+/* 혼잡도 요약 카드 */
+.summary-content{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+.summary-card{
+    width:300px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:28px;
+    border-radius:16px;
+    color:#fff;
+    transition:.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+.summary-card:hover{
+    transform:translateY(-6px);
+}
+.summary-card i{
+    font-size:42px;
+}
+.summary-info h3{
+    margin-bottom:8px;
+    font-size:20px;
+}
+.summary-info p{
+    font-size:38px;
+    font-weight:bold;
+}
+.blue-card{
+    background:#1677ff;
+}
+.red-card{
+    background:#ef4444;
+}
+.green-card{
+    background:#22c55e;
+}
+
+/* 공항 카드 */
+.airport-content {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.card {
+    width:280px;
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+    transition:.3s;
+    border-top:5px solid #008cff;
+}
+
+.card:hover {
+    transform:translateY(-8px);
+}
+
+.card h3 {
+    color:#003366;
+    margin-bottom:20px;
+    font-size:24px;
+}
+
+.card p {
+    margin:10px 0;
+    font-size:17px;
+    color:#555;
+}
+.green, .yellow, .red{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:20px;
+    font-weight:700;
+}
+.green{
+    background:#dcfce7;
+    color:#15803d;
+}
+.yellow{
+    background:#fef3c7;
+    color:#d97706;
+}
+.red{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+/* 이용 안내 */
+.guide-content{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+.guide-card{
+    width:320px;
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    text-align:left;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+.guide-card:hover{
+    transform:translateY(-8px);
+}
+.guide-card i{
+    font-size:34px;
+    color:#008cff;
+    margin-top:5px;
+    min-width:40px;
+}
+.guide-text h3{
+    color:#003366;
+    margin-bottom:8px;
+}
+.guide-text p{
+    color:#555;
+    line-height:1.7;
+}
+/* 푸터 */
+footer{
+    background:#003366;
+    color:#fff;
+    text-align:center;
+    padding:60px 10%;
+}
+
+footer h2{
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+footer p{
+    margin-bottom:15px;
+}
+
+.footer-menu{
+    margin:25px 0;
+}
+
+.footer-menu a{
+    color:#fff;
+    margin:0 15px;
+    transition:.3s;
+}
+
+.footer-menu a:hover{
+    color:#7fd3ff;
+}
+
+.copy{
+    margin-top:20px;
+    color:#cfd8e3;
+    font-size:14px;
+}
+/* 반응형 */
+@media screen and (max-width:1024px){
+
+    .airport-content,
+    .guide-content,
+    .tips-content,
+    .summary-content{
+        gap:20px;
+    }
+
+    .card,
+    .guide-card,
+    .tip-card,
+    .summary-card{
+        width:45%;
+    }
+
+}
+
+@media screen and (max-width:768px){
+
+    header{
+        height:auto;
+        padding-bottom:80px;
+    }
+
+    nav{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .menu{
+        flex-direction:column;
+        align-items:center;
+        gap:15px;
+    }
+
+    .header-content{
+        position:static;
+        transform:none;
+        margin-top:100px;
+    }
+
+    .header-content h2{
+        font-size:42px;
+        line-height:1.3;
+    }
+
+    .header-content p{
+        font-size:18px;
+    }
+
+    .summary-card,
+    .card,
+    .guide-card,
+    .tip-card{
+        width:100%;
+    }
+
+    section h2{
+        font-size:28px;
+    }
+
+}
+
+@media screen and (max-width:480px){
+
+    .logo{
+        font-size:28px;
+    }
+
+    .menu a{
+        font-size:16px;
+    }
+
+    .header-content h2{
+        font-size:34px;
+    }
+
+    .header-content p{
+        font-size:16px;
+    }
+
+    .header-content button{
+        width:100%;
+        padding:15px;
+        font-size:16px;
+    }
+
+    .summary-card p{
+        font-size:32px;
+    }
+
+    .card h3,
+    .guide-card h3,
+    .tip-card h3{
+        font-size:22px;
+    }
+
+    footer{
+        padding:40px 8%;
+    }
+
+    .footer-menu{
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+    }
+
+}
