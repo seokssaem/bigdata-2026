@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대구 수성구 교육 인프라 분석 대시보드</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>      
+            <h1><i class="fa-solid fa-graduation-cap"></i> 대구광역시 수성구 교육 인프라 현황</h1>
+            <p>공공데이터포털 학원지정현황 및 지방교육 통계 API | 기준일 : 2026-06-26</p>      
+    </header>
+
+    <main>
+
+        <section>
+            <h2>핵심 통계</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">고등학교 수</span>
+                    <span class="stat-value blue">23 <small>개교</small></span>
+                    <span class="stat-sub">일반·자사·특목고 전체</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">총 재학생 수</span>
+                    <span class="stat-value green">16,840 <small>명</small></span>
+                    <span class="stat-sub">학교당 평균 732명</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">등록 학원 수</span>
+                    <span class="stat-value orange">1,226<small>개소</small>
+                    <span class="small-text">(예체능제외)</span> </span>
+                    <span class="stat-sub">교과 보습·입시학원 기준</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">인프라 밀집도</span>
+                    <span class="stat-value purple">5.41 <small>%</small></span>
+                    <span class="stat-sub">학생 100명당 학원 비율</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>데이터 시각화</h2>
+            <div class="visualization-grid">
+                
+                <div class="chart-card">
+                    <h3>과목별 등록 학원 수 현황</h3>
+                    <p class="chart-sub">수성구 내 주요 교과목별 학원 분포 수치 (단위: 개소)</p>
+                    
+                    <div class="chart-img-container">
+                        <img src="chart.jpg" alt="과목별 학원 수 그래프" class="analysis-chart-img">
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>학교당 학원 매칭 비율 (분석 요약)</h3>
+                    <p class="chart-sub">수성구 고등학교 1개교당 평균 사교육 인프라 접근성</p>
+                    
+                    <div class="mock-ratio-box">
+                        <div class="ratio-circle">
+                            <strong>53.3 : 1</strong>
+                            <span>학교당 학원 비율</span>
+                        </div>
+                        <div class="ratio-text">
+                            <p><i class="fa-solid fa-circle-info"></i> 범어·만촌동 일대에 수·영 중심의 입시 학원가가 고밀도로 집중되어 있음이 도출됨.</p>
+                            <p>✔ 수성구는 학교 1개당 평균 23.4개의 국어·영어·수학 학원이 분포하여 비교 지역 가운데 가장 높은 교육 인프라를 보였다.</p>
+                            <p>✔ 달서구보다 약 55% 높은 학원 밀도를 나타냈으며, 북구와 비교하면 약 2배 수준의 학원 접근성을 확인할 수 있다.</p>
+                            <p>✔ 이는 학생들의 사교육 선택 폭이 넓은 지역적 특성을 보여준다.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h2>수성구 주요 고등학교 및 학원가 접근성</h2>
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>학교명</th>
+                            <th>설립 구분</th>
+                            <th>재학생 수</th>
+                            <th>남/여 구분</th>
+                            <th>학원가 접근성 등급</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>경신고등학교</td>
+                            <td>사립</td>
+                            <td>785명</td>
+                            <td>남학교</td>
+                            <td><span class="badge status-red">최상 (매우 인접)</span></td>
+                        </tr>
+                        <tr>
+                            <td>정화여자고등학교</td>
+                            <td>사립</td>
+                            <td>820명</td>
+                            <td>여학교</td>
+                            <td><span class="badge status-red">최상 (매우 인접)</span></td>
+                        </tr>
+                        <tr>
+                            <td>대륜고등학교</td>
+                            <td>사립</td>
+                            <td>812명</td>
+                            <td>남학교</td>
+                            <td><span class="badge status-yellow">우수 (인접)</span></td>
+                        </tr>
+                        <tr>
+                            <td>수성고등학교</td>
+                            <td>공립</td>
+                            <td>497px</td>
+                            <td>공학</td>
+                            <td><span class="badge status-blue">보통</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <p>데이터 출처: 공공데이터포털 (data.go.kr) - 대구광역시 동부교육지원청 학원현황 및 교육통계연보</p>
+    </footer>
+
+</body>
+</html>

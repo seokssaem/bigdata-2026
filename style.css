@@ -2,136 +2,229 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
 }
 
 body {
-    background-color:#111;
-    color:#fff;
+    background-color: #f4f6f9;
+    color: #333333;
 }
 
-/* 헤더 영역 */
+/* 해더 영역 */
 header {
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(images/vegetable_background.jpg) center no-repeat;
-    background-size: cover;
-    padding: 10px 8%;
-    position: relative;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-}
-
-nav .logo {
-    font-size: 30px;
-    color: lab(50.08% 50.37 56.11);    
-}
-
-nav button {
-    border: 0;
-    outline: 0;
-    border-radius: 5px;
-    background-color:lab(50.08% 50.37 56.11) ;
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 10px 24px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.lang {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid #fff;
-    background-color: transparent;
-}
-.lang i:nth-child(1) {
-    margin-right: 8px;
-}
-.lang i:nth-child(2) {
-    margin-left: 5px;
-}
-
-/* 헤더 중앙 */
-.header-content {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    background-color: #15803d;;
+    color: #ffffff;
+    padding: 40px 20px;
     text-align: center;
 }
-.header-content h2 {
-    font-size: 40px;
-    line-height:  1.4;
+
+header h1 {
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
-.header-content h3{
-    font-size: 18px;
-    line-height:  1.4;
-    margin-bottom: 30px;
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
-.header-content p{
+
+/* 메인 영역 */
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* 섹션 공통 */
+section {
+    margin-bottom: 40px;
+}
+
+section h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    border-left: 5px solid #16a34a; 
+}
+
+/* 핵심 통계 영역 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.small-text{
+    font-size:12px;
+    font-weight:400;
+    color:#666;
+}
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.stat-value {
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.stat-value small {
     font-size: 16px;
-    color: lab(50.08% 50.37 56.11);
+    font-weight: 500;
+}
+
+.stat-value.blue { color: #1e70e4; }
+.stat-value.green { color: #10b981; }
+.stat-value.orange { color: #f97316; }
+.stat-value.purple { color: #a855f7; }
+
+.stat-sub {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* 데이터 시각화 영역 */
+.visualization-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 20px;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.chart-card h3 {
+    font-size: 16px;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.chart-sub {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 15px;
+}
+
+.chart-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px; 
+    overflow: hidden;
+}
+
+.analysis-chart-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
+    border-radius: 4px;
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 15%;
+} */
+
+.ratio-circle {
+    width: 120px;
+    height: 120px;
+    border: 6px solid #a855f7;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ratio-circle strong {
+    font-size: 20px;
+    color: #0f172a;
+}
+
+.ratio-circle span {
+    font-size: 11px;
+    color: #64748b;
+}
+
+.ratio-text {
+    flex: 1;
+    background-color: #faf5ff;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #a855f7;
+    font-size: 12px;
+    color: #6b21a8;
+    line-height: 1.6;
+}
+
+/* 수성구 주요 고등학교 및 학원가 접근성 영역 */
+.table-card {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    overflow-x: auto;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
     text-align: left;
 }
 
-.add-email {
-    width: 900px;
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 5px;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-.add-email input {
-    border: 0;
-    outline: 0;
-    flex: 1;
-    margin-left: 20px;
-}
-.add-email button {
-    border: 0;
-    background-color:lab(50.08% 50.37 56.11);
-    color: #fff;
-    font-size: 16px;
-    padding: 15px 30px;
-    cursor: pointer;
+th, td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #edf2f7;
 }
 
-/* 헤더 반응형 - max-width: 768px */
-@media only screen and (max-width: 768px) {
-    /* 모바일(768보다 작은 것)에서 해더 재배치 */
-    .logo {
-        font-size: 20px;
-    }
-    nav button {
-        padding: 5px 10px;
-    }
-    .lang { 
-        padding: 4px 8px;
-    }
-    .header-content {
-        position: unset;  /* 포지션 해제. 기본설정 */
-        transform: none;    /* 중앙 정렬 해제 */
-        padding-top: 150px;        
-    }
-    .header-content h2 {
-        font-size: 25px;
-        line-height: 50px;
-    }
-    .header-content h3 {
-        font-size: 12px;
-    }
-    .add-email button {
-        font-size: 12px;
-        padding: 10px 15px;    
-    }
+th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.status-red { background-color: #fee2e2; color: #dc2626; }
+.status-yellow { background-color: #fef9c3; color: #a16207; }
+.status-blue { background-color: #e0f2fe; color: #0369a1; }
+
+/* 푸터 영역 */
+.main-footer {
+    background-color: #15803d;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    margin-top: 0px;
 }
