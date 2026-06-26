@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>급여/비급여 의약품 연령 금기 비교분석 플랫폼 </title>
+    <link rel="stylesheet" href="0626_style.css">
+</head>
+<body>
+    <header>
+        <!-- 시맨틱 태그 : 제목 영역 -->
+        <h1>급여/비급여 의약품 연령 금기 비교분석 플랫폼</h1>
+        <p>공공데이터포털 의약품정보API | 기준일 : 2026-06-26</p>
+    </header>
+
+    <main>
+        <!-- 시맨틱 태그 : 메인 영역 -->
+        <section class="summary">
+
+            <div class="card">
+                <h3>전체</h3>
+                <p>3006건</p>
+            </div>
+
+            <div class="card">
+                <h3>급여</h3>
+                <p>2171건</p>
+            </div>
+
+            <div class="card">
+                <h3>비급여</h3>
+                <p>835건</p>
+            </div>
+
+            <div class="card">
+                <h3>업체 수</h3>
+                <p>182건</p>
+            </div>
+
+        </section>
+
+        <!-- 검색 -->
+        <section class="search">
+            <input type="text" placeholder="의약품명 또는 성분명 검색">
+            <button>검색</button>
+        </section>
+
+        <!-- 분석영역 -->
+        <div class="dashboard">
+
+            <div class="dashboard-card">
+                <h3>급여 의약품</h3>
+                <p>2,171건 (72.2%)</p>
+                <p class="desc">전체 연령금기의약품의 대부분을 차지</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>비급여 의약품</h3>
+                <p>835건 (27.8%)</p>
+                <p class="desc">급여 의약품과 비교 분석 대상</p>
+            </div>
+
+        </div>
+        </section>
+
+        <!-- 제약회사 -->
+         <section class="company">
+            <h2>제약회사별 현황</h2>
+            <table>
+                <tr>
+                    <th>업체명</th>
+                    <th>건수</th>
+                </tr>
+                <tr>
+                    <th>(주)대웅제약</th>
+                    <th>21건</th>
+                </tr>
+                <tr>
+                    <th>(주)보령</th>
+                    <th>15건</th>
+                </tr>
+                <tr>
+                    <th>(주)셀트리온</th>
+                    <th>14건</th>
+                </tr>
+                <tr>
+                    <th>한미약품(주)</th>
+                    <th>24건</th>
+                </tr>
+                <tr>
+                    <th>한국화이자(주)</th>
+                    <th>3건</th>
+                </tr>
+                <tr>
+                    <th>코오롱제약(주)</th>
+                    <th>16건</th>
+                </tr>
+                <tr>
+                    <th>(주)넥스팜코리아</th>
+                    <th>14건</th>
+                </tr>
+                <tr>
+                    <th>(주)메디카코리아</th>
+                    <th>17건</th>
+                </tr>
+                <tr>
+                    <th>(주)바이넥스</th>
+                    <th>10건</th>
+                </tr>
+                <tr>
+                    <th>동아에스티(주)</th>
+                    <th>9건</th>
+                </tr>
+                <tr>
+                    <th>(주)종근당</th>
+                    <th>15건</th>
+                </tr>
+                <tr>
+                    <th>한림제약(주)</th>
+                    <th>43건</th>
+                </tr>                                                                                                                                                                       
+            </table>
+         </section>
+
+        <!-- 분석결과 -->
+        <section class="result">
+
+            <h2>분석 결과 요약</h2>
+            <p>전체 연령금기 의약품 : <strong>3,006건</strong></p>
+            <p>급여 의약품 : <strong>2,171건 (72.2%)</strong></p>
+            <p>비급여 의약품 : <strong>835건 (27.8%)</strong></p>
+            <p>분석 결과 급여 의약품이 비급여 의약품 보다 약 2.6배 많이 분포하는것으로 나타남.</p>
+        </section>
+
+        <!-- 연령별 -->
+        <h2>연령별 현황</h2>
+        <section class="age">
+
+            <div class="age-card">
+                <h3>18 미만</h3>
+                <p>2972건</p>
+            </div>
+
+            <div class="age-card">
+                <h3>25세 미만</h3>
+                <p>9건</p>
+            </div>
+            <div class="age-card">
+                <h3>65세 이상</h3>
+                <p>25건</p>
+            </div>
+
+            <div class="age-card">
+                <h3>전체</h3>
+                <p>3006건</p>                
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+     <footer>
+        <p>데이터 출처 : 식품의약품안전처 DUR OpenAPI</p>
+     </footer>
+</body>
+</html>
