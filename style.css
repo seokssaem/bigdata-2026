@@ -1,0 +1,232 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: #f5f5f5;
+    color: #222;
+}
+
+/* 헤더 */
+header {
+    width: 100%;
+    background: #080920;
+    color: #ecb317;
+    padding: 25px;
+    text-align: center;
+}
+header p {
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 5px;
+    font-size: 14px;
+}
+@media only screen and (max-width:335px) {
+    header h1 {
+        font-size: 28px;
+    }
+    header p {
+        font-size: 12px;
+    }
+}
+/* 메인 */
+section {
+    padding: 40px 10%;
+    margin-bottom: 20px;
+}
+section h2 {
+    font-size: 26px;
+    color: #ecb317;
+    border-left: 5px solid #ecb317;
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+/* 핵심 통계 */
+.stat-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.stat-card .card {
+    flex: 1;
+    text-align: center;
+    background: #080920;
+    color: #f5f5f5;
+    border-top: 3px solid #ecb317;
+    border-radius: 10px;
+    padding: 15px 20px;
+    height: 200px;
+}
+.stat-card h3 {
+    font-size: 16px;
+    height: 30%;
+    font-weight: 500;
+}
+.stat-card span {
+    display: block;
+    font-size: 32px;
+    font-weight: 600;
+    color: #ecb317;
+    height: 40%;
+}
+.stat-card p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    margin-top: 10px;
+}
+@media only screen and (min-width:434px) and (max-width:1024px) {
+    .stat-card .card {
+        flex-basis: calc(50% - 10px);
+    }
+}
+@media only screen and (max-width:435px) {
+    .stat-card .card {
+        flex-basis: 100%;
+    }
+}
+/* 순위표 */
+.rank-table {
+    background: #080920;
+    color: #f5f5f5;
+    border-radius: 10px;
+    border-top: 3px solid #ecb317;
+    padding: 10px 20px;
+}
+.rank-header {
+    display: grid;
+    grid-template-columns: 44px 2fr 1.5fr 1.5fr 1fr;
+    gap: 15px;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1.6px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 15px;
+}
+.rank-row {
+    display: grid;
+    grid-template-columns: 44px 2fr 1.5fr 1.5fr 1fr;
+    gap: 15px;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 40px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 10px;
+    font-weight: 350;
+}
+.rank-1 {
+    background: rgba(238, 162, 22, 0.25);
+    border-radius: 10px;
+    border: 2px solid #eca117;
+    color: #faae22;
+}
+.rank-2 {
+    background: rgba(165, 159, 147, 0.25);
+    border-radius: 10px;
+    border: 2px solid #a3a3a2;
+    color: #c9c9c5;
+}
+.rank-3 {
+    background: rgba(205, 127, 50, 0.25);
+    border-radius: 10px;
+    border: 2px solid #cd7f32;
+    color: #eb9239;
+}
+.down {
+    color: rgb(250, 47, 47);
+    font-size: 14px;
+}
+.up {
+    color: rgb(149, 223, 38);
+    font-size: 14px;
+}
+.rank-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+@media only screen and (min-width:374px) and (max-width:500px) {
+    .rank-header {
+        font-size: 12px;
+        grid-template-columns: 30px 2fr 1.5fr 1.5fr 1fr;
+    }
+    .rank-row {
+        font-size: 13px;
+        grid-template-columns: 30px 2fr 1.5fr 1.5fr 1fr;
+    }
+    .up, .down {
+        font-size: 12px;
+    }
+}
+@media only screen and (max-width:375px) {
+    .rank-header {
+        font-size: 10px;
+        grid-template-columns: 20px 2fr 1.5fr 1.5fr 1fr;
+    }
+    .rank-row {
+        font-size: 11px;
+        grid-template-columns: 20px 2fr 1.5fr 1.5fr 1fr;
+    }
+    .up, .down {
+        font-size: 10px;
+    }
+}
+/* 등급 기준 */
+.grade-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.grade-card .card {
+    flex: 1;
+    text-align: center;
+    border-radius: 10px;
+    padding: 15px;
+}
+.grade-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.grade-card p {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+#mega {
+    background: rgba(221, 105, 105, 0.3);
+    color: red;
+}
+#hit {
+    background: rgba(102, 93, 226, 0.3);
+    color: blue;
+}
+#normal {
+    background: rgba(52, 177, 52, 0.3);
+    color: green;
+}
+#bad {
+    background: rgba(141, 136, 136, 0.3);
+    color: gray;
+}
+@media only screen and (max-width:768px) {
+    .grade-card .card {
+        flex-basis: calc(50% - 10px);
+    }
+}
+/* 푸터 */
+footer {
+    background: #080920;
+    color: #f5f5f5;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+}
+a {
+    color: #ecb317;
+}
+@media only screen and (max-width:425px) {
+    footer {
+        font-size: 12px;
+    }
+}
