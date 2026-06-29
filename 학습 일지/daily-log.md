@@ -65,3 +65,18 @@
 
 ## 2026-06-26
 - SQLD  시험에 나올 기출문제 실습 및 연습문제 풀기
+
+## 2026-06-29
+- fastapi 복습
+    - CRUD --> 데이터를 다루는 4가지 기본 동작
+        -Create : 생성 POST(Fastapi) INSERT(SQL)     --> ex.회원가입, 글 작성
+        -Read   : 조회 GET(FastAPI) SELECT(SQL)      --> ex.목록 보기, 상세 보기
+        -Update : 수정 PUT/PATCH(FastAPI) UPDATE(SQL)--> ex.정보 수정
+        -Delete : 삭제 DELETE(FastAPI) DELETE(SQL)   --> ex. 회원 탈퇴, 글 삭제
+
+    - sql_databases --> User + Item, 1:N 관계 CRUD
+        - 공식 FastAPI 튜토리얼 예제를 PostgreSQL로 변환한 버전
+        - 'User'(사용자)가 여러 개의 'Item' (아이템)을 소유하는 **1:N** 구조
+        - 'crud.py'를 별도로 분리하여 DB 조작 로직과 라우터 로직을 나눔
+    
+    - __init__.py 생성 이유:  오류 방지
