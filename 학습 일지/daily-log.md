@@ -80,16 +80,18 @@
         - 'crud.py'를 별도로 분리하여 DB 조작 로직과 라우터 로직을 나눔
     
     - __init__.py 생성 이유:  오류 방지
-
+    https://github.com/TaeGaori/fastapi_2026/tree/main/fastapi_review
 
 ## 2026-06-30
 - 판다스를 활용하여 엑셀 파일 읽고 병합 + 시각화
+    https://github.com/TaeGaori/fastapi_2026/tree/main/fastapi_review
 
 - fastapi로 main 테스트하기.
         pytest 라이브러리 --> python 표준 테스트 도구
         파일과 함수 이름은 test_로 시작
         권장사항 > 테스트 DB도 따로 만들어준다.
         uv add pytest --> 설치  
+    https://github.com/TaeGaori/bigdata-basic/blob/main/happy/ch09_happy.ipynb
 
 
 ## 2026-07-01
@@ -102,3 +104,4 @@
         4. 검증 : 유효성 검증 리포트 출력
         5. DB 저장 : PostgreSQL -> subwaydb
         6. csv 저장 : output폴더 안 csv파일 (utf-8)
+    https://github.com/TaeGaori/fastapi_2026/blob/main/02_parking/02_parking.ipynb
