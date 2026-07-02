@@ -104,8 +104,9 @@
         5. 검증 : 유효성 검증 리포트 출력
         6. DB 저장 : PostgreSQL -> subwaydb
         7. csv 저장 : output폴더 안 csv파일 (utf-8)
-    https://github.com/TaeGaori/fastapi_2026/blob/main/02_parking/02_parking.ipynb
+    https://github.com/TaeGaori/fastapi_2026/blob/main/01_subway_pipeline/01_subway.ipynb
 - 응용 (공용주차장 CSV 컬럼추출)
+    https://github.com/TaeGaori/fastapi_2026/blob/main/02_parking/02_parking.ipynb
 
 ## 2026-07-02
 - 전체 파이프라인 흐름
