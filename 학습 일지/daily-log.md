@@ -97,11 +97,28 @@
 ## 2026-07-01
 - 데이터 수집 파이프라인 - csv파일 방식
     - 전체 파이프라인 흐름
-        0. 환경설정 : 라이브러리 불러오기, 경로, DB URL 설정
-        1. 수집     : csv 파일 읽기 (인코딩 --> 원도 cp949)
-        2. 변환     : 파일에 따라
-        3. 파생컬럼(파생변수) : ex) 시작시 / 날짜 / 요일코드 / 주말여부
-        4. 검증 : 유효성 검증 리포트 출력
-        5. DB 저장 : PostgreSQL -> subwaydb
-        6. csv 저장 : output폴더 안 csv파일 (utf-8)
+        1. 환경설정 : 라이브러리 불러오기, 경로, DB URL 설정
+        2. 수집     : csv 파일 읽기 (인코딩 --> 원도 cp949)
+        3. 변환     : 파일에 따라
+        4. 파생컬럼(파생변수) : ex) 시작시 / 날짜 / 요일코드 / 주말여부
+        5. 검증 : 유효성 검증 리포트 출력
+        6. DB 저장 : PostgreSQL -> subwaydb
+        7. csv 저장 : output폴더 안 csv파일 (utf-8)
     https://github.com/TaeGaori/fastapi_2026/blob/main/02_parking/02_parking.ipynb
+- 응용 (공용주차장 CSV 컬럼추출)
+
+## 2026-07-02
+- 전체 파이프라인 흐름
+        1. 공공데이터포털에서 원하는 API 활용 신청
+        2. API 키 준비(.env), 기본 설정 준비(dotenv)
+        3. 수집 : JSON 구조 확인, 전체 페이지 수집
+        4. 판다스의 데이터프레임 만들기
+        5. 변환 : 데이터 확인, 컬럼명, 자료형
+        6. 파생컬럼(파생변수) 추가
+        7. 데이터 검증( 생략 가능)
+        8. DB 저장 : 먼저 pgAdmin에서 데이터베이스 생성(busapidb) -> 테이블 저장
+        9. CSV 저장 : bus_stop.csv 인코딩 설정 (utf-8)
+    https://github.com/TaeGaori/fastapi_2026/blob/main/03_bus_api_pipeline/03_bus_api.ipynb
+
+- 응용 (정류소별 경유노선 API 조회)
+    https://github.com/TaeGaori/fastapi_2026/blob/main/03_bus_api_pipeline/03_node.ipynb
