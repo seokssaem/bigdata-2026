@@ -109,17 +109,22 @@
     https://github.com/TaeGaori/fastapi_2026/blob/main/02_parking/02_parking.ipynb
 
 ## 2026-07-02
-- 전체 파이프라인 흐름
-        1. 공공데이터포털에서 원하는 API 활용 신청
-        2. API 키 준비(.env), 기본 설정 준비(dotenv)
-        3. 수집 : JSON 구조 확인, 전체 페이지 수집
-        4. 판다스의 데이터프레임 만들기
-        5. 변환 : 데이터 확인, 컬럼명, 자료형
-        6. 파생컬럼(파생변수) 추가
-        7. 데이터 검증( 생략 가능)
-        8. DB 저장 : 먼저 pgAdmin에서 데이터베이스 생성(busapidb) -> 테이블 저장
-        9. CSV 저장 : bus_stop.csv 인코딩 설정 (utf-8)
+- 데이터 수집 파이프라인 - API방식
+    - 전체 파이프라인 흐름
+            1. 공공데이터포털에서 원하는 API 활용 신청
+            2. API 키 준비(.env), 기본 설정 준비(dotenv)
+            3. 수집 : JSON 구조 확인, 전체 페이지 수집
+            4. 판다스의 데이터프레임 만들기
+            5. 변환 : 데이터 확인, 컬럼명, 자료형
+            6. 파생컬럼(파생변수) 추가
+            7. 데이터 검증( 생략 가능)
+            8. DB 저장 : 먼저 pgAdmin에서 데이터베이스 생성(busapidb) -> 테이블 저장
+            9. CSV 저장 : bus_stop.csv 인코딩 설정 (utf-8)
     https://github.com/TaeGaori/fastapi_2026/blob/main/03_bus_api_pipeline/03_bus_api.ipynb
 
 - 응용 (정류소별 경유노선 API 조회)
     https://github.com/TaeGaori/fastapi_2026/blob/main/03_bus_api_pipeline/03_node.ipynb
+
+## 2026-07-03
+- 데이터 수집 TEST - AP방식
+    - 검색 지역의 1등 당첨 상호명과 횟수 수집 후 DB에 저장
