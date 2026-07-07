@@ -131,7 +131,7 @@
 
 
 ## 2026-07-06
-- SQLAlchemy 에서 복합 UNIQUE 제약조건 선언
+- SQLAlchemy 에서 대체키+UNIQUE 선언
     __table_arge__ = (
     UniqueConstraint("컬럼1","컬럼2","컬럼3",... name="제약조건이름")
 )
@@ -149,3 +149,6 @@
     1. 테이블 재설계
     2. 기존 테이블 삭제 재설계한 모델로 다시 생성
     3. CSV -> DB 배치 적재
+
+## 2026-07-07
+- SQLAlchemy 에서 자연키+merge 선언
