@@ -152,3 +152,12 @@
 
 ## 2026-07-07
 - SQLAlchemy 에서 자연키+merge 선언
+
+## 2026-07-08
+- SQLAlchemy 모델 정의
+    관계 정의 구분법
+    - 1:N : 중간다리 필요 X
+            ForeignKey만 있다(외래키 있는 클래스가 N)
+    
+    - N:M : 중간 테이블 필요
+            secondary가 있다 (1:N 생각할 필요 X)
