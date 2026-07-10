@@ -4,7 +4,7 @@
 ## 파일 설명
 | 파일명 | 설명 |
 | --- | --- |
-| README.md | 설계 설명과 실행 방법 |
+| `README.md` | 설계 설명과 실행 방법 |
 | `models.py` | SQLAlchemy 테이블 모델 정의 |
 | `database.py` | DB 연결과 테이블 생성 |
 | `loader.py` | CSV 적재 |
