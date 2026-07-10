@@ -4,7 +4,7 @@
 # 저장 모델 설계(스키마)
 #
 # 직접 실행되는 파일은 아니다. 
-#   database.py, loader.py 가 import해서 사용
+#     database.py, loader.py가 import해서 사용
 # ================================================
 from sqlalchemy import Column, String, Integer, Numeric, Date, UniqueConstraint
 from sqlalchemy.orm import declarative_base
