@@ -128,13 +128,13 @@
 ## 2026-07-03
 - 데이터 수집 TEST - AP방식
     - 검색 지역의 1등 당첨 상호명과 횟수 수집 후 DB에 저장
-
+    https://github.com/TaeGaori/fastapi_2026/tree/main/07_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%88%98%EC%A7%91%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
 
 ## 2026-07-06
 - SQLAlchemy 에서 대체키+UNIQUE 선언
     __table_arge__ = (
     UniqueConstraint("컬럼1","컬럼2","컬럼3",... name="제약조건이름")
-)
+
 
 `__table_args__`:
 - 테이블 레이블의 부가설정(제약조건, 인덱스 등)을 담는 클래스 속성
@@ -144,14 +144,15 @@
 `UniqueConstraint("컬럼1","컬럼2","컬럼3",... name="제약조건이름")`
 - 나열된 컬럼들의 조합이 테이블 전체에서 유일
 - name= 필수 x 에러나 제약조건 참조할 때 필요한 경우 많아 관례상 붙임
-
 - 전체 파이프 라인
     1. 테이블 재설계
     2. 기존 테이블 삭제 재설계한 모델로 다시 생성
     3. CSV -> DB 배치 적재
+    https://github.com/TaeGaori/fastapi_2026/tree/main/storage_subway_busapi/01_subway
 
 ## 2026-07-07
 - SQLAlchemy 에서 자연키+merge 선언
+    https://github.com/TaeGaori/fastapi_2026/tree/main/storage_subway_busapi/02_bus
 
 ## 2026-07-08
 - foodball SQLAlchemy 모델 정의
@@ -161,6 +162,7 @@
     
     - N:M : 중간 테이블 필요
             secondary가 있다 (1:N 생각할 필요 X)
+    https://github.com/TaeGaori/fastapi_2026/tree/main/cafe
 
 
 ## 2026-07-09
@@ -170,9 +172,18 @@
     - test_crud.py는 csv파일 직접 읽지 X
     - 따라서 테스트 전 CSV데이터를 PostgreSQL 테이블에 넣고 실행
     - **실행시 기존 테이블이 삭제되고 다시 만들어지기 대문에 중요한 데이터가 있다면 실행 X **
-
+    https://github.com/TaeGaori/fastapi_2026/tree/main/football
 ## 2026-07-10
 - 데이터 저장 test
-
+    https://github.com/TaeGaori/fastapi_2026/tree/main/08_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
 ## 2026-07-13
 - 만들어 둔 DB를 이용하여 데이터 처리 시스템 개발
+    https://github.com/TaeGaori/fastapi_2026/tree/main/NCS-bigdata_processing.system
+
+## 2026-07-14
+- NCS 빅데이터 처리 시스템 개발 복습
+    - 원본 데이터 탐색
+    - 역별 인원 값 집계하기
+    - 시간대별 승차 인원 집계하기
+    - 날짜별 승·하차 집계하기
+    https://github.com/TaeGaori/fastapi_2026/tree/main/NCS-bigdata_processing.system
