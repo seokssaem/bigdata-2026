@@ -135,7 +135,6 @@
     __table_arge__ = (
     UniqueConstraint("컬럼1","컬럼2","컬럼3",... name="제약조건이름")
 
-
 `__table_args__`:
 - 테이블 레이블의 부가설정(제약조건, 인덱스 등)을 담는 클래스 속성
 - SQLAlchemy가 이름 보고 자동 인식
@@ -164,7 +163,6 @@
             secondary가 있다 (1:N 생각할 필요 X)
     https://github.com/TaeGaori/fastapi_2026/tree/main/cafe
 
-
 ## 2026-07-09
 - foodball SQLAlchemy test코딩
 
@@ -173,10 +171,12 @@
     - 따라서 테스트 전 CSV데이터를 PostgreSQL 테이블에 넣고 실행
     - **실행시 기존 테이블이 삭제되고 다시 만들어지기 대문에 중요한 데이터가 있다면 실행 X **
     https://github.com/TaeGaori/fastapi_2026/tree/main/football
+
 ## 2026-07-10
 - 데이터 저장 test
     https://github.com/TaeGaori/fastapi_2026/tree/main/08_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
 ## 2026-07-13
+
 - 만들어 둔 DB를 이용하여 데이터 처리 시스템 개발
     https://github.com/TaeGaori/fastapi_2026/tree/main/NCS-bigdata_processing.system
 
@@ -187,3 +187,6 @@
     - 시간대별 승차 인원 집계하기
     - 날짜별 승·하차 집계하기
     https://github.com/TaeGaori/fastapi_2026/tree/main/NCS-bigdata_processing.system
+
+## 2026-07-15
+- SQLAlchemy 2.0 버전으로 코드 변경
