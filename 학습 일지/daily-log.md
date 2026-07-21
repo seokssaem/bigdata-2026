@@ -8,20 +8,24 @@
 ## 2026-06-15
 - FATSAPI 블로그 포스트 검색, 생성, 수정 및 삭제 기능 복습
 - HTMI/CSS 수업 내용 복습
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/blog
 
 
 ## 2026-06-16
 - FASTAPI 오늘 뭐먹지?? 복습
+    
     https://github.com/TaeGaori/fastapi_2026/blob/main/%EC%8B%A4%EC%8A%B5/07_%EC%A0%90%EC%8B%AC%EB%A9%94%EB%89%B4.py
 
 ## 2026-06-17
 - 토이 프로젝트 게임 캐릭터 만들기
+    
     https://github.com/TaeGaori/bigdata-basic/blob/main/Practice/Toy_Project.py
     
 
 ## 2026-06-18
 - fastapi -> routers(회원가입) 복습
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/routers
 
 ## 2026-06-17
@@ -39,6 +43,7 @@
 
 ## 2026-06-23
 - html총 정리 (원두 사이트)
+    
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%84%B7%ED%94%8C%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0/index.html
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%84%B7%ED%94%8C%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0/stylc.css
 
@@ -56,6 +61,7 @@
 
 
 - html 원두 사이트를 활용하여 나만의 페이지로 편집
+    
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%82%98%EB%A7%8C%EC%9D%98%20%ED%8E%98%EC%9D%B4%EC%A7%80/index.html
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%82%98%EB%A7%8C%EC%9D%98%20%ED%8E%98%EC%9D%B4%EC%A7%80/stylc.css
 
@@ -80,10 +86,12 @@
         - 'crud.py'를 별도로 분리하여 DB 조작 로직과 라우터 로직을 나눔
     
     - __init__.py 생성 이유:  오류 방지
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/fastapi_review
 
 ## 2026-06-30
 - 판다스를 활용하여 엑셀 파일 읽고 병합 + 시각화
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/fastapi_review
 
 - fastapi로 main 테스트하기.
@@ -91,6 +99,7 @@
         파일과 함수 이름은 test_로 시작
         권장사항 > 테스트 DB도 따로 만들어준다.
         uv add pytest --> 설치  
+    
     https://github.com/TaeGaori/bigdata-basic/blob/main/happy/ch09_happy.ipynb
 
 
@@ -104,8 +113,10 @@
         5. 검증 : 유효성 검증 리포트 출력
         6. DB 저장 : PostgreSQL -> subwaydb
         7. csv 저장 : output폴더 안 csv파일 (utf-8)
+    
     https://github.com/TaeGaori/fastapi_2026/blob/main/01_subway_pipeline/01_subway.ipynb
 - 응용 (공용주차장 CSV 컬럼추출)
+    
     https://github.com/TaeGaori/fastapi_2026/blob/main/02_parking/02_parking.ipynb
 
 ## 2026-07-02
@@ -120,14 +131,17 @@
             7. 데이터 검증( 생략 가능)
             8. DB 저장 : 먼저 pgAdmin에서 데이터베이스 생성(busapidb) -> 테이블 저장
             9. CSV 저장 : bus_stop.csv 인코딩 설정 (utf-8)
+    
     https://github.com/TaeGaori/fastapi_2026/blob/main/03_bus_api_pipeline/03_bus_api.ipynb
 
 - 응용 (정류소별 경유노선 API 조회)
+    
     https://github.com/TaeGaori/fastapi_2026/blob/main/03_bus_api_pipeline/03_node.ipynb
-
+ 
 ## 2026-07-03
 - 데이터 수집 TEST - AP방식
     - 검색 지역의 1등 당첨 상호명과 횟수 수집 후 DB에 저장
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/07_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%88%98%EC%A7%91%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
 
 ## 2026-07-06
@@ -147,10 +161,12 @@
     1. 테이블 재설계
     2. 기존 테이블 삭제 재설계한 모델로 다시 생성
     3. CSV -> DB 배치 적재
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/storage_subway_busapi/01_subway
 
 ## 2026-07-07
 - SQLAlchemy 에서 자연키+merge 선언
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/storage_subway_busapi/02_bus
 
 ## 2026-07-08
@@ -161,6 +177,7 @@
     
     - N:M : 중간 테이블 필요
             secondary가 있다 (1:N 생각할 필요 X)
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/cafe
 
 ## 2026-07-09
@@ -170,14 +187,17 @@
     - test_crud.py는 csv파일 직접 읽지 X
     - 따라서 테스트 전 CSV데이터를 PostgreSQL 테이블에 넣고 실행
     - **실행시 기존 테이블이 삭제되고 다시 만들어지기 대문에 중요한 데이터가 있다면 실행 X **
-    https://github.com/TaeGaori/fastapi_2026/tree/main/football
+   
+   https://github.com/TaeGaori/fastapi_2026/tree/main/football
 
 ## 2026-07-10
 - 데이터 저장 test
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/08_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
 ## 2026-07-13
 
 - 만들어 둔 DB를 이용하여 데이터 처리 시스템 개발
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/NCS-bigdata_processing.system
 
 ## 2026-07-14
@@ -186,6 +206,7 @@
     - 역별 인원 값 집계하기
     - 시간대별 승차 인원 집계하기
     - 날짜별 승·하차 집계하기
+    
     https://github.com/TaeGaori/fastapi_2026/tree/main/NCS-bigdata_processing.system
 
 ## 2026-07-15
@@ -193,7 +214,37 @@
 
 ## 2026-07-16
 - QLAlchemy 2.0 버전으로 코드 마무리
+    
+    https://github.com/TaeGaori/fastapi_2026/tree/main/football
 
 -   Streamlit 라이브러리 기초 실습
     - 파이썬 코드만으로 웹페이지(대시보드, 데이터시각화 등)을 쉽게 만들 수 있도록 도와주는 파이썬 라이브러리
     - 위젯 단위(버튼 클릭, 슬라이더 이동, 제목 등)
+
+## 2026-07-20
+-  빅데이터 처리 시스템 개발 text
+    
+    https://github.com/TaeGaori/fastapi_2026/tree/main/09_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%B2%98%EB%A6%AC%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
+
+## 2026-07-21
+- 분석데이터전처리
+
+- Streamlit & 실습
+    - multiselect : 여러 개의 선택지를 동시에 선택할 수 있는 입력 위젯:
+        - `st.multiselect()`는 여러 개의 선택지를 동시에 선택할 수 있는 입력 위젯.
+        - `correct`처럼 정답을 `set`으로 저장하면, 순서에 상관없이 값 포함 여부만 비교할 수 있다.
+        - `set(fruits) == correct`로 사용자가 고른 값과 정답을 비교.
+
+    - slider : 슬라이더로 값을 선택할 수 있는 위젯(최대 최소 설정 가능)
+        - `min_value=time(0`)`	선택 가능한 가장 이른 시간은 00:00
+        - `max_value=time(23)`	선택 가능한 가장 늦은 시간은 23:00
+
+    - input :   - `placeholder`: 입력창 안내 문구
+                - `max_chars`: 최대 입력 글자 수 제한
+                - `type='password'`: 입력값을 로 가림
+
+    - File uploader:- `type='csv'`: 확장자 제한
+                    - `accept_multiple_files=False`: 한 번에 하나의 파일만 업로드 가능
+                    - `pd.read_csv(file)`로 바로 읽을 수 있습니다.
+
+https://github.com/TaeGaori/fastapi_2026/tree/main/Steamlit
