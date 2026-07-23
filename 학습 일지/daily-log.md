@@ -17,6 +17,7 @@
     
     https://github.com/TaeGaori/fastapi_2026/blob/main/%EC%8B%A4%EC%8A%B5/07_%EC%A0%90%EC%8B%AC%EB%A9%94%EB%89%B4.py
 
+
 ## 2026-06-17
 - 토이 프로젝트 게임 캐릭터 만들기
     
@@ -28,8 +29,10 @@
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/routers
 
+
 ## 2026-06-17
 - html + css를 활용하여 대시보드 웹페이지 만들기 복습
+
 
 ## 2026-06-22
 - html 애니매이션을 활용하기 
@@ -41,11 +44,13 @@
     - product       ()
     - animation     (시간에 따라 변화시킴)
 
+
 ## 2026-06-23
 - html총 정리 (원두 사이트)
     
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%84%B7%ED%94%8C%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0/index.html
     https://github.com/TaeGaori/html_css_js/blob/main/%EB%84%B7%ED%94%8C%20%EB%94%B0%EB%9D%BC%ED%95%98%EA%B8%B0/stylc.css
+
 
 ## 2026-06-24
 - SQLE 기초 공부
@@ -69,8 +74,10 @@
 ## 2026-06-25
 - SQLD JOIN을 사용하여 두 테이블 연결하기
 
+
 ## 2026-06-26
 - SQLD  시험에 나올 기출문제 실습 및 연습문제 풀기
+
 
 ## 2026-06-29
 - fastapi 복습
@@ -88,6 +95,7 @@
     - __init__.py 생성 이유:  오류 방지
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/fastapi_review
+
 
 ## 2026-06-30
 - 판다스를 활용하여 엑셀 파일 읽고 병합 + 시각화
@@ -119,6 +127,7 @@
     
     https://github.com/TaeGaori/fastapi_2026/blob/main/02_parking/02_parking.ipynb
 
+
 ## 2026-07-02
 - 데이터 수집 파이프라인 - API방식
     - 전체 파이프라인 흐름
@@ -138,11 +147,13 @@
     
     https://github.com/TaeGaori/fastapi_2026/blob/main/03_bus_api_pipeline/03_node.ipynb
  
+
 ## 2026-07-03
 - 데이터 수집 TEST - AP방식
     - 검색 지역의 1등 당첨 상호명과 횟수 수집 후 DB에 저장
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/07_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%88%98%EC%A7%91%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
+
 
 ## 2026-07-06
 - SQLAlchemy 에서 대체키+UNIQUE 선언
@@ -164,10 +175,12 @@
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/storage_subway_busapi/01_subway
 
+
 ## 2026-07-07
 - SQLAlchemy 에서 자연키+merge 선언
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/storage_subway_busapi/02_bus
+
 
 ## 2026-07-08
 - foodball SQLAlchemy 모델 정의
@@ -180,6 +193,7 @@
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/cafe
 
+
 ## 2026-07-09
 - foodball SQLAlchemy test코딩
 
@@ -190,15 +204,19 @@
    
    https://github.com/TaeGaori/fastapi_2026/tree/main/football
 
+
 ## 2026-07-10
 - 데이터 저장 test
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/08_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
+
+
 ## 2026-07-13
 
 - 만들어 둔 DB를 이용하여 데이터 처리 시스템 개발
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/NCS-bigdata_processing.system
+
 
 ## 2026-07-14
 - NCS 빅데이터 처리 시스템 개발 복습
@@ -209,8 +227,10 @@
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/NCS-bigdata_processing.system
 
+
 ## 2026-07-15
 - SQLAlchemy 2.0 버전으로 코드 변경
+
 
 ## 2026-07-16
 - QLAlchemy 2.0 버전으로 코드 마무리
@@ -221,10 +241,12 @@
     - 파이썬 코드만으로 웹페이지(대시보드, 데이터시각화 등)을 쉽게 만들 수 있도록 도와주는 파이썬 라이브러리
     - 위젯 단위(버튼 클릭, 슬라이더 이동, 제목 등)
 
+
 ## 2026-07-20
--  빅데이터 처리 시스템 개발 text
+-  빅데이터 처리 시스템 개발 test
     
     https://github.com/TaeGaori/fastapi_2026/tree/main/09_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%B2%98%EB%A6%AC%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C
+
 
 ## 2026-07-21
 - 분석데이터전처리
@@ -247,4 +269,55 @@
                     - `accept_multiple_files=False`: 한 번에 하나의 파일만 업로드 가능
                     - `pd.read_csv(file)`로 바로 읽을 수 있습니다.
 
-https://github.com/TaeGaori/fastapi_2026/tree/main/Steamlit
+    https://github.com/TaeGaori/fastapi_2026/tree/main/Steamlit
+
+
+## 2026-07-22
+- API 문서화 (메타 데이터 추가) : 처음 보는 다른 개발자가 docs만 보고도 어떻게 사용하는지 이해할 수 있도록 추가 설명을 채운다
+    - FastAPI(...) 생성자에 title / version / description 추가
+    --> Swagger UI 맨 뒤 소개 영역에 표시된다.
+    - 각 @app.get(...)에 summary/ description/ response_description 추가
+    --> Swagger UI에서 각 엔드포인트를 펼쳤을 때 보이는 설명이다.
+    - 함수 매개변수의 기본값을 Query(...)로 감싸서 파라미터별 설명 추가
+    --> Swagger UI의 "Try it out" 화면에서 각 입력 칸 옆에 뜬다.
+    - operation_id / tags 추가
+    --> operation_id : 이 API를 가리키는 고유한 이름, tags : Swgger UI에서 엔드포인트들을 그룹으로 묶여 보여주는 기준이다.
+
+    https://github.com/TaeGaori/fastapi_2026/blob/main/football/main.py
+    
+- 데이터 타입 변환 & 결측치 처리 기초
+    - apply(pd.to_numeric)  
+        -선택한 여러 열에 한 번에 숫자 변환 함수를 적용한다.
+    
+    - Dropna()
+        - 결측값이 있는 행 제거
+        - 가장 간단하지만 데이터가 많이 삭제될 수 있어 신중하게 사용해야 한다.
+        - 결측치 비율이 매우 낮을 때만 권장한다.
+        - 기본값은 행 기준(axis=0)
+        - axis=1 --> 열(컬럼) 기준
+    
+    - fillna()
+        - 결측치를 다른 값으로 채운다.
+
+    - mode()
+        - 해당 열에서 가장 자주 나온 값들을 리스트 형태로 변환
+        - 최반값이 여러개여도 첫번쨰값 불러오기 --> [0]
+
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/ch10_no_show.ipynb
+
+## 2026-07-23
+- 데이터 타입 변환 & 결측치 처리 csv파일로 실습
+
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/ch10_no-show-result(day53).ipynb
+
+- FASTAPI pytest로 단위 테스트
+    - test_crud.py : crud.py 함수 호출 -> DB 조회 로직만 검증
+
+        https://github.com/TaeGaori/fastapi_2026/blob/main/football/test_crud.py
+
+    - test_main.py : HTTP요청 흉내 -> URL / 상태코드 / 응답구조 검증 -> API 완성 결정
+
+        https://github.com/TaeGaori/fastapi_2026/blob/main/football/test_main.py
+
+    - TestClient : uvicorn 서버 띄우지 않고 앱 호출하기 때문에 빠르게 같은 결과 확인 가능
+    
