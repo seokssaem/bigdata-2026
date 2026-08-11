@@ -335,13 +335,16 @@
     - .inverse_transform() : 레이블 인코딩 역변환(디코딩)
     - LabelEncoder : 사이킷런으로 레이블 인코딩
 
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/day54_%EC%9D%B8%EC%BD%94%EB%94%A9.ipynb
+
 - 스케일링
     - 컬럼 간 숫자의 상대적 크기 차이 때문에 생기는 문제들을 해결하기 위한 과정 
     - 정규화, 표준화 이 두가지를 가장 많이 활용
     - 사이킷런 라이브러리에 구현
 
-
     - MinMaxScaler = (df_num - df_num.min()) / (df_num.max() - df_num.min())
+
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/day54_%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81.ipynb
 
 
 ## 2026-07-27
@@ -354,13 +357,21 @@
 - 파생 변수 생성 및 스케일링
     - scale_cols = [] -> scaler = StandardScaler() -> df[scale_cols] = scaler.fit_transform(df[scale_cols])
 
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/day54_%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81.ipynb
+
 - 공유자전거 대여 운영 데이터 전처리와 EDA 실습
+
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/A_%EA%B3%B5%EC%9C%A0%EC%9E%90%EC%A0%84%EA%B1%B0_%EB%B6%84%EC%84%9D_%ED%83%9C%EB%91%90%ED%98%81.ipynb
 
 
 ## 2026-07-28
 - 분석 데이터 전처리 test
 
+    https://github.com/TaeGaori/DATA_ANAYSIS/tree/main/10_%EB%B6%84%EC%84%9D%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%84%EC%B2%98%EB%A6%AC_%ED%83%9C%EB%91%90%ED%98%81
+
 - 탐색적 데이터 분석 test
+
+    https://github.com/TaeGaori/DATA_ANAYSIS/tree/main/11_%ED%83%90%EC%83%89%EC%A0%81%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D_%ED%83%9C%EB%91%90%ED%98%81
 
 
 ## 2026-07-29
@@ -375,6 +386,8 @@
             - MSE : 평균 제곱 오차
             - RMSE : 평균 제곱근 오차
             - R2-score : 결정계수, 적합여부( 1에 가까울수록 잘 만들어진 모델)
+
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/day57_ml_01.ipynb
 
 - Streamlit 기초 실습
     - layout
@@ -398,6 +411,8 @@
         - 분류 / 회귀 둘 다 가능
         - 분산 처리(배깅) 다수결(보팅)
 
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/day58_ml_02.ipynb
+
 - Streamlit 기초 실습
     - from
     - state
@@ -416,6 +431,8 @@
     - k-means clustering
         - 중심점을 무작위로 놓는다 -> 가까운 점들을 그 중심에 배정 -> 배정된 점들의 평균으로 중심을 다시 계산 -> 반복
 
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/day59_ml_03.ipynb
+
 - 팀 프로젝트
     - CCTV 정리
 
@@ -425,22 +442,35 @@
 
 - train.py로 만든 churn_model.joblib를 실제로 사용하는 사용자화면 코드
 
+    https://github.com/TaeGaori/DATA_ANAYSIS/blob/main/train.py
+
 - SQLD 시험 공부
 
 
 ## 2026-08-04
 - 빅데이터분석모델링 TEST
 
-- 빅분기 실습 
+    https://github.com/TaeGaori/DATA_ANAYSIS/tree/main/12_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EB%AA%A8%EB%8D%B8%EB%A7%81_%ED%83%9C%EB%91%90%ED%98%81
+
+- 빅분기 실습 문제 (챕터 2-2)
+
+    https://github.com/TaeGaori/BIGBUNGI/tree/main/part2_2_p224
 
 - SQLD 시험 공부
 
 
 ## 2026-08-05
-- 빅분기 실습 문제(머신러닝 실습(분류))
+- 빅분기 실습 문제(챕터 2-4, 2-8)
+
+    https://github.com/TaeGaori/BIGBUNGI/tree/main/part2_4_p264
+
+    https://github.com/TaeGaori/BIGBUNGI/tree/main/part2_8_p332
+
 
 ## 2026-08-06
 - 스트림릿으로 만드는 대구 지하철 승하차 통합 대시보드
+
+    https://subwayapp-gaori.streamlit.app/
 
 - 빅분기 실습 문제(머신러닝 실습(회귀))
 
@@ -448,18 +478,28 @@
 ## 2026-08-07
 - 대구 지하철 승하차 통합 대시보드 마무리 -> 스트립릿과 연결
 
-- 빅분기 실습 문제 (챕터 3)
+    https://subwayapp-gaori.streamlit.app/
 
+- 빅분기 실습 문제 (챕터 3-1, 3-2)
+
+    https://github.com/TaeGaori/BIGBUNGI/tree/main/part3_1_p357
+
+    https://github.com/TaeGaori/BIGBUNGI/tree/main/prat3_2_p376
+    
 - SQLD 시험 공부
  
 
 ## 2026-08-10
 - JWT : 클라이언트가 서명된 토큰을 보관하고, 서버는 서명을 검증
 
+    https://github.com/TaeGaori/fastapi_2026/tree/main/todo
+
 - SQLD 시험 공부
 
 
 ## 2026-08-11
 - 데이터 모델링 TEST
+
+    https://github.com/TaeGaori/DATA_ANAYSIS/tree/main/13_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C_%ED%83%9C%EB%91%90%ED%98%81
 
 - SQLD 시험 공부
