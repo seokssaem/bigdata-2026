@@ -503,3 +503,9 @@
     https://github.com/TaeGaori/DATA_ANAYSIS/tree/main/13_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EC%8B%9C%EC%8A%A4%ED%85%9C%EA%B0%9C%EB%B0%9C_%ED%83%9C%EB%91%90%ED%98%81
 
 - SQLD 시험 공부
+
+
+## 2026-08-12
+- To-do list(JWT)
+
+- SQLD 시험 공부
