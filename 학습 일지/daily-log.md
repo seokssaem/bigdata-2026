@@ -508,29 +508,38 @@
 ## 2026-08-12
 - To-do list(JWT)
     - models.py - 파이썬 클래스와 DB테이블을 매핑
-    -main.py - JWT 인증 토큰 방식
-    -database/db_connection.py - PostgreSQL DB 연결 설정 + 라우터에서 사용할 세션 의존성(get_session)제공
-    -database/orm.py - 모든 ORM모델의 부모가 되는 Base클래스 정의
-    -repositories/todo_repository.py - todo테이블에 대한 DB쿼리만 담당하는 계층
-    -repositories/User_repository.py - repositories/User_repository.py
-    -schema/response.py - 서버가 클라이언트(사용자)에게 "돌려주는" 데이터의 형태를 정의하는 파일
-    -schema/request.py - 클라이언트가 서버로 보내는 데이터의 형태를 정의하는 파일
+    - main.py - JWT 인증 토큰 방식
+    - database/db_connection.py - PostgreSQL DB 연결 설정 + 라우터에서 사용할 세션 의존성(get_session)제공
+    - database/orm.py - 모든 ORM모델의 부모가 되는 Base클래스 정의
+    - repositories/todo_repository.py - todo테이블에 대한 DB쿼리만 담당하는 계층
+    - repositories/User_repository.py - repositories/User_repository.py
+    - schema/response.py - 서버가 클라이언트(사용자)에게 "돌려주는" 데이터의 형태를 정의하는 파일
+    - schema/request.py - 클라이언트가 서버로 보내는 데이터의 형태를 정의하는 파일
 
 - SQLD 시험 공부
 
 ## 2026-08-13
 - To-do list(JWT)
-    -sevices/todo_service.py - Todo 관련 "업무 규칙"을 담당하는 계층
-    -sevices/user_service.py - 회원가입/로그인/토근재발급/로그아웃의 업무 규칙을 담당하는 계층
-    -auth/password.py - 비밀번호 해싱(암호화 저장) / 검증을 담당하는 모듈
-    -auth/dependencies.py - 현재 로그인한 사용자의 id --> 라우터마다 반복하지 않도록 공용 의존성 함수를 정의
-    -auth/jwt.py - JWT 발급/검증 모듈(Access Token/Refresh Token)
-    -routers/user.py - 회원가입/로그인 토근재발급/로그아웃의 업무 규칙을 담당하는 계층
-    -sevices/todo_service.py - Todo 관련 "업무 규칙"을 담당하는 계층 
-    sevices/user_service.py - 회원가입/로그인/토근재발급/로그아웃의 업무 규칙을 담당하는 계층
+    - sevices/todo_service.py - Todo 관련 "업무 규칙"을 담당하는 계층
+    - sevices/user_service.py - 회원가입/로그인/토근재발급/로그아웃의 업무 규칙을 담당하는 계층
+    - auth/password.py - 비밀번호 해싱(암호화 저장) / 검증을 담당하는 모듈
+    - auth/dependencies.py - 현재 로그인한 사용자의 id --> 라우터마다 반복하지 않도록 공용 의존성 함수를 정의
+    - auth/jwt.py - JWT 발급/검증 모듈(Access Token/Refresh Token)
+    - routers/user.py - 회원가입/로그인 토근재발급/로그아웃의 업무 규칙을 담당하는 계층
+    - sevices/todo_service.py - Todo 관련 "업무 규칙"을 담당하는 계층 
+    - sevices/user_service.py - 회원가입/로그인/토근재발급/로그아웃의 업무 규칙을 담당하는 계층
 
 - 빅분기 실습 (fromula(수식) 작성 문법 정리)
     - ~(물결) : target ~ a
     - +(더하기) : target ~ a + b + c
     
 - SQLD 시험 공부
+
+# 2026-08-14
+- To-do list(JWT)
+    - routers/todo.py - HTTP 요청을 받고 응답을 돌려주는 것만 담당
+    - schema/request.py - 클라이언트가 서버로 보내는 데이터의 형태를 정의하는 파일
+    - schema/response.py - 서버가 클라이언트(사용자)에게 "돌려주는" 데이터의 형태를 정의하는 파일
+    - streamlit_app.py - FastAPI Todo API를 호출해서 화면으로 보여주는 프론트엔드 (FastAPI와 동시에 실행)
+
+- SQLD 시험 공부 
