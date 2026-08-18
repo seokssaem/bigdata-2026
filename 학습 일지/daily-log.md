@@ -516,6 +516,8 @@
     - schema/response.py - 서버가 클라이언트(사용자)에게 "돌려주는" 데이터의 형태를 정의하는 파일
     - schema/request.py - 클라이언트가 서버로 보내는 데이터의 형태를 정의하는 파일
 
+    https://github.com/TaeGaori/fastapi_2026/tree/main/todo_project
+
 - SQLD 시험 공부
 
 ## 2026-08-13
@@ -543,3 +545,28 @@
     - streamlit_app.py - FastAPI Todo API를 호출해서 화면으로 보여주는 프론트엔드 (FastAPI와 동시에 실행)
 
 - SQLD 시험 공부 
+
+
+# 2026-08-18
+- Todo_project_ML
+    - Todo 제목 텍스트로 카테고리를 분류하는 모델
+    - FastAPI서버와 완전 분리된 별도 스크립트
+
+    https://github.com/TaeGaori/fastapi_2026/tree/main/Todo_project_ML/ml
+
+- 빅분기 실습(카이지곱 검정)
+    - 적합도 검정
+        - observed: 관측된 빈도 리스트（배열） 
+        - expected: 기대 빈도 리스트（배열） , 주어지지 않으면 모든 카테고리의 관측 빈도가 균일하고 관측 빈도의 평균으로 주어진다고 가정함 
+        - ddof 자유도 조정 , 기본값 0 
+        - axis: 축 , 기본값0 
+    - 독립성 검정
+        - table: 교차표(Contingency Table) 데이터（2차원 형태） 
+        - correction: 
+    - 동질성 검정
+        - table: 교차표(Contingency Table) 데이터（2차원 형태） 
+        - correction: 연속성 보정 여부 , 기본값은 True , "연속정 수 정을 하지 않는다" 라는 조건이 있다면 False로 설정한다． 
+
+    https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
+
+- SQLD 시험 공부
