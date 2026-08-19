@@ -570,3 +570,16 @@
     https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 
 - SQLD 시험 공부
+
+
+# 2026-08-19
+- 빅데이터 시각화 TEST
+
+- Todo_project_ML
+    - sevices/category_service.py - 학습된 ML 모델(파이프라인 객체)을 감싸서 "제목 문자열 -> 카테고리 문자열" 예측만 담당하는 아주 얇은 계층
+    - sevices/todo_service.py - category관련 코드 추가 
+    - routers/ml.py - 카테고리 예측 모델의 "정확도"를 확인할 수 있는 모니터링 전용 엔드포인트
+    - schema/response.py- class ModelAccuracyResponse(BaseModel) 추가
+    - ml/retrain.py - 사용자가 실제로 수정한 카테고리(final_category)를 새 학습 데이터로 삼아 모델로 재학습
+
+- SQLD 시험 공부
