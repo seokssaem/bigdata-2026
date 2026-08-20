@@ -583,3 +583,10 @@
     - ml/retrain.py - 사용자가 실제로 수정한 카테고리(final_category)를 새 학습 데이터로 삼아 모델로 재학습
 
 - SQLD 시험 공부
+
+
+# 2026-08-20
+- Todo_project_ML
+    - Streamlit -> ML관련 코드 추가
+
+- 예광탄 방식을 활용한 책장 코드
