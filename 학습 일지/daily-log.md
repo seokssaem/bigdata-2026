@@ -590,3 +590,13 @@
     - Streamlit -> ML관련 코드 추가
 
 - 예광탄 방식을 활용한 책장 코드
+
+
+# 2026-08-21
+- 우리 집 책장
+    - Version 0 - 기본 세팅 
+    - Version 1 - 관통로 확인
+    - Version 2 - 진짜 이미지인지 검증
+    - Version 3 - OCR로 ISBN후보 추출
+
+- SQLD 시험 공부
