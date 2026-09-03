@@ -719,3 +719,21 @@
     - FastAPI(api) + Streamlit(web) + PostgreSQL(db)
         
     (https://github.com/TaeGaori/fastapi_2026/tree/main/home_library_v3)
+
+
+
+---
+
+# 2026-09-02
+### Docker(home_library_v4)
+    - jinja2 템플릿 입히기
+
+
+---
+
+# 2026-09-03
+### Docker(home_library_v4)
+    - jinja2 템플릿 입히기(마무리)
+
+### GitHub Action로 자동 배포화
+    - README.md에 기초 이론 정리
