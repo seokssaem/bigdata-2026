@@ -1,7 +1,6 @@
 '''
 models.py
------------------------------
-예광탄 방식을 활용한 아주 얇은 코드
+
 스키마, 테이블 만들기 (ORM)
 '''
 from datetime import datetime, date
