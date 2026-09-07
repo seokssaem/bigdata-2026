@@ -1,0 +1,79 @@
+# KOBIS API 기반 영화 정보 및 즐겨찾기 서비스 : FastAPI(api) + Streamlit(web) + PostgreSQL(db) 세 컨테이너를 함께 실행하기 위한 설정 파일
+
+services:
+  api:
+    build: .   # 현재 폴더의 Dockerfile을 기준으로 이미지 빌드
+    container_name: movie-api
+
+    ports:
+      - "8000:8000"   # "호스트포트:컨테이너포트"
+
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    
+    env_file:
+      - .env
+
+    volumes:
+      # "내 컴퓨터 경로:컨테이너 경로"
+      # 컨테이너가 삭제되어도 표지 이미지 파일이 내 컴퓨터의 uploads폴더에 그대로 남는다.
+      - ./uploads:/app/uploads
+
+    depends_on:
+      db:
+        # db 컨테이너가 단순히 "실행"만 된 상태가 아니라, healthcheck(상태 체크)를 통과해
+        # "정상적으로 접속 가능"해진 뒤에 api를 실행한다.
+        condition: service_healthy
+
+  web:
+    build: .
+    container_name: movie-web
+
+    ports:
+      - "8501:8501"  # Streamlit의 기본 포트 번호
+
+    environment:
+      # 컨테이너 안에서 api컨테이너에 접속할 때는 localhost가 아니라
+      # docker-compose.yml 에 적은 서비스이름 "api"를 주소로 사용해야 한다.
+      KOBIS_API_KEY: ${KOBIS_API_KEY}
+      
+      API_URL: http://api:8000
+
+    depends_on:
+      # api가 먼저 뜬 뒤 web을 실행
+      - api
+
+    command: >
+      streamlit run streamlit_app.py
+      --server.address=0.0.0.0
+      --server.port=8501
+    # command: --> Dockerfile의 CMD를 이 서비스에서만 덮어 쓴다.
+    # --server.address=0.0.0.0 --> uvicorn의 --host 0.0.0.0 과 같은 이유로 컨테이너 밖에서도 접근 가능하게 해준다.
+  
+  db:
+    image: postgres:17 # Dockerfile 없이 공식 PostgreSQL 이미지를 그대로 사용
+    container_name: movie-db
+
+    environment:
+      # postgres 공식 이미지가 컨테이너 최초 실행시 자동으로 DB / 계정을 생성할 때
+      # 사용하는 변수들
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    volumes:
+      # PostgreSQL이 실제 데이터를 저장하는 내부 경로 (/var/lib/postgresql/data)를
+      # movie_pgdata라는 이름의 볼륨에 연결 --> 컨테이너를 지워도 책 데이터가 보존된다.
+      - movie_pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+      # pg_isready --> PostgreSQL 이 접속을 받을 준비가 되었는지 확인하는 공식 명령어
+      test: ["CMD-SHELL","pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+# named volume 선언부
+# --> 위에서 db서비스가 사용한 movie_pgdata라는 이름의 볼륨을 docker가 별도로 관리하게 된다.
+volumes:
+  movie_pgdata:
