@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  # ---- PostgreSQL 컨테이너 ----
+  db:
+    image: postgres:16
+    container_name: movie_db
+    environment:
+      - POSTGRES_DB=moviedb1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    ports:
+      - "5432:5432"
+    volumes:
+      - movie_db_data:/var/lib/postgresql/data
+    healthcheck:
+      # pg_isready로 "진짜 접속 가능한 상태"인지 5초마다 확인
+      test: ["CMD-SHELL", "pg_isready -U postgres -d moviedb1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---- FastAPI 백엔드 컨테이너 ----
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    container_name: movie_fastapi
+    environment:
+      # 핵심: host를 localhost가 아니라 DB 서비스 이름인 "db"로 지정
+      - DATABASE_URL=postgresql+psycopg2://postgres:1234@db:5432/moviedb1
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy   # db가 healthy 판정을 받을 때까지 대기
+
+  # ---- Streamlit 프론트엔드 컨테이너 ----
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: movie_streamlit
+    environment:
+      # 핵심: FastAPI 컨테이너를 localhost가 아니라 서비스 이름 "fastapi"로 접속
+      - API_BASE=http://fastapi:8000
+    env_file:
+      - .env   # KOBIS_API_KEY는 기존처럼 .env 파일에서 그대로 읽어옴
+    ports:
+      - "8501:8501"
+    depends_on:
+      - fastapi
+
+volumes:
+  movie_db_data:
