@@ -696,7 +696,7 @@
 ---
 
 # 2026-08-28
-### 팀 프로젝트(26년 월드컵 선수 정보) TEST
+### 15_서버프로그램구현 TEST
 
     (https://github.com/TaeGaori/fastapi_2026/tree/main/%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0/15_%EC%84%9C%EB%B2%84%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EA%B5%AC%ED%98%84_3%EC%A1%B0)
     
@@ -737,3 +737,8 @@
 
 ### GitHub Action로 자동 배포화
     - README.md에 기초 이론 정리
+
+---
+
+# 2026-09-07
+### 16_통합구현 Test (Docker)
