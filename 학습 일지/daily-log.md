@@ -742,3 +742,15 @@
 
 # 2026-09-07
 ### 16_통합구현 Test (Docker)
+
+### 자율학습 (penguin_body_mass)
+
+--
+
+# 2026-09-08
+### GitHub Action
+    - CI 단계 - 테스트 자동화
+    - Build 단계 - Bocker 이미지 자동 빌드
+    - DB 연동 CI
+
+### 자율학습 (penguin_body_mass)
