@@ -745,7 +745,7 @@
 
 ### 자율학습 (penguin_body_mass)
 
---
+---
 
 # 2026-09-08
 ### GitHub Action
@@ -754,3 +754,17 @@
     - DB 연동 CI
 
 ### 자율학습 (penguin_body_mass)
+
+--- 
+
+# 2026-09-09
+### Git 브랜치 만들기
+    - 사진 인식(Vision LLM) 기능처럼 아직 검증 안 된 새 기능을 추가할 때, main을 건드리지 않고 안전하게 실험할 수 있는 "나만의 작업 공간"을 만드는 방법
+
+### langchain_pracice
+    - 00_check_setup.py
+        - 설치 확인 + Gemini API key 연결 확인 테스트
+    - 01_hello_setup.py
+        - 가장 단순한 호출 - 프롬프트 템플릿 없이 문자열 하나로 바로 질문
+
+### penguin_body_mass 풀이
