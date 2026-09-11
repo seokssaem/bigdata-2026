@@ -1,0 +1,76 @@
+services:
+  api:
+    build: .  # 현재 폴더 기준 이미지 빌드
+    container_name: worldcup
+
+    ports:
+      - "8000:8000"   # 호스트포트:컨테이너포트"
+
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+
+    env_file:
+      - .env
+
+    volumes:
+      - ./uploads:/app/uploads
+
+    # db 컨테이너 상태 체크 후 api 실행
+    depends_on:
+      db:
+        condition: service_healthy
+
+
+  web:
+    build:
+      context: .
+      dockerfile: streamlit_api/Dockerfile
+    container_name: worldcup-streamlit
+
+    ports:
+      - "8501:8501"
+
+    volumes:
+      - ./streamlit_api/data:/data
+
+    environment:
+      API_URL: http://api:8000
+
+    # api실행 후 web 실행
+    depends_on:
+    - api
+
+    command: >
+      streamlit run app.py
+      --server.address=0.0.0.0
+      --server.port=8501
+
+
+  db:
+    image: postgres:17
+    # 기존 setup_database.py는 내 컴퓨터에 적제 -> 포트번호 추가 -> 컨테이너 안의 PostgreSQL로 접속 
+    # docker ->5433
+    # postgreSQL -> 5432
+    ports:
+     - "5433:5432"
+    container_name: worldcup_db
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    volumes:
+      - worldcup_pgdata:/var/lib/postgresql/data
+      # 데이터를 도커에 불러오지 못함 -> schema.sql 추가
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+# worldcup_pgdata 볼륨 -> Docker가 별도 관리
+volumes:
+  worldcup_pgdata:
