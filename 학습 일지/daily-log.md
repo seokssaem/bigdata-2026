@@ -799,5 +799,21 @@
 ### 자율 학습 (빅분기 실기문제)
 
 ### MLOPS(대출)
-    - app/models.py : 학습된 대출 심사 모델의 로밍, 전처리, 추론을 캡술화한 모듈
-    - app/schema.py : 대출 API 요청/응답의 데이터 계약을 정의하는 pydantic 스키마
+    - `app/models.py` : 학습된 대출 심사 모델의 로밍, 전처리, 추론을 캡술화한 모듈
+    - `app/schema.py` : 대출 API 요청/응답의 데이터 계약을 정의하는 pydantic 스키마
+
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-1일차)
+    - `YOLOv8` Quickstart 따라 하기 (설치, `yolo predict`/`yolo train` CLI로 감 잡기)
+
+---
+
+# 2026-09-16
+### 자율학습 (빅분기 실기문제)
+
+### MLOPS(대출)
+    - `app/main.py` : 대출 승인 예측 모델을 HTTP API로 제공하는 FastAPI 애플리케이션
+
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-2일차)
+    - `MLflow` Tracking Quickstart 따라 하기 (log_param, log_metric, MLflow UI 확인)
+    - Roboflow Universe에서 데이터셋 선택·다운로드(Drone-Data)
+    - Roboflow 데이터로 YOLOv8 전이학습 1차 시도, MLflow 로깅 연동
