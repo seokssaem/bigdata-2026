@@ -828,10 +828,26 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 - .dockerignor 및 Dockerfile 작성 -> Dokcer 컨테이너화
 
 ### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-3일차)
-- `main.py` : FastAPI 코드 작성
-    - `/health` - 서버/모델 상태 확인
-    - `/model/info` - 모델 정보 확인
-    - `/predict` - 이미지 객체 탐지
-    - `/predict/visualize` - Bounding Box가 그려진 결과 이미지
+- **FastAPI** 코드 작성
+    - `models/`, `routers/`, `schemas/`, `database.py`
 
 - `schema.sql` : 데이터베이스 AegisVision 드론 탐지 로그 저장용 스키마 작성
+
+---
+
+# 2026-09-18
+### `React` 기초 수업
+
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-4일차)
+- **FastAPI**코드 작성 및 오류 수정
+    - `services/`, `main.py`, 
+
+---
+
+# 2026-09-21
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-6일차)
+- **FastAPI**코드 추가 작성 마무리 및 오류 수정
+    - `routers/metrics.py`, `routers/training.py`, `schemas/training.py`, `merge_training_history.py`
+
+### MLOPS(대출)
+- 테스트 코드 기초 - `test_api.py` 
