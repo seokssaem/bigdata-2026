@@ -851,3 +851,15 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 
 ### MLOPS(대출)
 - 테스트 코드 기초 - `test_api.py` 
+
+
+---
+
+# 2026-09-22
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-7일차)
+- **Docker** 컨테이너 코드 작성
+    - `Dockerfile` -`docker-compose.yml` -`requirements.txt`
+
+### MLOPS(대출)
+- GitHub Actions 코드 작성
+    - .github/workflows/ci-service-a.yml
