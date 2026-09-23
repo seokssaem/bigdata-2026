@@ -858,8 +858,16 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 # 2026-09-22
 ### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-7일차)
 - **Docker** 컨테이너 코드 작성
-    - `Dockerfile` -`docker-compose.yml` -`requirements.txt`
+    - `Dockerfile`, `docker-compose.yml`, `requirements.txt`
 
 ### MLOPS(대출)
 - GitHub Actions 코드 작성
     - .github/workflows/ci-service-a.yml
+
+
+---
+
+# 2026-09-23
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-8일차)
+- **Streamlit** 코드 작성
+    - `streamlit_app.py`, `Dockerfile.streamlit`, `requirements-streamlit.txt`
