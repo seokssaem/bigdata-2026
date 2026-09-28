@@ -871,3 +871,12 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 ### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-8일차)
 - **Streamlit** 코드 작성
     - `streamlit_app.py`, `Dockerfile.streamlit`, `requirements-streamlit.txt`
+
+---
+
+# 2026-09-28
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-9일차)
+- **JWT** 코드 작성
+
+### MLOPS(대출)
+- HTML 코드 작성
