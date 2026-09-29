@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06빅데이터</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 헤더 영역 -->
+    <header>
+        <h1 class="logo">온라인복권 1등 당첨 판매점 현황</h1>
+        <p>공공데이터포털 대기질 정보 API | 기준일 : 2026-06-26</p>
+        <p>https://infuser.odcloud.kr/oas/docs?namespace=15059963/v1</p>
+    </header>
+
+    <!-- 섹션: 배너 -->
+    <section id="banner">
+        <div class="banner-content">
+            <h3>복권 당첨에 관한 정보를 확인해보세요.</h3>
+        </div>
+
+    <!-- 헤더 중앙 컨텐츠 -->
+
+    <main>
+    <!-- 시맨틱 태그 : 메인 영역 -->
+        <section>
+            <!-- 시맨틱 태그 : 통계 카드 영역 -->
+            <h2>핵심 통계</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">지역 개수</span>
+                    <span class="stat-value" id="avg">16</span>
+                    <span class="stat-unit">개</span>
+                </div>
+                <div class="stat-card">
+                        <span class="stat-label">총 당첨 횟수</span>
+                        <span class="stat-value" id="max">466</span>
+                        <span class="stat-unit">번</span>
+                </div>
+                <div class="stat-card">
+                        <span class="stat-label">최대 당첨 횟수</span>
+                        <span class="stat-value" id="min">127</span>
+                        <span class="stat-unit">번</span>
+                </div>
+                <div class="stat-card">
+                        <span class="stat-label">최소 당첨 횟수</span>
+                        <span class="stat-value" id="avg25">2</span>
+                        <span class="stat-unit">번</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="header-content">
+        <h2>지역별 온라인복권 1등 당첨 건수 TOP5</h2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div class="chart-container">
+        <canvas id="barChart"></canvas>
+    </div>
+
+    <!-- 통계 계산 -->
+    <script>
+        const region = ['서울', '부산', '경기', '경남', '인천'];
+        const count = [78, 32, 127, 36, 28];
+        const count1 = [102, 35, 135, 41, 28];
+        // <!-- 막대 차트 -->
+        new Chart(document.getElementById('barChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: region,
+            datasets: [
+            {
+                label: '지역 수',
+                data: count,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgb(54, 162, 235)',
+                borderWidth: 1
+            },
+            {
+                label: '당첨 횟수',
+                data: count1,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                borderColor: 'rgb(255, 99, 132)',
+                borderWidth: 1
+            }
+            ]
+        },
+        options: {
+            scales: {
+            y: {
+                beginAtZero: true,
+                title: { display: true, text: '곳' }
+            }
+            }
+        }
+        });
+        </script> 
+
+
+        <!-- 푸터 영역 -->
+        <!-- 저작권 표시 -->
+        <footer>
+            <div class="copyright">
+                <p>Copyright &copy; Doohyeok. All rights reserved.</p>
+            </div>
+    </footer>
+
+</body>
+</html>

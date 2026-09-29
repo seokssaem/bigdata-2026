@@ -1,0 +1,78 @@
+﻿{
+  "test_rows": 47878,
+  "threshold": 0.3,
+  "roc_auc": 0.77,
+  "recall_casualty": 0.8516,
+  "precision_casualty": 0.0752,
+  "f1_casualty": 0.1382,
+  "confusion_matrix": [
+    [
+      23459,
+      22290
+    ],
+    [
+      316,
+      1813
+    ]
+  ],
+  "feature_importance_grouped": {
+    "발화요인소분류": 0.3751,
+    "장소대분류": 0.2036,
+    "시도": 0.1248,
+    "발생_시간": 0.1247,
+    "발생_월": 0.0961,
+    "발생_요일": 0.0756
+  },
+  "top_features": [
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_가스누출(폭발)",
+      "importance": 0.0344
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_미상",
+      "importance": 0.033
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_방화",
+      "importance": 0.0322
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_담배꽁초",
+      "importance": 0.0292
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_방화의심",
+      "importance": 0.027
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_트래킹에 의한 단락",
+      "importance": 0.0195
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_과열, 과부하",
+      "importance": 0.0193
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_절연열화에 의한 단락",
+      "importance": 0.0189
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_접촉불량에 의한 단락",
+      "importance": 0.0169
+    },
+    {
+      "base_feature": "발화요인소분류",
+      "feature": "발화요인소분류_음식물 조리중",
+      "importance": 0.0155
+    }
+  ]
+}
