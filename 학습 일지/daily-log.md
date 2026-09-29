@@ -876,7 +876,20 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 
 # 2026-09-28
 ### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-9일차)
-- **JWT** 코드 작성
+- **API Key** **JWT** 코드 작성
+    - `core/`, `middleware/`, `models/audit.py`, `models/user.py`, `routers/auth.py`, `schemas/auth.py`, services/user_service.py, `Caddyfile`
 
 ### MLOPS(대출)
 - HTML 코드 작성
+
+---
+
+# 2026-09-29
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-10일차)
+- **알람 경보 코드 작성**
+    - `services/threat_service.py`, `services/detection_service.py` `modles/detection.py`, `routers/alerts.py`
+- **비디오 탐지 코드 작성**
+    - `servicse/video-inference.py`, `routers/video.py`,
+
+### MLOPS(대출)
+- 드리프트 감지와 재학습 코드 작성
