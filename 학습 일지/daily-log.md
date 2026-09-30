@@ -893,3 +893,13 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 
 ### MLOPS(대출)
 - 드리프트 감지와 재학습 코드 작성
+
+---
+
+# 2026-09-30
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-11일차)
+- **방산 스타일 지표 코드 작성**
+    - `scripts/evaluate_defense_metrics.py`, `routers/defense_metrics.py`, `services/metrics_service.py`
+
+### React 기초 공부
+- `훅`, `이벤트 처리`, `리스트와 키`
