@@ -903,3 +903,20 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 
 ### React 기초 공부
 - `훅`, `이벤트 처리`, `리스트와 키`
+
+---
+
+# 2026-10-01
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-12일차)
+- **GitHub 저장소 전체 점검**, **README 작성**
+
+### React 기초 공부
+- `폼`, `state 끌어올리기`, `합성과 특수화`
+
+---
+
+# 2026-10-02
+### 드론영상 기반 객체 탑지 MLOps 파이프라인 구축(pp-13일차)
+- 코드 전체 점검
+
+### MLOps 실무를 위핸 LLM API 서버 구축
