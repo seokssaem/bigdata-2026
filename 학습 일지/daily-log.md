@@ -916,7 +916,31 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 ---
 
 # 2026-10-02
-### 드론영상 기반 객체 탑지 MLOps 파이프라인 구축(pp-13일차)
-- 코드 전체 점검
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-13일차)
+- **코드 전체 점검**
 
 ### MLOps 실무를 위핸 LLM API 서버 구축
+
+
+---
+
+# 2026-10-04
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-14일차)
+- **React 코드 작성**
+    - `src/lib/tabs.ts`, `src/components/Sidebar.tsx`, `App.tsx`, `frontend/.env.local`
+
+---
+
+# 2026-10-05
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-16일차)
+- **React 코드 작성**
+    -`ApiStatus.tsx`, `lib/api.ts`
+
+---
+
+# 2026-10-06
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-16일차)
+- **React 코드 작성**
+    - `usePolling.ts`, `pages/Alerts.tsx`, `components/Stat.tsx`, `pages/Dashboard.tsx`, `components/CountBarChart.tsx`
+
+### GitHub Actions + AWS Lightsail 자동 배포
