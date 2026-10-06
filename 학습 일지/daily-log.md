@@ -941,6 +941,6 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 # 2026-10-06
 ### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-16일차)
 - **React 코드 작성**
-    - `usePolling.ts`, `pages/Alerts.tsx`, `components/Stat.tsx`, `pages/Dashboard.tsx`, `components/CountBarChart.tsx`
+    - `src/lib/usePolling.ts`, `src/pages/Alerts.tsx`, `src/components/Stat.tsx`, `src/pages/Dashboard.tsx`, `src/components/CountBarChart.tsx`
 
 ### GitHub Actions + AWS Lightsail 자동 배포
