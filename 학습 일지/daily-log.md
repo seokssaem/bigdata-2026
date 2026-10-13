@@ -957,10 +957,16 @@ https://github.com/TaeGaori/BIGBUNGI/blob/main/part3_3_p386/ch3.ipynb
 ---
 
 # 2026-10-08
-### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-10일차)
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-19일차)
 - **React 코드 작성**
     - `components/TrainingChart.tsx`, `pages/Video.tsx`
 - **Docker 배포 설정**
     - `frontend/Dockerfile`, `frontend/nginx.conf`, `frontend/.dockerignore`, `.env.example`
 
 ### GitHub Actions + AWS Lightsail ci.yml을 Compose 배포용으로 교체하고 push
+
+---
+# 2026-10-13
+### 드론영상 기반 객체 탐지 MLOps 파이프라인 구축(pp-20일차)
+- **발표자료 제작**
+- **Lightsail 서버용 .env 생성**
