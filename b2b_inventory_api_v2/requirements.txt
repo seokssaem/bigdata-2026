@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+sqlalchemy
+streamlit
+scikit-learn
+pandas
+numpy
+pytest
+python-dotenv
+python-multipart
+requests
+psycopg[binary]
+jinja2>=3.1.6

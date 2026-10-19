@@ -1,0 +1,3 @@
+order_id,ordered_at,business_number,company_name,sku,product_name,quantity,unit_price
+EXAMPLE-001,2026-01-01T12:30:00+09:00,123-45-67890,예시 거래처,SKU-001,예시 상품,3,15000
+EXAMPLE-001,2026-01-01T12:30:00+09:00,123-45-67890,예시 거래처,SKU-002,다른 예시 상품,2,25000
