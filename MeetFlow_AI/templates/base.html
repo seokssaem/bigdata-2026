@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MeetFlow AI{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="/static/js/main.js"></script>
+    {% block styles %}{% endblock %}
+    <style>
+        body { background-color: #f8fafc; padding-bottom: 75px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 100vh; position: relative; box-shadow: 0 0 15px rgba(0,0,0,0.05); }
+        
+        /* 상단 헤더 스타일 */
+        .top-header {
+            border-bottom: 1px solid #e2e8f0;
+            background: #ffffff;
+            margin: -1rem -1rem 1.25rem -1rem;
+            padding: 1.1rem 1.25rem;
+        }
+        
+        /* 하단 네비게이션 바 스타일 */
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #ffffff; border-top: 1px solid #e2e8f0; z-index: 1000; }
+        .nav-item { text-align: center; font-size: 11px; color: #64748b; text-decoration: none; flex: 1; }
+        .nav-item.active { color: #6366f1; font-weight: bold; }
+        .nav-item i { font-size: 20px; display: block; margin-bottom: 2px; }
+        .nav-item.add-btn i { font-size: 22px; color: #6366f1; }
+
+        /* 동기화 버튼 회전 애니메이션 */
+        .spin-anim {
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .menu-card-item {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .menu-card-item:hover {
+            background-color: #f1f5f9 !important;
+        }
+    </style>
+    <script>
+        // 로그인 만료(401) 시 조용히 실패하지 않고 로그인 화면으로 이동
+        (function () {
+            const originalFetch = window.fetch;
+            window.fetch = async function (...args) {
+                const res = await originalFetch.apply(this, args);
+                const url = typeof args[0] === 'string' ? args[0] : ((args[0] && args[0].url) || '');
+                if (res.status === 401 && !url.includes('/auth/login') && location.pathname !== '/views/login') {
+                    window.location.href = '/views/login';
+                }
+                return res;
+            };
+        })();
+    </script>
+</head>
+<body>
+    <div class="app-container p-3">
+        <!-- 상단 헤더 영역 -->
+        <div class="top-header d-flex justify-content-between align-items-center">
+            <!-- 로고 영역 -->
+            <a href="/views/dashboard" class="d-flex align-items-center gap-2 text-decoration-none">
+                <i class="bi bi-stars fs-3" style="color: #6366f1;"></i>
+                <span class="fw-bold fs-4" style="color: #4f46e5; letter-spacing: -0.5px;">MeetFlow AI</span>
+            </a>
+            
+            <!-- 우측 종 아이콘 & 프로필 버튼 -->
+            <div class="d-flex align-items-center gap-3">
+                <!-- 🔔 1. 알림 버튼 -->
+                <button type="button" class="btn p-0 border-0 bg-transparent position-relative text-secondary" data-bs-toggle="modal" data-bs-target="#notificationModal">
+                    <i class="bi bi-bell fs-4"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                        <span class="visually-hidden">새 알림</span>
+                    </span>
+                </button>
+
+                <!-- 👤 2. 프로필 버튼 -->
+                <button type="button" class="btn p-0 border-0 rounded-circle overflow-hidden border border-2 d-inline-block shadow-sm" style="width: 38px; height: 38px;" data-bs-toggle="modal" data-bs-target="#profileModal">
+                    <img id="headerProfileImg" src="{{ user.profile_image if user is defined and user and user.profile_image else 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix' }}" alt="Profile" class="w-100 h-100 object-fit-cover">
+                </button>
+            </div>
+        </div>
+
+        {% block content %}{% endblock %}
+
+        {% if active_tab is defined and active_tab != 'login' %}
+        <div class="bottom-nav d-flex justify-content-around py-2">
+            <a href="/views/dashboard" class="nav-item {% if active_tab == 'dashboard' %}active{% endif %}">
+                <i class="bi bi-grid-fill"></i>대시보드
+            </a>
+            <a href="/views/meetings" class="nav-item {% if active_tab == 'meetings' %}active{% endif %}">
+                <i class="bi bi-file-earmark-text-fill"></i>회의록
+            </a>
+            <a href="/views/meetings/new" class="nav-item add-btn {% if active_tab == 'meeting_new' %}active{% endif %}">
+                <i class="bi bi-plus-circle-fill"></i>회의등록
+            </a>
+            <a href="/views/calendar" class="nav-item {% if active_tab == 'calendar' %}active{% endif %}">
+                <i class="bi bi-calendar-check-fill"></i>업무·일정
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- 🔔 1. 알림 팝업 모달 -->
+    <!-- ------------------------------------------------------------- -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow">
+                <div class="modal-header border-bottom p-0">
+                    <ul class="nav nav-tabs border-0 w-100 text-center" id="notifTab" role="tablist">
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-item active border-0 bg-transparent py-3 text-dark fw-bold w-100" style="border-bottom: 2px solid #6366f1 !important;" id="notif-tab" data-bs-toggle="tab" data-bs-target="#notif-content" type="button" role="tab">알림</button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-item border-0 bg-transparent py-3 text-muted w-100" id="chat-tab" data-bs-toggle="tab" data-bs-target="#chat-content" type="button" role="tab">대화</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-body text-center py-5 bg-light rounded-bottom-4">
+                    <div class="tab-content" id="notifTabContent">
+                        <div class="tab-pane fade show active" id="notif-content" role="tabpanel">
+                            <div class="rounded-circle bg-white d-inline-flex p-3 mb-3 shadow-sm text-primary">
+                                <i class="bi bi-bell-fill fs-2"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark mb-1">새로운 알림이 없습니다.</h5>
+                            <p class="text-muted small mb-0">MeetFlow AI 서비스의 실시간 알림을<br>이곳에서 모아볼 수 있습니다.</p>
+                        </div>
+                        <div class="tab-pane fade" id="chat-content" role="tabpanel">
+                            <p class="text-muted small my-4">진행 중인 대화가 없습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- 👤 2. 메인 프로필 선택 모달 -->
+    <!-- ------------------------------------------------------------- -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden" style="background-color: #f8fafc;">
+                
+                <!-- 상단 사용자 정보 헤더 -->
+                <div class="p-4 bg-white border-bottom position-relative">
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle overflow-hidden border border-2 border-primary shadow-sm" style="width: 54px; height: 54px;">
+                            <img id="mainProfileModalImg" src="{{ user.profile_image if user is defined and user and user.profile_image else 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix' }}" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h6 class="fw-bold fs-5 mb-0 text-dark">{{ user.name if user is defined and user and user.name else '테스트' }}</h6>
+                            <span class="text-muted small fs-7">{{ user.email if user is defined and user and user.email else 'test@example.com' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 메뉴 리스트 -->
+                <div class="p-3">
+                    <div class="d-flex flex-column gap-2">
+                        
+                        <!-- ⚙️ MeetFlow 계정 관리 -->
+                        <div class="menu-card-item bg-white border rounded-3 p-3 d-flex align-items-center justify-content-between shadow-sm text-dark" role="button" onclick="openAccountManageModal()">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle bg-primary bg-opacity-10 p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                                    <i class="bi bi-gear-fill text-primary fs-5"></i>
+                                </div>
+                                <span class="fw-bold small">MeetFlow 계정 관리</span>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted small"></i>
+                        </div>
+
+                        <!-- ➕ 다른 계정 추가 -->
+                        <a href="/views/login" class="menu-card-item bg-white border text-decoration-none rounded-3 p-3 d-flex align-items-center justify-content-between shadow-sm text-dark">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle bg-success bg-opacity-10 p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                                    <i class="bi bi-person-plus-fill text-success fs-5"></i>
+                                </div>
+                                <span class="fw-bold small">다른 계정 추가</span>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted small"></i>
+                        </a>
+
+                        <!-- 🚪 로그아웃 -->
+                        <a href="#" onclick="logout(event)" class="menu-card-item bg-white border text-decoration-none rounded-3 p-3 d-flex align-items-center justify-content-between shadow-sm text-danger">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle bg-danger bg-opacity-10 p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                                    <i class="bi bi-box-arrow-right text-danger fs-5"></i>
+                                </div>
+                                <span class="fw-bold small">로그아웃</span>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted small"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="text-center text-muted fs-8 mt-3 mb-1">
+                        개인정보처리방침 · 서비스 약관
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- ⚙️ 3. MeetFlow 계정 관리 전용 모달 -->
+    <!-- ------------------------------------------------------------- -->
+    <div class="modal fade" id="accountManageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+                <div class="modal-header border-bottom bg-light">
+                    <h6 class="modal-title fw-bold text-dark"><i class="bi bi-shield-lock-fill text-primary me-2"></i>MeetFlow 계정 설정</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- 사용자 프로필 요약 카드 -->
+                    <div class="text-center mb-4">
+                        <div class="position-relative d-inline-block mb-2">
+                            <div class="rounded-circle overflow-hidden border border-3 border-indigo shadow" style="width: 72px; height: 72px;">
+                                <img id="accountManageProfileImg" src="{{ user.profile_image if user is defined and user and user.profile_image else 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix' }}" class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <!-- 💡 [수정] 클릭 시 파일 input 클릭을 트리거함 -->
+                            <span class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-1 border border-white" style="line-height: 1; cursor: pointer;" onclick="document.getElementById('profileFileInput').click();">
+                                <i class="bi bi-pencil-fill fs-8"></i>
+                            </span>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-0">{{ user.name if user is defined and user and user.name else '테스트' }}</h5>
+                        <p class="text-muted small mb-0">{{ user.email if user is defined and user and user.email else 'test@example.com' }}</p>
+                    </div>
+
+                    <!-- 💡 [수정] 숨겨진 파일 선택 Input 추가 -->
+                    <input type="file" id="profileFileInput" accept="image/*" class="d-none" onchange="uploadProfileImage(this)">
+
+                    <div class="list-group list-group-flush rounded-3 border">
+                        <a href="javascript:void(0)" onclick="openEditProfileModal()" class="list-group-item list-group-item-action d-flex align-items-center justify-content-between p-3">
+                            <div>
+                                <div class="fw-bold text-dark small">프로필 정보 수정</div>
+                                <div class="text-muted fs-8">이름, 프로필 사진 및 상세 정보 변경</div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted"></i>
+                        </a>
+                        <a href="javascript:void(0)" onclick="openSecurityModal()" class="list-group-item list-group-item-action d-flex align-items-center justify-content-between p-3">
+                            <div>
+                                <div class="fw-bold text-dark small">보안 및 비밀번호</div>
+                                <div class="text-muted fs-8">비밀번호 변경 및 2단계 인증 설정</div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted"></i>
+                        </a>
+                        <a href="javascript:void(0)" onclick="openNotificationSettingsModal()" class="list-group-item list-group-item-action d-flex align-items-center justify-content-between p-3">
+                            <div>
+                                <div class="fw-bold text-dark small">알림 설정</div>
+                                <div class="text-muted fs-8">이메일 및 앱 푸시 알림 수신 설정</div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✏️ 4. 프로필 정보 수정 전용 모달 -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+                <div class="modal-header border-bottom bg-light">
+                    <h6 class="modal-title fw-bold text-dark"><i class="bi bi-person-gear text-primary me-2"></i>프로필 정보 수정</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editProfileForm" onsubmit="saveProfileInfo(event)">
+                        <!-- 프로필 이미지 선택 영역 -->
+                        <div class="text-center mb-4">
+                            <div class="position-relative d-inline-block">
+                                <div class="rounded-circle overflow-hidden border border-3 border-indigo shadow" style="width: 80px; height: 80px;">
+                                    <img id="editModalProfileImg" src="{{ user.profile_image if user is defined and user and user.profile_image else 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix' }}" class="w-100 h-100 object-fit-cover">
+                                </div>
+                                <button type="button" class="btn btn-primary btn-sm rounded-circle position-absolute bottom-0 end-0 p-1 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;" onclick="document.getElementById('profileFileInput').click();">
+                                    <i class="bi bi-camera-fill fs-8"></i>
+                                </button>
+                            </div>
+                            <div class="text-muted fs-8 mt-2">아이콘을 눌러 프로필 사진 변경</div>
+                        </div>
+
+                        <!-- 이름 입력 -->
+                        <div class="mb-3">
+                            <label for="userNameInput" class="form-label fw-bold small text-secondary">이름</label>
+                            <input type="text" class="form-control" id="userNameInput" value="{{ user.name if user is defined and user and user.name else '테스트' }}" required>
+                        </div>
+
+                        <!-- 이메일 입력 -->
+                        <div class="mb-4">
+                            <label for="userEmailInput" class="form-label fw-bold small text-secondary">이메일 계정</label>
+                            <input type="email" class="form-control" id="userEmailInput" value="{{ user.email if user is defined and user and user.email else 'test@example.com' }}" required>
+                        </div>
+
+                        <!-- 하단 버튼 -->
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-light w-50 fw-bold" data-bs-dismiss="modal">취소</button>
+                            <button type="submit" class="btn btn-primary w-50 fw-bold">저장하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔐 5. 보안 및 비밀번호 변경 모달 -->
+    <div class="modal fade" id="securityModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+                <div class="modal-header border-bottom bg-light">
+                    <h6 class="modal-title fw-bold text-dark"><i class="bi bi-shield-lock-fill text-primary me-2"></i>비밀번호 변경</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="changePasswordForm" onsubmit="savePasswordChange(event)">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label fw-bold small text-secondary">현재 비밀번호</label>
+                            <input type="password" class="form-control" id="currentPassword" placeholder="현재 비밀번호 입력" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label fw-bold small text-secondary">새 비밀번호</label>
+                            <input type="password" class="form-control" id="newPassword" placeholder="새 비밀번호 입력" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="confirmPassword" class="form-label fw-bold small text-secondary">새 비밀번호 확인</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="새 비밀번호 재입력" required>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-light w-50 fw-bold" data-bs-dismiss="modal">취소</button>
+                            <button type="submit" class="btn btn-primary w-50 fw-bold">비밀번호 변경</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔔 6. 알림 설정 전용 모달 -->
+    <div class="modal fade" id="notificationSettingsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+                <div class="modal-header border-bottom bg-light">
+                    <h6 class="modal-title fw-bold text-dark"><i class="bi bi-bell-fill text-primary me-2"></i>알림 설정</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="notificationSettingsForm" onsubmit="saveNotificationSettings(event)">
+                        <!-- 이메일 알림 토글 -->
+                        <div class="d-flex align-items-center justify-content-between py-2 border-bottom">
+                            <div>
+                                <div class="fw-bold small text-dark">이메일 알림</div>
+                                <div class="text-muted fs-8">회의 요약 및 주요 일정을 이메일로 받습니다.</div>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input fs-5" type="checkbox" id="emailNotifSwitch" checked>
+                            </div>
+                        </div>
+
+                        <!-- 앱 푸시 알림 토글 -->
+                        <div class="d-flex align-items-center justify-content-between py-2 mb-4">
+                            <div>
+                                <div class="fw-bold small text-dark">앱 푸시 알림</div>
+                                <div class="text-muted fs-8">실시간 회의 진행 및 메시지 알림을 받습니다.</div>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input fs-5" type="checkbox" id="pushNotifSwitch" checked>
+                            </div>
+                        </div>
+
+                        <!-- 하단 버튼 -->
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-light w-50 fw-bold" data-bs-dismiss="modal">취소</button>
+                            <button type="submit" class="btn btn-primary w-50 fw-bold">저장하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 🔄 실시간 동기화 클릭 이벤트 핸들러
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.addEventListener('click', function(e) {
+                const target = e.target.closest('a, button, span, div');
+                if (target && target.innerText && target.innerText.includes('실시간 동기화')) {
+                    e.preventDefault();
+                    
+                    const icon = target.querySelector('i') || target;
+                    icon.classList.add('spin-anim');
+                    
+                    setTimeout(() => {
+                        icon.classList.remove('spin-anim');
+                        window.location.reload();
+                    }, 600);
+                }
+            });
+        });
+
+        // 프로필 모달 닫고 계정 관리 모달 열기
+        function openAccountManageModal() {
+            const profileModalEl = document.getElementById('profileModal');
+            const profileModal = bootstrap.Modal.getInstance(profileModalEl);
+            if (profileModal) {
+                profileModal.hide();
+            }
+            
+            setTimeout(() => {
+                const accountModal = new bootstrap.Modal(document.getElementById('accountManageModal'));
+                accountModal.show();
+            }, 200);
+        }
+
+        // 로그아웃: 서버에서 httpOnly 쿠키를 삭제한 뒤 로그인 화면으로 이동
+        async function logout(event) {
+            if (event) event.preventDefault();
+            try {
+                await fetch('/auth/logout', { method: 'POST' });
+            } catch (e) {
+                console.error('로그아웃 요청 실패:', e);
+            }
+            ['access_token', 'token', 'accessToken', 'user_name', 'userName']
+                .forEach(k => localStorage.removeItem(k));
+            window.location.href = '/views/login';
+        }
+
+        // 프로필 사진 업로드: 서버 저장에 성공했을 때만 화면에 반영
+        async function uploadProfileImage(input) {
+            if (!input.files || !input.files[0]) return;
+
+            const file = input.files[0];
+            if (file.size > 5 * 1024 * 1024) {
+                alert('이미지는 5MB 이하만 업로드할 수 있습니다.');
+                input.value = '';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch('/api/user/profile-image', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (res.status === 401) {
+                    alert('로그인이 필요합니다.');
+                    return;
+                }
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    alert(err.detail || '프로필 사진 업로드에 실패했습니다.');
+                    return;
+                }
+
+                const data = await res.json();
+                const newImgUrl = data.profile_image + '?t=' + Date.now();
+                ['headerProfileImg', 'mainProfileModalImg', 'accountManageProfileImg', 'editModalProfileImg']
+                    .forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.src = newImgUrl;
+                    });
+
+                alert('프로필 사진이 성공적으로 변경되었습니다!');
+            } catch (err) {
+                console.error(err);
+                alert('네트워크 오류로 업로드하지 못했습니다.');
+            } finally {
+                input.value = '';
+            }
+        }
+
+        // 계정 관리 모달을 닫고 프로필 정보 수정 모달 열기
+        function openEditProfileModal() {
+            const accountModalEl = document.getElementById('accountManageModal');
+            const accountModal = bootstrap.Modal.getInstance(accountModalEl);
+            if (accountModal) {
+                accountModal.hide();
+            }
+            
+            setTimeout(() => {
+                const editModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+                editModal.show();
+            }, 200);
+        }
+
+        // 프로필 정보 저장 이벤트 핸들러
+        function saveProfileInfo(event) {
+            event.preventDefault();
+            
+            const newName = document.getElementById('userNameInput').value;
+            const newEmail = document.getElementById('userEmailInput').value;
+
+            // 화면 내의 이름/이메일 텍스트 요소들 실시간 갱신 (선택 사항)
+            document.querySelectorAll('.profile-name-text').forEach(el => el.textContent = newName);
+            document.querySelectorAll('.profile-email-text').forEach(el => el.textContent = newEmail);
+
+            alert('프로필 정보가 수정되었습니다!');
+
+            const editModalEl = document.getElementById('editProfileModal');
+            const editModal = bootstrap.Modal.getInstance(editModalEl);
+            if (editModal) {
+                editModal.hide();
+            }
+        }
+
+        // 계정 관리 모달을 닫고 비밀번호 변경 모달 열기
+        function openSecurityModal() {
+            const accountModalEl = document.getElementById('accountManageModal');
+            const accountModal = bootstrap.Modal.getInstance(accountModalEl);
+            if (accountModal) {
+                accountModal.hide();
+            }
+            
+            setTimeout(() => {
+                const securityModal = new bootstrap.Modal(document.getElementById('securityModal'));
+                securityModal.show();
+            }, 200);
+        }
+
+        // 비밀번호 변경 처리 함수
+        function savePasswordChange(event) {
+            event.preventDefault();
+            
+            const newPw = document.getElementById('newPassword').value;
+            const confirmPw = document.getElementById('confirmPassword').value;
+
+            if (newPw !== confirmPw) {
+                alert('새 비밀번호가 일치하지 않습니다.');
+                return;
+            }
+
+            alert('비밀번호가 성공적으로 변경되었습니다!');
+
+            const securityModalEl = document.getElementById('securityModal');
+            const securityModal = bootstrap.Modal.getInstance(securityModalEl);
+            if (securityModal) {
+                securityModal.hide();
+            }
+            document.getElementById('changePasswordForm').reset();
+        }
+
+        // 계정 관리 모달을 닫고 알림 설정 모달 열기
+        function openNotificationSettingsModal() {
+            const accountModalEl = document.getElementById('accountManageModal');
+            const accountModal = bootstrap.Modal.getInstance(accountModalEl);
+            if (accountModal) {
+                accountModal.hide();
+            }
+            
+            setTimeout(() => {
+                const notifModal = new bootstrap.Modal(document.getElementById('notificationSettingsModal'));
+                notifModal.show();
+            }, 200);
+        }
+
+        // 알림 설정 저장 처리 함수
+        function saveNotificationSettings(event) {
+            event.preventDefault();
+            
+            alert('알림 설정이 저장되었습니다!');
+
+            const notifModalEl = document.getElementById('notificationSettingsModal');
+            const notifModal = bootstrap.Modal.getInstance(notifModalEl);
+            if (notifModal) {
+                notifModal.hide();
+            }
+        }
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

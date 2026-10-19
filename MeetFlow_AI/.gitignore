@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual Environment
+.venv/
+venv/
+
+# Environment / Secret
+.env
+
+# VS Code
+.vscode/
+
+# Uploaded files
+uploads/*
+
+# Local data
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+# Database backups
+*.dump
+
+# Code backups
+*.bak
+*_before_*.py
+*_before_*.html
+*_backup*.py
+*_backup*.html
+
+# Server logs
+*.log
+*.before_*

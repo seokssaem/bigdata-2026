@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}신규 업무 등록 - MeetFlow AI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h4 class="fw-bold mb-3">신규 업무 등록</h4>
+    <form id="taskForm">
+        <!-- 업무명 -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">업무명</label>
+            <input type="text" id="taskTitle" class="form-control" placeholder="업무명을 입력하세요" required>
+        </div>
+
+        <!-- 담당자 -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">담당자</label>
+            <input type="text" id="assigneeName" class="form-control" placeholder="담당자 이름 (선택)">
+        </div>
+
+        <!-- 마감일 추가 -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">마감일</label>
+            <input type="date" id="dueDate" class="form-control">
+        </div>
+
+        <!-- 연결할 회의 선택 (선택 안 하면 최신 회의로 지정) -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">연결 회의</label>
+            <select id="meetingSelect" class="form-select">
+                <option value="">최신 회의에 연결</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-2">등록하기</button>
+    </form>
+</div>
+
+<script>
+// 페이지 로드 시 회의 목록 불러오기
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const res = await fetch('/meetings');
+        if (res.ok) {
+            const meetings = await res.json();
+            const select = document.getElementById('meetingSelect');
+            meetings.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.id;
+                opt.textContent = m.title || `${m.id}차 개발 회의`;
+                select.appendChild(opt);
+            });
+        }
+    } catch(e) {
+        console.error("회의 목록 로드 실패:", e);
+    }
+});
+
+// 등록 Form 제출 이벤트
+document.getElementById('taskForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const title = document.getElementById('taskTitle').value;
+    const assignee = document.getElementById('assigneeName').value || null;
+    const dueDate = document.getElementById('dueDate').value || null;
+    const meetingId = document.getElementById('meetingSelect').value || null;
+
+    try {
+        const response = await fetch('/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                task: title,
+                title: title,
+                assignee_name: assignee,
+                due_date: dueDate,
+                meeting_id: meetingId ? parseInt(meetingId) : null
+            })
+        });
+
+        if (response.ok) {
+            alert('업무가 성공적으로 등록되었습니다.');
+            window.history.back(); // 이전 화면으로 이동
+        } else {
+            alert('등록에 실패했습니다.');
+        }
+    } catch (err) {
+        console.error(err);
+        alert('오류가 발생했습니다.');
+    }
+});
+</script>
+{% endblock %}

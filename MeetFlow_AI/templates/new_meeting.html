@@ -1,0 +1,1186 @@
+{% extends "base.html" %}
+{% block title %}새 회의 등록 - MeetFlow AI{% endblock %}
+
+{% block content %}
+<!-- 상단 헤더 (뒤로가기 & 임시저장) -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="javascript:history.back()" class="text-dark fs-5 text-decoration-none">
+        <i class="bi bi-arrow-left"></i>
+    </a>
+    <h6 class="fw-bold mb-0 text-dark">✨ 새 회의 등록</h6>
+    <button type="button" class="btn btn-link text-muted btn-sm text-decoration-none p-0 fs-8" onclick="saveDraft()">임시저장</button>
+</div>
+
+<!-- AI 엔진 안내 배너 -->
+<div class="p-3 mb-4 rounded-4 d-flex align-items-center justify-content-between shadow-2xs" style="background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); border: 1px solid #c7d2fe;">
+    <div class="d-flex align-items-center gap-2.5">
+        <div class="bg-primary text-white rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+            <i class="bi bi-cpu-fill fs-6"></i>
+        </div>
+        <div>
+            <div class="fw-bold fs-7 text-dark">OpenAI GPT-4.1 mini 분석 엔진 준비됨</div>
+            <div class="fs-8 text-secondary">음성 파일 업로드 시 소정밀 화자 분리 및 요약</div>
+        </div>
+    </div>
+    <span class="badge bg-white text-primary fw-bold border border-primary-subtle px-2 py-1 fs-8">READY</span>
+</div>
+
+<form id="meetingForm" action="/meetings/create" method="POST" enctype="multipart/form-data">
+    
+    <!-- 1. 회의 기본 정보 -->
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2.5">
+            <h6 class="fw-bold text-dark mb-0 fs-7 d-flex align-items-center gap-1.5">
+                <i class="bi bi-sliders text-primary"></i> 회의 기본 정보
+            </h6>
+            <span class="fs-8 text-muted">* 필수 항목</span>
+        </div>
+
+        <div class="bg-white p-3 rounded-4 border shadow-2xs d-flex flex-column gap-3">
+            <!-- 회의 제목 -->
+            <div>
+                <label class="form-label fs-8 fw-bold text-secondary mb-1">회의 제목 *</label>
+                <input type="text" name="title" class="form-control form-control-sm rounded-3 py-2 fs-7" placeholder="예: 냉장고 관리 프로젝트 3차 개발회의" required>
+            </div>
+
+            
+
+            <!-- 프로젝트 선택 -->
+
+            <div>
+
+                <label class="form-label fs-8 fw-bold text-secondary mb-1">
+
+                    프로젝트 *
+
+                </label>
+
+                <select name="project_id" id="projectSelect"
+
+                        class="form-select form-select-sm rounded-3 py-2 fs-7"
+
+                        required>
+
+                    <option value="">프로젝트를 선택하세요</option>
+
+                </select>
+                <button type="button"
+                        id="createProjectBtn"
+                        class="btn btn-outline-primary btn-sm mt-2"
+                        onclick="createNewProject()">
+                    + 새 프로젝트 만들기
+                </button>
+
+
+            </div>
+
+
+
+            <!-- 회의 일시 -->
+            <div>
+                <label class="form-label fs-8 fw-bold text-secondary mb-1">회의 일시 *</label>
+                <div class="row g-2">
+                    <div class="col-7">
+                        <input type="date" name="meeting_date" id="meetingDate" class="form-control form-control-sm rounded-3 py-2 fs-7" required>
+                    </div>
+                    <div class="col-5">
+                        <input type="time" name="meeting_time" id="meetingTime" class="form-control form-control-sm rounded-3 py-2 fs-7" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 참석자 태그 -->
+            <div>
+                <label class="form-label fs-8 fw-bold text-secondary mb-1">참석자 태그</label>
+                <div class="p-2 border rounded-3 bg-light-subtle d-flex flex-wrap gap-1.5 align-items-center" id="attendeesContainer">
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill py-1.5 px-2.5 fs-8 d-inline-flex align-items-center gap-1" data-user-id="{{ user.id }}">
+                        <i class="bi bi-person-fill"></i> <span class="tag-name">{{ user.name }} ({{ user.email }})</span>
+                        <i class="bi bi-x ms-1 cursor-pointer" onclick="removeTag(this)"></i>
+                    </span>
+                    <input type="hidden" name="attendees" id="attendeesInput" value="{{ user.name }}">
+                    
+                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill py-0.5 px-2 fs-8 border-dashed" onclick="addAttendeePrompt()">
+                        + 추가
+                    </button>
+                </div>
+            </div>
+
+            <!-- 회의 목적 및 사전 공유사항 -->
+            <div>
+                <label class="form-label fs-8 fw-bold text-secondary mb-1">회의 목적 및 사전 공유사항</label>
+                <textarea name="description" class="form-control form-control-sm rounded-3 fs-7" rows="3" placeholder="회의의 주요 안건이나 공유할 내용을 입력하세요."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- 회의 등록 방식 선택 -->
+
+    <div class="mb-4">
+
+        <h6 class="fw-bold text-dark mb-3">
+
+            <i class="bi bi-ui-checks text-primary"></i> 회의 등록 방식
+
+        </h6>
+
+        <div class="row g-2" id="registrationModes">
+
+            <div class="col-4">
+
+                <button type="button" class="btn btn-primary w-100 py-3"
+
+                        data-mode="text" onclick="selectRegistrationMode('text')">
+
+                    <i class="bi bi-file-text d-block mb-1"></i>텍스트 등록
+
+                </button>
+
+            </div>
+
+            <div class="col-4">
+
+                <button type="button" class="btn btn-outline-primary w-100 py-3"
+
+                        data-mode="file" onclick="selectRegistrationMode('file')">
+
+                    <i class="bi bi-upload d-block mb-1"></i>파일 등록
+
+                </button>
+
+            </div>
+
+            <div class="col-4">
+
+                <button type="button" class="btn btn-outline-primary w-100 py-3"
+
+                        data-mode="record" onclick="selectRegistrationMode('record')">
+
+                    <i class="bi bi-mic d-block mb-1"></i>즉시 녹음
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- 텍스트 회의 등록 -->
+
+    <div id="textRegistrationSection" class="mb-4">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-body p-4">
+
+                <h6 class="fw-bold mb-3">
+
+                    <i class="bi bi-file-text text-primary me-2"></i>
+
+                    회의 내용 직접 입력
+
+                </h6>
+
+
+
+                <label for="meetingTranscript"
+
+                       class="form-label fw-bold text-secondary fs-8">
+
+                    회의 내용 *
+
+                </label>
+
+
+
+                <textarea
+
+                    id="meetingTranscript"
+
+                    name="transcript"
+
+                    class="form-control rounded-3"
+
+                    rows="12"
+
+                    placeholder="회의 내용을 입력하거나 복사하여 붙여넣으세요.&#10;&#10;예시:&#10;김팀장: 이번 프로젝트 진행 상황을 공유하겠습니다.&#10;이대리: 개발은 금요일까지 완료하겠습니다.&#10;김팀장: 다음 주 월요일에 최종 점검을 진행합시다."
+
+                ></textarea>
+
+
+
+                <div class="form-text mt-2">
+
+                    입력한 회의 내용을 AI가 분석하여 요약,
+
+                    결정사항 및 실행 업무를 추출함.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- 2. 음성 파일 등록 및 분석 -->
+    <div class="mb-4" id="audioRegistrationSection">
+        <div class="d-flex justify-content-between align-items-center mb-2.5">
+            <h6 class="fw-bold text-dark mb-0 fs-7 d-flex align-items-center gap-1.5">
+                <i class="bi bi-mic text-primary"></i> 음성 파일 등록 및 분석
+            </h6>
+            <span class="badge bg-primary-subtle text-primary rounded-pill fs-8">STT 지원</span>
+        </div>
+
+        <!-- 파일 업로드 드롭존 -->
+        <div class="border border-2 border-dashed border-primary-subtle rounded-4 p-4 text-center bg-white mb-3" id="dropZone" style="cursor: pointer;">
+            <input type="file" name="audio_file" id="audioFileInput" accept="audio/*" class="d-none" onchange="handleFileSelect(this)">
+            
+            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex p-3 mb-2">
+                <i class="bi bi-cloud-arrow-up fs-3"></i>
+            </div>
+            <div class="fw-bold text-dark fs-7 mb-0.5">파일을 드래그하거나 터치하여 업로드</div>
+            <p class="text-muted fs-8 mb-3">지원 포맷: MP3, WAV, M4A, AAC (최대 500MB)</p>
+            
+            <div class="d-flex justify-content-center gap-2">
+                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 fs-8 fw-medium" id="selectAudioFileBtn" onclick="document.getElementById('audioFileInput').click()">
+                    <i class="bi bi-folder2-open me-1"></i> 파일 선택
+                </button>
+                <button type="button" class="btn btn-primary btn-sm rounded-pill px-3 fs-8 fw-medium" style="background-color: #6366f1; border: none;" id="startRecordingBtn" onclick="toggleRecording()">
+                    <i class="bi bi-record-circle me-1"></i> <span id="recordBtnText">즉시 녹음</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 업로드된 음성 파일 오디오 플레이어 (파일선택 시 노출) -->
+        <div class="p-3 bg-white border rounded-4 shadow-2xs mb-3 d-none" id="audioPreviewCard">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="p-2 bg-primary-subtle text-primary rounded-3">
+                        <i class="bi bi-file-earmark-music fs-6"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark fs-8" id="fileName">meeting_recording.mp3</div>
+                        <div class="text-muted fs-8" id="fileInfo">45.2 MB · 한국어(KO) 지원</div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-link text-danger p-0 fs-7" onclick="removeAudioFile()"><i class="bi bi-trash"></i></button>
+            </div>
+
+            <!-- 간단 오디오 플레이어 -->
+            <audio id="audioPlayer" class="w-100 mt-1" controls style="height: 36px;"></audio>
+        </div>
+
+        <!-- AI 음성 심층 분석 옵션 -->
+        <div class="p-3 bg-indigo-subtle border border-indigo-subtle rounded-4" style="background-color: #f5f3ff;">
+            <div class="fw-bold text-indigo fs-8 mb-2.5 d-flex align-items-center gap-1.5" style="color: #4c1d95;">
+                <i class="bi bi-stars"></i> AI 음성 심층 분석 옵션
+            </div>
+
+            <div class="d-flex flex-column gap-2.5">
+                <!-- 옵션 1 -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fs-8 fw-bold text-dark">
+                            STT 음성-텍스트 자동 변환
+                            <span class="badge bg-light text-secondary border fs-8 fw-normal">화자 분리</span>
+                        </div>
+                        <div class="fs-8 text-muted">다중 참석자 목소리를 분리하여 텍스트 타임라인 생성</div>
+                    </div>
+                    <div class="form-check form-switch ms-2">
+                        <input class="form-check-input" type="checkbox" name="enable_stt" id="sttToggle" checked style="width: 2.2em; height: 1.2em;">
+                    </div>
+                </div>
+
+                <hr class="my-1 text-muted opacity-25">
+
+                <!-- 옵션 2 -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fs-8 fw-bold text-dark">
+                            Action Item 및 회의 요약 자동 추출
+                            <span class="badge bg-primary-subtle text-primary fs-8 fw-normal">OpenAI GPT-4.1 mini</span>
+                        </div>
+                        <div class="fs-8 text-muted">결정사항, 담당자별 실행 과제, 일정 자동 태깅</div>
+                    </div>
+                    <div class="form-check form-switch ms-2">
+                        <input class="form-check-input" type="checkbox" name="enable_summary" id="summaryToggle" checked style="width: 2.2em; height: 1.2em;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 제출 버튼 -->
+    <div class="mb-4">
+        <button type="submit" class="btn btn-primary btn-lg w-100 rounded-4 py-3 fw-bold d-flex justify-content-center align-items-center shadow-sm" style="background-color: #6366f1; border: none;">
+            <i class="bi bi-stars me-2"></i>회의 등록 및 AI 분석 시작
+        </button>
+        <div class="text-center text-muted fs-8 mt-1.5">
+            등록 즉시 백그라운드에서 AI 음성인식 및 문서화가 진행됩니다.
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 회의 등록 방식 선택
+
+    let registrationMode = 'text';
+
+
+
+    function selectRegistrationMode(mode) {
+
+        if (registrationMode !== mode && (isRecording || recordingFinalizing)) {
+
+            alert('녹음을 종료하고 파일 생성이 완료된 후 등록 방식을 변경해 주세요.');
+
+            return;
+
+        }
+
+
+
+        if (registrationMode !== mode) {
+
+            removeAudioFile();
+
+        }
+
+
+
+        registrationMode = mode;
+
+
+
+        const textSection = document.getElementById('textRegistrationSection');
+
+        const audioSection = document.getElementById('audioRegistrationSection');
+
+        const fileButton = document.getElementById('selectAudioFileBtn');
+
+        const recordButton = document.getElementById('startRecordingBtn');
+
+
+
+        textSection.classList.toggle('d-none', mode !== 'text');
+
+        audioSection.classList.toggle('d-none', mode === 'text');
+
+
+
+        fileButton.classList.toggle('d-none', mode !== 'file');
+
+        recordButton.classList.toggle('d-none', mode !== 'record');
+
+
+
+        document.querySelectorAll('#registrationModes button').forEach(button => {
+
+            const selected = button.dataset.mode === mode;
+
+            button.classList.toggle('btn-primary', selected);
+
+            button.classList.toggle('btn-outline-primary', !selected);
+
+        });
+
+    }
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        selectRegistrationMode('text');
+
+    });
+
+
+
+    // 오늘 날짜 및 시간 기본 설정
+    const now = new Date();
+    document.getElementById('meetingDate').value = now.toISOString().substring(0, 10);
+    document.getElementById('meetingTime').value = now.toTimeString().substring(0, 5);
+
+
+
+    // 회원가입 사용자 목록에서 참석자 선택
+
+    async function addAttendeePrompt() {
+
+        const existing = document.getElementById('attendeeDropdown');
+
+        if (existing) {
+
+            existing.remove();
+
+            return;
+
+        }
+
+
+
+        const container = document.getElementById('attendeesContainer');
+
+        const addBtn = container.querySelector('button');
+
+
+
+        const dropdown = document.createElement('select');
+
+        dropdown.id = 'attendeeDropdown';
+
+        dropdown.className = 'form-select form-select-sm mt-2';
+
+        dropdown.style.width = '100%';
+
+
+
+        const placeholder = new Option('참석할 회원을 선택하세요', '');
+
+        dropdown.add(placeholder);
+
+
+
+        try {
+
+            const response = await fetch('/users/', {
+
+                credentials: 'same-origin'
+
+            });
+
+
+
+            if (!response.ok) {
+
+                throw new Error('회원 목록 조회 실패: ' + response.status);
+
+            }
+
+
+
+            const users = await response.json();
+
+            const selectedIds = Array.from(
+
+                container.querySelectorAll('.badge[data-user-id]')
+
+            ).map(el => el.dataset.userId);
+
+
+
+            users.forEach(user => {
+
+                if (!selectedIds.includes(String(user.id))) {
+
+                    dropdown.add(new Option(`${user.name} (${user.email})`, String(user.id)));
+
+                }
+
+            });
+
+
+
+            dropdown.addEventListener('change', () => {
+
+                const userId = dropdown.value;
+
+                const name = dropdown.options[dropdown.selectedIndex].text;
+
+
+
+                if (!userId) return;
+
+
+
+                const badge = document.createElement('span');
+
+                badge.className = 'badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill py-1.5 px-2.5 fs-8 d-inline-flex align-items-center gap-1';
+
+                badge.dataset.userId = userId;
+
+
+
+                const icon = document.createElement('i');
+
+                icon.className = 'bi bi-person-fill';
+
+
+
+                const label = document.createElement('span');
+
+                label.className = 'tag-name';
+
+                label.textContent = name;
+
+
+
+                const remove = document.createElement('i');
+
+                remove.className = 'bi bi-x ms-1 cursor-pointer';
+
+                remove.onclick = () => removeTag(remove);
+
+
+
+                badge.append(icon, label, remove);
+
+                container.insertBefore(badge, addBtn);
+
+
+
+                updateAttendeesHiddenInput();
+
+                dropdown.remove();
+
+            });
+
+
+
+            container.appendChild(dropdown);
+
+            dropdown.focus();
+
+
+
+        } catch (error) {
+
+            dropdown.remove();
+
+            alert('회원 목록을 불러오지 못했습니다: ' + error.message);
+
+        }
+
+    }
+
+
+
+    // 참석자 태그 삭제
+    function removeTag(element) {
+        element.closest('.badge').remove();
+        updateAttendeesHiddenInput();
+    }
+
+    function updateAttendeesHiddenInput() {
+        const tags = Array.from(document.querySelectorAll('#attendeesContainer .tag-name')).map(el => el.dataset.name || el.innerText.replace(/ \([^()]*@[^()]*\)$/, ""));
+        document.getElementById('attendeesInput').value = tags.join(',');
+    }
+
+    // 음성 파일 선택 및 미리보기
+    function handleFileSelect(input) {
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            document.getElementById('fileName').innerText = file.name;
+            document.getElementById('fileInfo').innerText = `${(file.size / (1024 * 1024)).toFixed(1)} MB · 오디오 파일`;
+            
+            const player = document.getElementById('audioPlayer');
+            player.src = URL.createObjectURL(file);
+            
+            document.getElementById('audioPreviewCard').classList.remove('d-none');
+        }
+    }
+
+    function removeAudioFile() {
+
+        const input = document.getElementById('audioFileInput');
+
+        const player = document.getElementById('audioPlayer');
+
+
+
+        input.value = '';
+
+
+
+        if (player.src) {
+
+            player.pause();
+
+            URL.revokeObjectURL(player.src);
+
+            player.removeAttribute('src');
+
+            player.load();
+
+        }
+
+
+
+        document.getElementById('audioPreviewCard').classList.add('d-none');
+
+    }
+
+    // 녹음 기능
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+
+    let recordingFinalizing = false;
+
+
+
+    async function toggleRecording() {
+
+        const btnText = document.getElementById('recordBtnText');
+
+        const recordButton = document.getElementById('startRecordingBtn');
+
+
+
+        if (recordingFinalizing) return;
+
+
+
+        if (!isRecording) {
+
+            let stream;
+
+
+
+            try {
+
+                if (!navigator.mediaDevices?.getUserMedia) {
+
+                    throw new Error('HTTPS 연결이 필요할 수 있습니다.');
+
+                }
+
+
+
+                stream = await navigator.mediaDevices.getUserMedia({
+
+                    audio: true
+
+                });
+
+
+
+                mediaRecorder = new MediaRecorder(stream);
+
+                audioChunks = [];
+
+
+
+                mediaRecorder.ondataavailable = event => {
+
+                    if (event.data.size > 0) {
+
+                        audioChunks.push(event.data);
+
+                    }
+
+                };
+
+
+
+                mediaRecorder.onstop = () => {
+
+                    try {
+
+                        const mimeType =
+
+                            mediaRecorder.mimeType || 'audio/webm';
+
+
+
+                        const extension = mimeType.includes('mp4')
+
+                            ? 'm4a'
+
+                            : mimeType.includes('ogg')
+
+                                ? 'ogg'
+
+                                : 'webm';
+
+
+
+                        const audioBlob = new Blob(audioChunks, {
+
+                            type: mimeType
+
+                        });
+
+
+
+                        if (!audioBlob.size) {
+
+                            throw new Error('녹음된 음성 데이터가 없습니다.');
+
+                        }
+
+
+
+                        const file = new File(
+
+                            [audioBlob],
+
+                            `recorded_${Date.now()}.${extension}`,
+
+                            {type: mimeType}
+
+                        );
+
+
+
+                        const container = new DataTransfer();
+
+                        container.items.add(file);
+
+
+
+                        const input =
+
+                            document.getElementById('audioFileInput');
+
+
+
+                        input.files = container.files;
+
+                        handleFileSelect(input);
+
+
+
+                    } catch (error) {
+
+                        alert('녹음 파일 생성 실패: ' + error.message);
+
+                    } finally {
+
+                        stream.getTracks().forEach(track => track.stop());
+
+                        recordingFinalizing = false;
+
+                        recordButton.disabled = false;
+
+                    }
+
+                };
+
+
+
+                mediaRecorder.start();
+
+                isRecording = true;
+
+                btnText.innerText = '녹음 중지';
+
+
+
+            } catch (error) {
+
+                if (stream) {
+
+                    stream.getTracks().forEach(track => track.stop());
+
+                }
+
+                alert('녹음을 시작할 수 없습니다: ' + error.message);
+
+            }
+
+
+
+        } else {
+
+            recordingFinalizing = true;
+
+            recordButton.disabled = true;
+
+            mediaRecorder.stop();
+
+            isRecording = false;
+
+            btnText.innerText = '즉시 녹음';
+
+        }
+
+    }
+
+
+
+    // 임시저장 기능
+    function saveDraft() {
+        const form = document.getElementById('meetingForm');
+        const title = form.querySelector('[name="title"]').value;
+        const meetingDate = document.getElementById('meetingDate').value;
+        const meetingTime = document.getElementById('meetingTime').value;
+        const attendees = document.getElementById('attendeesInput').value;
+        const description = form.querySelector('[name="description"]').value;
+
+        if (!title.trim()) {
+            alert('임시저장을 위해 회의 제목을 입력해 주세요.');
+            return;
+        }
+
+        const draftData = {
+            title,
+            meetingDate,
+            meetingTime,
+            attendees,
+            description,
+            savedAt: new Date().toLocaleString()
+        };
+
+        // 로컬스토리지에 저장 (필요 시 백엔드 API 연동 가능)
+        localStorage.setItem('meetingDraft', JSON.stringify(draftData));
+        alert('회의 정보가 임시저장되었습니다.');
+    }
+
+
+    
+    // 새 프로젝트 생성
+    async function createNewProject() {
+        const name = prompt("새 프로젝트 이름을 입력하세요.");
+
+        if (name === null) return;
+
+        if (!name.trim()) {
+            alert("프로젝트 이름을 입력해야 합니다.");
+            return;
+        }
+
+        const description = prompt("프로젝트 설명을 입력하세요. (선택사항)");
+
+        if (description === null) return;
+
+        try {
+            const response = await fetch('/projects/', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name.trim(),
+                    description: description.trim()
+                })
+            });
+
+            if (!response.ok) {
+                const error = await response.json().catch(() => ({}));
+                throw new Error(
+                    typeof error.detail === 'string'
+                        ? error.detail
+                        : '프로젝트 생성 실패'
+                );
+            }
+
+            const project = await response.json();
+
+            await loadProjects();
+
+            document.getElementById('projectSelect').value =
+                String(project.id);
+
+            alert("새 프로젝트가 생성되었습니다.");
+
+        } catch (error) {
+            alert("프로젝트 생성 오류: " + error.message);
+        }
+    }
+
+    // 프로젝트 목록 불러오기
+
+    async function loadProjects() {
+
+        const select = document.getElementById('projectSelect');
+
+        const token = localStorage.getItem('access_token');
+
+
+
+        try {
+
+            const response = await fetch('/projects/', {
+
+                
+
+                credentials: 'same-origin'
+
+            });
+
+
+
+            if (!response.ok) {
+
+                throw new Error('HTTP ' + response.status);
+
+            }
+
+
+
+            const projects = await response.json();
+
+
+
+            select.innerHTML =
+
+                '<option value="">프로젝트를 선택하세요</option>';
+
+
+
+            projects.forEach(project => {
+
+                const option = document.createElement('option');
+
+                option.value = project.id;
+
+                option.textContent = project.name;
+
+                select.appendChild(option);
+
+            });
+
+
+
+            if (projects.length === 0) {
+
+                alert('등록된 프로젝트가 없습니다.');
+
+            }
+
+        } catch (error) {
+
+            alert('프로젝트 조회 실패: ' + error.message);
+
+        }
+
+    }
+
+
+
+    loadProjects();
+
+
+
+    // 회의 등록 API 연결
+    async function submitMeeting(event) {
+
+        event.preventDefault();
+
+
+
+        const form = document.getElementById('meetingForm');
+
+        const button = form.querySelector('button[type="submit"]');
+
+        const transcript = document.getElementById('meetingTranscript').value.trim();
+
+        const audioFile = document.getElementById('audioFileInput').files[0];
+
+
+
+        const data = {
+
+            project_id: Number(document.getElementById('projectSelect').value),
+
+            title: form.querySelector('[name="title"]').value.trim(),
+
+            meeting_date: document.getElementById('meetingDate').value,
+
+            attendees: document.getElementById('attendeesInput').value,
+            attendee_ids: Array.from(document.querySelectorAll('#attendeesContainer .badge[data-user-id]')).map(el => Number(el.dataset.userId))
+
+        };
+
+
+
+        if (!data.project_id || !data.title || !data.meeting_date) {
+
+            alert('필수 항목을 입력하세요.');
+
+            return;
+
+        }
+
+
+
+        if (registrationMode === 'text') {
+
+            if (!transcript) {
+
+                alert('분석할 회의 내용을 입력하세요.');
+
+                return;
+
+            }
+
+            data.transcript = transcript;
+
+        } else {
+
+            if (isRecording || recordingFinalizing) {
+
+                alert('녹음을 중지하고 파일 생성이 완료된 후 등록하세요.');
+
+                return;
+
+            }
+
+            if (!audioFile) {
+
+                alert('음성 파일을 선택하거나 녹음을 완료하세요.');
+
+                return;
+
+            }
+
+        }
+
+
+
+        button.disabled = true;
+
+        let createdMeetingId = null;
+
+
+
+        try {
+
+            const response = await fetch('/meetings', {
+
+                method: 'POST',
+
+                credentials: 'same-origin',
+
+                headers: {'Content-Type': 'application/json'},
+
+                body: JSON.stringify(data)
+
+            });
+
+
+
+            if (!response.ok) {
+
+                const error = await response.json();
+
+                throw new Error(JSON.stringify(error.detail || error));
+
+            }
+
+
+
+            const meeting = await response.json();
+
+            createdMeetingId = meeting.id;
+
+
+
+            if (registrationMode !== 'text') {
+
+                const formData = new FormData();
+
+                formData.append('file', audioFile);
+
+
+
+                const audioResponse = await fetch(
+
+                    '/meetings/' + meeting.id + '/audio',
+
+                    {
+
+                        method: 'POST',
+
+                        credentials: 'same-origin',
+
+                        body: formData
+
+                    }
+
+                );
+
+
+
+                if (!audioResponse.ok) {
+
+                    const error = await audioResponse.json();
+
+                    throw new Error(
+
+                        '음성 변환 실패: ' +
+
+                        JSON.stringify(error.detail || error)
+
+                    );
+
+                }
+
+            }
+
+
+
+            const analysisResponse = await fetch(
+
+                '/meetings/' + meeting.id + '/analyze',
+
+                {
+
+                    method: 'POST',
+
+                    credentials: 'same-origin'
+
+                }
+
+            );
+
+
+
+            if (!analysisResponse.ok) {
+
+                const error = await analysisResponse.json();
+
+                throw new Error(
+
+                    'AI 분석 실패: ' +
+
+                    JSON.stringify(error.detail || error)
+
+                );
+
+            }
+
+
+
+            alert('회의 등록 및 AI 분석이 완료되었습니다.');
+
+            window.location.href = '/views/meetings/' + meeting.id;
+
+
+
+        } catch (error) {
+
+            const detail = createdMeetingId
+
+                ? '회의는 등록되었으나 후속 처리에 실패했습니다. 회의 ID: '
+
+                    + createdMeetingId + '\\n'
+
+                : '';
+
+            alert(detail + error.message);
+
+        } finally {
+
+            button.disabled = false;
+
+        }
+
+    }
+
+
+
+    document.getElementById('meetingForm')
+        .addEventListener('submit', submitMeeting);
+
+</script>
+{% endblock %}

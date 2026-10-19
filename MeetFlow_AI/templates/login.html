@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}로그인 - MeetFlow AI{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center py-5" style="min-height: 75vh;">
+    <div class="text-center mb-4">
+        <span class="badge bg-primary-subtle text-primary mb-2 px-3 py-2 rounded-pill fw-bold fs-7">✨ MeetFlow AI</span>
+        <h3 class="fw-bold text-dark">스마트 회의·업무 관리</h3>
+        <p class="text-muted small">OpenAI 기반 AI 회의 분석 플랫폼</p>
+    </div>
+
+    <div class="card border-0 shadow-sm w-100 rounded-4 p-4">
+        <form id="loginForm">
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-secondary">이메일 주소</label>
+                <input type="email" id="email" class="form-control form-control-lg bg-light border-0 fs-6" required placeholder="name@company.com">
+            </div>
+            <div class="mb-4">
+                <label class="form-label small fw-bold text-secondary">비밀번호</label>
+                <input type="password" id="password" class="form-control form-control-lg bg-light border-0 fs-6" required placeholder="********">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg w-100 rounded-3 fw-bold fs-6 py-3" style="background-color: #6366f1; border: none;">로그인하기</button>
+        </form>
+        <div class="text-center mt-3">
+            <span class="text-muted small">아직 계정이 없으신가요?</span>
+            <a href="/views/register" class="fw-bold text-decoration-none ms-1">회원가입</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async(e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    email: e.target.email.value, 
+                    password: e.target.password.value 
+                })
+            });
+            if (res.ok) {
+                const data = await res.json();
+                if (data.access_token) {
+                    localStorage.setItem('access_token', data.access_token);
+                }
+                window.location.href = '/views/dashboard';
+            } else {
+                alert('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+            }
+        } catch (err) {
+            console.error('로그인 중 오류 발생:', err);
+            alert('서버 연결 중 오류가 발생했습니다.');
+        }
+    });
+</script>
+{% endblock %}

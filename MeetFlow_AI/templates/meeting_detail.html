@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+{% block title %}회의 상세 - MeetFlow AI{% endblock %}
+{% block content %}
+<div class="mb-3 d-flex align-items-center justify-content-between">
+    <a href="/views/meetings" class="text-decoration-none text-muted small">
+        <i class="bi bi-chevron-left"></i> 회의 상세
+    </a>
+
+</div>
+
+<!-- 상단 회의 기본 정보 Card -->
+<div class="card border-0 shadow-sm rounded-4 p-3 mb-3 bg-white">
+    <span class="badge bg-primary-subtle text-primary rounded-pill w-auto mb-2 align-self-start px-3 py-1 fs-7">
+        ✨ AI 회의 분석 (OpenAI GPT-4.1 mini)
+    </span>
+    <h5 class="fw-bold mb-1 text-dark">{{ meeting.title }}</h5>
+    <p class="text-muted small mb-1">📅 {{ meeting.meeting_date }}</p>
+    <p class="text-muted small mb-0">👥 참석자: {{ meeting.attendees or '미지정' }}</p>
+
+    <!-- 음성 기록 플레이어 -->
+    <div class="bg-light rounded-4 p-3 mt-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="small fw-bold text-dark"><i class="bi bi-soundwave text-primary me-1"></i> 회의 음성 기록 재생</span>
+            {% if meeting.audio_path and meeting.audio_path != 'None' %}
+            <span class="badge bg-white text-primary border rounded-pill">1.2x</span>
+            {% endif %}
+        </div>
+        
+        {% if meeting.audio_path and meeting.audio_path != 'None' %}
+        <audio controls class="w-100">
+            <source src="/meetings/{{ meeting.id }}/audio">
+        </audio>
+        {% else %}
+        <p class="text-muted fs-8 mb-0">등록된 오디오 파일이 없습니다.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- AI 분석 결과 Container -->
+<div class="card border-0 shadow-sm rounded-4 p-3 mb-3 bg-white">
+    <!-- 1. Bootstrap 탭 메뉴 적용 -->
+    <ul class="nav nav-pills gap-2 mb-3 border-bottom pb-2" id="meetingTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active rounded-pill px-3 py-1 fs-7" id="summary-tab" data-bs-toggle="tab" data-bs-target="#tab-summary" type="button" role="tab">
+                AI 요약 & 분석
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link rounded-pill px-3 py-1 fs-7" id="action-tab" data-bs-toggle="tab" data-bs-target="#tab-action" type="button" role="tab">
+                추출된 업무 ({{ meeting.action_items|length if meeting.action_items else 0 }})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link rounded-pill px-3 py-1 fs-7" id="stt-tab" data-bs-toggle="tab" data-bs-target="#tab-stt" type="button" role="tab">
+                전체 회의록 (STT)
+            </button>
+        </li>
+    </ul>
+
+    <!-- 탭 별 콘텐츠 영역 -->
+    <div class="tab-content" id="meetingTabContent">
+        <!-- 탭 1: AI 요약 & 분석 -->
+        <div class="tab-pane fade show active" id="tab-summary" role="tabpanel">
+            <!-- 스마트 핵심 요약 -->
+            <div class="mb-4">
+                <h6 class="fw-bold text-dark mb-2"><i class="bi bi-chat-left-quote-fill text-primary me-2"></i>스마트 핵심 요약</h6>
+                <div class="p-3 bg-light rounded-3 text-secondary lh-base fs-7">
+                    {{ meeting.summary if meeting.summary and meeting.summary != 'None' else '요약된 내용이 없습니다.' }}
+                </div>
+            </div>
+
+            <!-- 주요 안건 -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="fw-bold text-dark mb-0"><i class="bi bi-list-task text-primary me-2"></i>주요 안건</h6>
+                    <span class="badge bg-light text-muted fw-normal">{{ meeting.agendas|length if meeting.agendas else 0 }}개 안건</span>
+                </div>
+                <div class="d-flex flex-column gap-2">
+                    {% for agenda in meeting.agendas %}
+                    <div class="p-2 bg-light rounded-3 text-dark fs-7 d-flex align-items-center">
+                        <span class="fw-bold text-primary me-2">{{ loop.index }}</span>
+                        <span>{{ agenda.title or agenda }}</span>
+                    </div>
+                    {% else %}
+                    <div class="text-muted small p-2">등록된 안건이 없습니다.</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 결정사항 -->
+            <div class="mb-4">
+                <h6 class="fw-bold text-dark mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>결정사항</h6>
+                <div class="d-flex flex-column gap-2">
+                    {% for decision in meeting.decisions %}
+                    <div class="p-2 bg-light rounded-3 d-flex justify-content-between align-items-center fs-7">
+                        <span class="text-secondary fw-medium">{{ decision.category or '결정' }}</span>
+                        <span class="fw-bold text-primary">{{ decision.content }}</span>
+                    </div>
+                    {% else %}
+                    <div class="text-muted small p-2">결정사항이 없습니다.</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- AI 추출 Action Items 미리보기 -->
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="fw-bold text-dark mb-0"><i class="bi bi-check-square-fill text-primary me-2"></i>AI 추출 Action Items</h6>
+                    <button type="button" class="btn btn-link text-decoration-none small text-muted p-0" onclick="switchToActionTab()">
+                        전체보기 ({{ meeting.action_items|length if meeting.action_items else 0 }})
+                    </button>
+                </div>
+                
+                <div class="d-flex flex-column gap-2">
+                    {% for item in meeting.action_items %}
+                    <div class="p-3 border rounded-4 bg-white shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge rounded-circle bg-primary p-2">📋</span>
+                                <span class="fw-bold text-dark fs-7">{{ item.content or item.task }}</span>
+                            </div>
+                            {% set status_val = item.status.value if item.status and item.status.value is defined else item.status %}
+                            <span class="badge bg-secondary-subtle text-secondary rounded-pill px-2 py-1 fs-8">
+                                {{ status_val or 'pending' }}
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted fs-8">
+                            <span>담당자: {{ item.assignee_name or '미정' }}</span>
+                            <span>마감: {{ item.due_date or '기한없음' }}</span>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="text-muted small p-2">추출된 Action Item이 없습니다.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 2: 추출된 업무 (전체 Action Items) -->
+        <div class="tab-pane fade" id="tab-action" role="tabpanel">
+            <h6 class="fw-bold text-dark mb-3">추출된 Action Items 목록</h6>
+            <div class="d-flex flex-column gap-2">
+                {% for item in meeting.action_items %}
+                <div class="p-3 border rounded-4 bg-white shadow-sm" id="task-card-{{ item.id }}">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-dark fs-7">{{ item.content or item.task }}</span>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-warning-subtle text-warning">{{ item.status }}</span>
+                            <button class="btn btn-sm btn-outline-danger border-0 p-0 fw-bold fs-7" onclick="deleteTask('{{ item.id }}')" title="삭제">
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted fs-8">
+                        <span>담당: {{ item.assignee_name or '미정' }}</span>
+                        <span>마감일: {{ item.due_date or '없음' }}</span>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-muted small p-2">추출된 업무가 없습니다.</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 탭 3: 전체 회의록 (STT) -->
+        <div class="tab-pane fade" id="tab-stt" role="tabpanel">
+            <h6 class="fw-bold text-dark mb-2">전체 텍스트 변환 (STT)</h6>
+            <div class="p-3 bg-light rounded-3 text-secondary lh-base fs-7" style="max-height: 300px; overflow-y: auto;">
+                {{ meeting.transcript or '음성 텍스트 변환 결과가 없습니다.' }}
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- 📤 회의록 내보내기 & 저장 모달 창 -->
+<div class="modal fade" id="exportModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow">
+            <div class="modal-header border-bottom">
+                <h6 class="modal-title fw-bold text-dark"><i class="bi bi-download me-2 text-primary"></i>회의록 내보내기 & 저장</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="list-group list-group-flush">
+                    <!-- 1. 텍스트 파일(.txt) 다운로드 -->
+                    <button type="button" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-0 rounded-3 mb-1" onclick="downloadTxtFile()">
+                        <div class="rounded-circle bg-primary bg-opacity-10 p-2 text-primary">
+                            <i class="bi bi-file-earmark-arrow-down-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold small text-dark">텍스트 파일 (.txt) 저장</div>
+                            <div class="text-muted fs-8">AI 요약 및 전체 회의록을 텍스트 파일로 다운로드</div>
+                        </div>
+                    </button>
+
+                    <!-- 2. 클립보드에 복사 -->
+                    <button type="button" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-0 rounded-3 mb-1" onclick="copyMeetingContent()">
+                        <div class="rounded-circle bg-success bg-opacity-10 p-2 text-success">
+                            <i class="bi bi-clipboard-check-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold small text-dark">클립보드로 전체 복사</div>
+                            <div class="text-muted fs-8">메일이나 메신저로 간편하게 붙여넣기</div>
+                        </div>
+                    </button>
+
+                    <!-- 3. 인쇄 / PDF 저장 -->
+                    <button type="button" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-0 rounded-3" onclick="window.print()">
+                        <div class="rounded-circle bg-warning bg-opacity-10 p-2 text-warning">
+                            <i class="bi bi-printer-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold small text-dark">인쇄 및 PDF 저장</div>
+                            <div class="text-muted fs-8">회의록 페이지를 PDF로 출력 및 보관</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript 클릭 처리 액션 예시 -->
+<script>
+    // 1. 전체보기 버튼 클릭 시 Action Items 탭으로 이동
+    function switchToActionTab() {
+        const actionTab = new bootstrap.Tab(document.getElementById('action-tab'));
+        actionTab.show();
+    }
+
+    // 2. 캘린더에 업무 등록 버튼 동작
+    function registerCalendar() {
+        alert('추출된 Action Item이 캘린더 연동 및 업무 등록 페이지로 발송되었습니다.');
+        // 필요 시 페이지 이동: window.location.href = "/views/tasks/new";
+    }
+
+    // 3. AI에게 질문하기 버튼 동작
+    function askAI() {
+        const query = prompt('AI에게 회의 내용에 대해 궁금한 점을 질문하세요:');
+        if (query) {
+            alert(`'${query}'에 대한 분석을 진행합니다.`);
+            // backend API 연동 코드를 여기에 작성
+        }
+    }
+
+    // 4. 공유하기 예시
+    function shareMeeting() {
+        if (navigator.share) {
+            navigator.share({
+                title: '{{ meeting.title }}',
+                url: window.location.href
+            });
+        } else {
+            alert('현재 URL이 클립보드에 복사되었습니다.');
+        }
+    }
+
+    // 5. 텍스트 파일 (.txt) 저장 및 다운로드 기능
+    function downloadTxtFile() {
+        const title = "{{ meeting.title }}";
+        const summary = "{{ meeting.summary if meeting.summary and meeting.summary != 'None' else '요약 내용 없음' }}";
+        const script = {{ (meeting.transcript or '변환된 텍스트 없음') | tojson }};
+
+        const content = `[ MeetFlow AI 회의록 ]\n\n■ 회의명: ${title}\n\n■ AI 핵심 요약:\n${summary}\n\n■ 전체 회의록 (STT):\n${script}`;
+        
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${title}_회의록.txt`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+
+        // 모달 닫기
+        const modalEl = document.getElementById('exportModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if(modal) modal.hide();
+    }
+
+    // 6. 회의록 전체 클립보드 복사
+    function copyMeetingContent() {
+        const title = "{{ meeting.title }}";
+        const summary = "{{ meeting.summary if meeting.summary and meeting.summary != 'None' else '요약 내용 없음' }}";
+        const script = {{ (meeting.transcript or '변환된 텍스트 없음') | tojson }};
+
+        const content = `[ MeetFlow AI 회의록 ]\n■ 회의명: ${title}\n\n■ AI 핵심 요약:\n${summary}\n\n■ 전체 회의록 (STT):\n${script}`;
+
+        navigator.clipboard.writeText(content).then(() => {
+            alert("회의록 전체 내용이 클립보드에 복사되었습니다!");
+            const modalEl = document.getElementById('exportModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if(modal) modal.hide();
+        });
+    }
+    // 7. Action Item 삭제 함수
+    async function deleteTask(taskId) {
+        if (!confirm("이 업무(Action Item)를 삭제하시겠습니까?")) return;
+
+        try {
+            const response = await fetch(`/tasks/${taskId}`, { method: 'DELETE' });
+            if (response.ok) {
+                alert('삭제되었습니다.');
+                const card = document.getElementById(`task-card-${taskId}`);
+                if (card) {
+                    card.remove();
+                } else {
+                    location.reload();
+                }
+            } else {
+                alert('삭제에 실패했습니다.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('오류가 발생했습니다.');
+        }
+    }
+</script>
+{% endblock %}
+    

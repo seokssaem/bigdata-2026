@@ -1,0 +1,73 @@
+body {
+    background-color: #f8fafc;
+    padding-bottom: 70px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.app-container {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #ffffff;
+    min-height: 100vh;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    z-index: 1000;
+}
+
+.nav-item {
+    text-align: center;
+    font-size: 11px;
+    color: #64748b;
+    text-decoration: none;
+}
+
+.nav-item.active {
+    color: #6366f1;
+    font-weight: bold;
+}
+
+.nav-item i {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* --- FullCalendar 핵심 보라색 점 및 기본 스타일 --- */
+.fc {
+    --fc-border-color: #f1f5f9;
+    font-size: 0.8rem;
+}
+.fc .fc-toolbar-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+.fc-daygrid-event-harness {
+    display: flex !important;
+    justify-content: center !important;
+    text-align: center;
+}
+.fc-daygrid-event, .fc-event {
+    width: 7px !important;
+    height: 7px !important;
+    min-height: 7px !important;
+    border-radius: 50% !important;
+    background-color: #6366f1 !important; /* 보라색 점 */
+    border: none !important;
+    margin: 2px auto !important;
+    padding: 0 !important;
+}
+.fc-event-main, .fc-event-title {
+    display: none !important; /* 글자 숨기고 점만 표출 */
+}

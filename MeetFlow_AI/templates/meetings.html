@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}회의록 목록 - MeetFlow AI{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="fw-bold mb-0">📁 회의록 목록</h5>
+    <a href="/views/meetings/new" class="btn btn-sm btn-primary rounded-pill px-3" style="background-color: #6366f1; border: none;">+ 회의 등록</a>
+</div>
+
+<div class="d-flex flex-column gap-2 mb-4">
+    {% for meeting in meetings %}
+    <div class="card border-0 shadow-sm rounded-4 p-3">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="badge bg-primary-subtle text-primary rounded-pill">최신</span>
+            <small class="text-muted">{{ (meeting.meeting_date|string)[:10] if meeting.meeting_date else '' }}</small>
+        </div>
+        <h6 class="fw-bold text-dark mb-1">{{ meeting.title }}</h6>
+        <p class="text-muted small mb-2 text-truncate">{{ meeting.summary or '생성된 AI 요약 정보가 없습니다.' }}</p>
+        <a href="/views/meetings/{{ meeting.id }}" class="btn btn-outline-primary btn-sm rounded-pill w-100">상세보기 →</a>
+    </div>
+    {% else %}
+    <div class="text-center py-5 text-muted"><p class="small">등록된 회의록이 없습니다.</p></div>
+    {% endfor %}
+</div>
+{% endblock %}

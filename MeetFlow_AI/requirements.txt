@@ -1,0 +1,36 @@
+# ============================================================
+# MeetFlow AI - Python Dependencies
+# ============================================================
+
+# Web Framework
+fastapi
+uvicorn
+
+# Database / ORM
+sqlalchemy
+psycopg[binary]
+
+# Environment Variables
+python-dotenv
+
+# Validation
+pydantic
+email-validator
+
+# Authentication / Security
+pwdlib[argon2]
+PyJWT
+
+# File Upload
+python-multipart
+
+# Template
+jinja2
+
+# AI
+google-genai
+
+# Testing
+pytest
+httpx
+openai>=2.0,<3.0

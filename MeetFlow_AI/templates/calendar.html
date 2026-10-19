@@ -1,0 +1,442 @@
+{% extends "base.html" %}
+{% block title %}업무 및 일정관리 - MeetFlow AI{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/style.css">
+
+<!-- 상단 헤더 -->
+<div class="d-flex justify-content-between align-items-start mb-3">
+    <div>
+        <div class="text-primary fw-bold fs-8 tracking-wider mb-0.5">TASK & CALENDAR</div>
+        <h5 class="fw-bold text-dark mb-0">업무 및 일정관리</h5>
+    </div>
+    <div class="d-flex gap-1.5 align-items-center">
+        <button class="btn btn-light btn-sm rounded-circle p-1.5 text-secondary border-0" onclick="toggleFilter()"><i class="bi bi-funnel"></i></button>
+        <button class="btn btn-light btn-sm rounded-circle p-1.5 text-secondary border-0" onclick="toggleSearch()"><i class="bi bi-search"></i></button>
+        <button class="btn btn-primary btn-sm rounded-pill px-3 fw-bold fs-8" style="background-color: #4f46e5; border: none;" onclick="openAddTaskModal()">
+            + 업무 추가
+        </button>
+    </div>
+</div>
+
+<!-- 뷰 전환 탭 -->
+<div class="p-1 bg-light rounded-pill d-flex mb-3">
+    <button class="btn btn-white btn-sm rounded-pill flex-fill fw-bold shadow-2xs text-primary fs-8 py-1.5" id="tabCalendar" onclick="switchView('calendar')">
+        <i class="bi bi-calendar-event me-1"></i> 월간 캘린더
+    </button>
+    <button class="btn btn-link btn-sm rounded-pill flex-fill fw-medium text-muted fs-8 py-1.5 text-decoration-none" id="tabList" onclick="switchView('list')">
+        <i class="bi bi-list-task me-1"></i> 상태별 업무 리스트
+    </button>
+</div>
+
+<!-- 캘린더 섹션 -->
+<div id="calendarViewSection" class="mb-3">
+    <div class="card border-0 shadow-2xs rounded-4 p-3 bg-white">
+        <div id="calendar"></div>
+
+        <!-- 일자 선택 시 상세 카드 -->
+        <div class="p-3 mt-3 rounded-4 border border-primary-subtle bg-indigo-subtle d-none" id="selectedDateTaskCard" style="background-color: #f5f3ff;">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="d-flex gap-2">
+                    <div class="p-2 bg-primary text-white rounded-3 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                        <i class="bi bi-calendar-check fs-7"></i>
+                    </div>
+                    <div>
+                        <div class="fs-8 text-muted"><span id="selectedTaskDate"></span> · <span id="selectedTaskDday" class="text-danger fw-bold"></span></div>
+                        <div class="fw-bold text-dark fs-7" id="selectedTaskTitle">업무 항목을 선택하세요</div>
+                        <div class="fs-8 text-secondary" id="selectedTaskMeeting">회의 연동 안건</div>
+                    </div>
+                </div>
+                <button class="btn btn-light btn-sm rounded-pill fs-8 text-primary fw-bold border" onclick="goToMeetingDetail()">상세보기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 업무 상태 필터 버튼 -->
+<div class="d-flex gap-1.5 mb-3 overflow-x-auto pb-1" id="statusFilterBar">
+    <button type="button" class="btn btn-primary btn-sm rounded-pill px-3 fs-8 fw-bold text-nowrap filter-btn active" onclick="filterTasks('ALL', this)">
+        전체 <span id="countAll">0</span>
+    </button>
+    <button type="button" class="btn btn-light border btn-sm rounded-pill px-3 fs-8 text-secondary text-nowrap filter-btn" onclick="filterTasks('IN_PROGRESS', this)">
+        진행중 <span id="countInProgress">0</span>
+    </button>
+    <button type="button" class="btn btn-light border btn-sm rounded-pill px-3 fs-8 text-secondary text-nowrap filter-btn" onclick="filterTasks('PENDING', this)">
+        예정 <span id="countPending">0</span>
+    </button>
+    <button type="button" class="btn btn-light border btn-sm rounded-pill px-3 fs-8 text-secondary text-nowrap filter-btn" onclick="filterTasks('COMPLETED', this)">
+        완료 <span id="countCompleted">0</span>
+    </button>
+    <button type="button" class="btn btn-light border btn-sm rounded-pill px-3 fs-8 text-secondary text-nowrap filter-btn" onclick="filterTasks('DELAYED', this)">
+        지연 <span id="countDelayed">0</span>
+    </button>
+</div>
+
+<!-- 도출된 액션 아이템 헤더 -->
+<div class="d-flex justify-content-between align-items-center mb-2.5">
+    <div class="d-flex align-items-center gap-1.5">
+        <h6 class="fw-bold text-dark mb-0 fs-7">도출된 액션 아이템</h6>
+        <span class="badge bg-primary-subtle text-primary rounded-pill fs-8" id="totalActionItemsCount">0</span>
+    </div>
+    <span class="fs-8 text-muted cursor-pointer">정렬: 마감일순 <i class="bi bi-chevron-expand"></i></span>
+</div>
+
+<!-- 동적 액션 아이템 목록 컨테이너 -->
+<div class="d-flex flex-column gap-2 mb-4" id="actionItemsContainer">
+    <div class="p-4 text-center bg-light rounded-4 text-muted fs-8" id="emptyStateBox">
+        <i class="bi bi-clipboard-x fs-4 d-block mb-1 text-secondary opacity-50"></i>
+        데이터를 불러오는 중입니다...
+    </div>
+</div>
+
+<!-- AI 회의실 연동 완료 배너 -->
+<div class="p-3 rounded-4 text-white d-flex justify-content-between align-items-center mb-4 shadow-sm cursor-pointer" 
+     style="background: #6366f1; cursor: pointer;" 
+     onclick="location.href='/views/meetings'">
+    <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.2);">
+            <i class="bi bi-robot text-white fs-5"></i>
+        </div>
+        
+        <div>
+            <div class="fw-bold fs-7 lh-sm">AI 회의실 연동 완료</div>
+            <div class="fs-8 opacity-90 mt-0.5" id="aiBannerSummary">
+                불러오는 중...
+            </div>
+        </div>
+    </div>
+    <i class="bi bi-arrow-right text-white fs-5"></i>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- FullCalendar 6.1.8 CDN -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+<script>
+    let calendar;
+    let globalTasksData = [];
+    let selectedMeetingId = null;
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        await initCalendarAndTasks();
+    });
+
+    async function initCalendarAndTasks() {
+        const calendarEl = document.getElementById('calendar');
+        try {
+            // 1. API 호출로 업무 목록 가져오기
+            const res = await fetch('/tasks/calendar');
+            globalTasksData = res.ok ? await res.json() : [];
+
+            // 2. 액션 아이템 카드 리스트 동적 추가 (세번째 사진처럼 만들기)
+            renderTaskCards(globalTasksData);
+
+            // 3. 필터 카운터 및 최근 회의 배너 업데이트
+            updateTaskStats(globalTasksData);
+
+            // 기존 eventsData 부분을 아래와 같이 수정
+            const eventsData = globalTasksData.map(item => ({
+                id: item.id,
+                title: item.title,
+                start: item.due_date,
+                extendedProps: {
+                    status: item.status,
+                    assignee_name: item.assignee_name || '미지정',
+                    meeting_title: item.meeting_title || '추출된 회의 안건',
+                    meeting_id: item.meeting_id, // <-- 이 줄을 반드시 추가해주세요!
+                    d_day: item.d_day || ''
+                }
+            }));
+
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'ko',
+                height: 'auto',
+                headerToolbar: {
+                    left: 'title',
+                    center: '',
+                    right: 'prev,next'
+                },
+                titleFormat: { year: 'numeric', month: 'long' },
+                events: eventsData,
+                eventDisplay: 'block',
+                dateClick: function(info) {
+                    const eventsOnDate = calendar.getEvents().filter(e => e.startStr.startsWith(info.dateStr));
+                    if (eventsOnDate.length > 0) {
+                        showSelectedTaskCard(eventsOnDate[0]);
+                    }
+                },
+                eventClick: function(info) {
+                    showSelectedTaskCard(info.event);
+                }
+            });
+            calendar.render();
+
+        } catch (e) {
+            console.error('데이터 로딩 실패:', e);
+        }
+    }
+
+    function renderTaskCards(tasks) {
+        const container = document.getElementById('actionItemsContainer');
+        if (!container) return;
+
+        if (!tasks || tasks.length === 0) {
+            container.innerHTML = `
+                <div class="p-4 text-center bg-light rounded-4 text-muted fs-8">
+                    등록된 액션 아이템이 없습니다.
+                </div>`;
+            return;
+        }
+
+        // 오늘 날짜 YYYY-MM-DD 구하기
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        container.innerHTML = tasks.map(task => {
+            const rawStatus = typeof task.status === 'object' ? task.status.name : task.status;
+            let statusStr = String(rawStatus || '').toLowerCase();
+            const taskTitle = task.title || task.content || '';
+
+            // 상태 결정 우선순위
+            if (taskTitle.includes('완료') || statusStr === 'completed') {
+                statusStr = 'completed';
+            } else if (task.due_date && task.due_date < todayStr) {
+                statusStr = 'delayed';
+            } else {
+                // 마감일이 안 지났고 완료가 아니면 무조건 진행중 처리
+                statusStr = 'in_progress';
+            }
+            
+
+            // 완료 상태가 아닌 건 중 마감일이 지났다면 'delayed'(지연) 처리
+            if (statusStr !== 'completed' && task.due_date && task.due_date < todayStr) {
+                statusStr = 'delayed';
+            } else if (statusStr === 'pending' || !statusStr) {
+                // 마감일 안 지난 예정 항목은 진행중으로 처리
+                statusStr = 'in_progress';
+            }
+
+            let statusBadge = '진행중';
+            let badgeClass = 'bg-primary-subtle text-primary';
+
+            if (statusStr === 'completed') {
+                statusBadge = '완료';
+                badgeClass = 'bg-success-subtle text-success';
+            } else if (statusStr === 'delayed') {
+                statusBadge = '지연';
+                badgeClass = 'bg-danger-subtle text-danger';
+            } else if (statusStr === 'pending') {
+                statusBadge = '예정';
+                badgeClass = 'bg-secondary-subtle text-secondary';
+            }
+
+            const isChecked = statusStr === 'completed';
+            const displayMeetingTitle = task.meeting_title || (task.meeting && task.meeting.title) || '연동 회의 정보 없음';
+
+            return `
+            <div class="p-3 border rounded-4 bg-white shadow-2xs d-flex flex-column gap-2 task-card" data-status="${statusStr}">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="checkbox" class="form-check-input mt-0" ${isChecked ? 'checked' : ''} onclick="toggleTaskCompletion('${task.id}')">
+                        <div>
+                            <span class="fw-bold text-dark fs-7 ${isChecked ? 'text-decoration-line-through text-muted' : ''}">
+                                ${task.title || task.content}
+                            </span>
+                            <span class="badge ${badgeClass} rounded-pill fs-8 ms-1">${statusBadge}</span>
+                        </div>
+                    </div>
+                    ${task.d_day ? `<span class="badge ${task.d_day === 'D-Day' || task.d_day === '오늘마감!' ? 'bg-danger text-white' : 'bg-danger-subtle text-danger'} rounded-pill fs-8">${task.d_day}</span>` : ''}
+                </div>
+
+                <div class="fs-8 text-muted d-flex align-items-center gap-1 ms-4">
+                    <i class="bi bi-chat-left-text"></i> ${displayMeetingTitle}
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-1 border-top mt-1 fs-8 text-secondary">
+                    <div class="d-flex align-items-center gap-1.5">
+                        <i class="bi bi-person-circle"></i>
+                        <span>${task.assignee_name || (task.assignee && task.assignee.name) || '미지정'}</span>
+                    </div>
+                    <div>
+                        <i class="bi bi-calendar3 me-1"></i>${task.due_date || '기한 없음'} 마감
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+    
+
+    // 2. 하단 AI 배너 및 상태 카운트 수정
+    function updateTaskStats(tasks) {
+        let completed = 0, inProgress = 0, pending = 0, delayed = 0;
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        tasks.forEach(task => {
+            const rawStatus = typeof task.status === 'object' ? task.status.name : task.status;
+            let st = String(rawStatus || '').toLowerCase();
+            const taskTitle = task.title || task.content || '';
+
+            // renderTaskCards와 100% 동일한 기준 적용
+            if (taskTitle.includes('완료') || st === 'completed') {
+                completed++;
+            } else if (task.due_date && task.due_date < todayStr) {
+                delayed++;
+            } else {
+                inProgress++; // 마감일이 지나지 않은 미완료 항목은 모두 진행중
+            }
+        });
+
+        const total = tasks.length;
+        document.getElementById('countAll').innerText = total;
+        document.getElementById('countInProgress').innerText = inProgress;
+        document.getElementById('countPending').innerText = pending;
+        document.getElementById('countCompleted').innerText = completed;
+        document.getElementById('countDelayed').innerText = delayed;
+        document.getElementById('totalActionItemsCount').innerText = total;
+
+        // 회의 제목 유효성 체크 후 배너 문구 설정
+        const bannerSummary = document.getElementById('aiBannerSummary');
+        const firstMeetingTitle = tasks.length > 0 ? (tasks[0].meeting_title || (tasks[0].meeting && tasks[0].meeting.title)) : null;
+        
+        if (firstMeetingTitle) {
+            bannerSummary.innerText = `${firstMeetingTitle} 등에서 ${tasks.length}건의 태스크 자동 배정됨`;
+        } else if (tasks.length > 0) {
+            bannerSummary.innerText = `최근 회의에서 ${tasks.length}건의 태스크 자동 배정됨`;
+        } else {
+            bannerSummary.innerText = "최근 연동된 회의가 없습니다.";
+        }
+    }
+
+    function showSelectedTaskCard(event) {
+        document.getElementById('selectedDateTaskCard').classList.remove('d-none');
+        document.getElementById('selectedTaskDate').innerText = event.startStr;
+        document.getElementById('selectedTaskTitle').innerText = event.title;
+        document.getElementById('selectedTaskMeeting').innerText = event.extendedProps.meeting_title || '추출된 회의 안건';
+        document.getElementById('selectedTaskDday').innerText = event.extendedProps.d_day || '';
+        selectedMeetingId = event.extendedProps.meeting_id;
+    }
+
+    function goToMeetingDetail() {
+        if (selectedMeetingId) {
+            window.location.href = '/views/meetings/' + selectedMeetingId;
+        } else {
+            alert('연동된 회의 상세 페이지가 없습니다.');
+        }
+    }
+
+    function filterTasks(status, clickedBtn) {
+        // 1. 버튼 활성화 스타일 전환
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.classList.remove('btn-primary', 'fw-bold', 'active');
+            btn.classList.add('btn-light', 'text-secondary');
+        });
+
+        if (clickedBtn) {
+            clickedBtn.classList.remove('btn-light', 'text-secondary');
+            clickedBtn.classList.add('btn-primary', 'fw-bold', 'active');
+        }
+
+        // 2. 검색 기준값 비교 및 화면에 보이는 카드 개수 세기
+        const target = String(status || '').toLowerCase().trim();
+        const cards = document.querySelectorAll('.task-card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const rawStatus = card.getAttribute('data-status') || '';
+            const cardStatus = String(rawStatus).toLowerCase().trim();
+
+            const isAll = target === 'all' || target === '전체';
+            const isMatch = cardStatus === target || 
+                            cardStatus.includes(target) || 
+                            target.includes(cardStatus);
+
+            if (isAll || isMatch) {
+                card.classList.remove('d-none');
+                card.style.display = '';
+                visibleCount++; // 화면에 노출되는 카드 개수 카운트
+            } else {
+                card.classList.add('d-none');
+            }
+        });
+
+        // 3. '도출된 액션 아이템' 옆의 숫자 배지를 현재 보이는 개수로 업데이트
+        const totalBadge = document.getElementById('totalActionItemsCount');
+        if (totalBadge) {
+            totalBadge.innerText = visibleCount;
+        }
+    }
+
+    function switchView(viewType) {
+        const calSec = document.getElementById('calendarViewSection');
+        const tabCal = document.getElementById('tabCalendar');
+        const tabList = document.getElementById('tabList');
+
+        if (viewType === 'calendar') {
+            calSec.classList.remove('d-none');
+            tabCal.className = 'btn btn-white btn-sm rounded-pill flex-fill fw-bold shadow-2xs text-primary fs-8 py-1.5';
+            tabList.className = 'btn btn-link btn-sm rounded-pill flex-fill fw-medium text-muted fs-8 py-1.5 text-decoration-none';
+        } else {
+            calSec.classList.add('d-none');
+            tabList.className = 'btn btn-white btn-sm rounded-pill flex-fill fw-bold shadow-2xs text-primary fs-8 py-1.5';
+            tabCal.className = 'btn btn-link btn-sm rounded-pill flex-fill fw-medium text-muted fs-8 py-1.5 text-decoration-none';
+        }
+    }
+
+    async function toggleTaskCompletion(taskId) {
+        try {
+            await fetch(`/tasks/${taskId}/toggle`, { method: 'POST' });
+            initCalendarAndTasks();
+        } catch (e) {
+            console.error('상태 업데이트 오류:', e);
+        }
+    }
+
+    function openAddTaskModal() {
+        window.location.href = '/views/tasks/new';
+    }
+
+    function toggleFilter() {
+        const filterBar = document.getElementById('statusFilterBar');
+        if (filterBar) filterBar.classList.toggle('d-none');
+    }
+
+    function toggleSearch() {
+        const keyword = prompt('검색할 업무명을 입력하세요:');
+        if (keyword) {
+            const cards = document.querySelectorAll('.task-card');
+            cards.forEach(card => {
+                const text = card.innerText;
+                if (text.includes(keyword)) card.classList.remove('d-none');
+                else card.classList.add('d-none');
+            });
+        }
+    }
+</script>
+
+<style>
+    .fc {
+        --fc-border-color: #f1f5f9;
+        --fc-button-bg-color: #f8fafc;
+        --fc-button-border-color: #e2e8f0;
+        --fc-button-text-color: #334155;
+        --fc-button-hover-bg-color: #e2e8f0;
+        font-size: 0.8rem;
+    }
+    .fc .fc-toolbar-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .fc-event {
+        border-radius: 6px;
+        padding: 2px 4px;
+        font-size: 0.75rem;
+        background-color: #6366f1 !important;
+        border: none !important;
+    }
+</style>
+{% endblock %}

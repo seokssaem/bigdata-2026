@@ -1,0 +1,345 @@
+{% extends "base.html" %}
+{% block title %}대시보드 - MeetFlow AI{% endblock %}
+{% block content %}
+
+<!-- 상단 헤더 & 프로젝트 선택 -->
+<div class="d-flex justify-content-between align-items-center mb-3 mt-1">
+    <button class="btn btn-link btn-sm text-muted text-decoration-none p-0" onclick="loadDashboard()">
+        <i class="bi bi-arrow-repeat"></i> 실시간 동기화
+    </button>
+</div>
+
+<!-- 사용자 인사말 & AI 브리핑 -->
+<div class="mb-3">
+    <span class="badge bg-primary-subtle text-primary rounded-pill mb-1 fw-bold fs-8">
+        AI 일일 브리핑 <span class="text-muted fw-normal ms-1" id="currentDate"></span>
+    </span>
+    <h5 class="fw-bold mb-0 text-dark">안녕하세요, <span id="userName">{{ current_user.name if current_user and current_user.name else (user.name if user and user.name else '') }}</span>님!</h5>
+    <small class="text-muted">오늘의 회의 및 추출된 업무 요약입니다.</small>
+</div>
+
+<!-- 4개 핵심 지표 카드 -->
+<div class="row g-2 mb-3">
+    <div class="col-6">
+        <div class="p-3 bg-white rounded-4 shadow-2xs border" role="link" tabindex="0" style="cursor:pointer;" onclick="window.location.href='/views/meetings'" onkeydown="if(event.key==='Enter') window.location.href='/views/meetings'">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-secondary small fw-medium">전체 회의</span>
+                <span class="badge bg-primary-subtle text-primary rounded-circle p-1.5"><i class="bi bi-people-fill"></i></span>
+            </div>
+            <div class="d-flex align-items-baseline mt-1 mb-1">
+                <h3 class="fw-bold mb-0 text-dark me-1" id="totalMeetings">0</h3>
+                <span class="small text-muted">건</span>
+            </div>
+            <div class="fs-8 text-primary"><i class="bi bi-robot me-1"></i>AI 회의록 자동생성</div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="p-3 bg-white rounded-4 shadow-2xs border" role="link" tabindex="0" style="cursor:pointer;" onclick="window.location.href='/tasks/calendar-view'" onkeydown="if(event.key==='Enter') window.location.href='/tasks/calendar-view'">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-secondary small fw-medium">진행중 업무</span>
+                <span class="badge bg-primary-subtle text-primary rounded-circle p-1.5"><i class="bi bi-clipboard-check-fill"></i></span>
+            </div>
+            <div class="d-flex align-items-baseline mt-1 mb-1">
+                <h3 class="fw-bold mb-0 text-dark me-1" id="pendingTasks">0</h3>
+                <span class="small text-muted">건</span>
+            </div>
+            <div class="fs-8 text-primary"><i class="bi bi-graph-up-arrow me-1"></i>스프린트 진행중</div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="p-3 bg-white rounded-4 shadow-2xs border" role="link" tabindex="0" style="cursor:pointer;" onclick="window.location.href='/tasks/calendar-view'" onkeydown="if(event.key==='Enter') window.location.href='/tasks/calendar-view'">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-secondary small fw-medium">완료 업무</span>
+                <span class="badge bg-primary-subtle text-primary rounded-circle p-1.5"><i class="bi bi-check-circle-fill"></i></span>
+            </div>
+            <div class="d-flex align-items-baseline mt-1 mb-1">
+                <h3 class="fw-bold mb-0 text-dark me-1" id="completedTasks">0</h3>
+                <span class="small text-muted">건</span>
+            </div>
+            <div class="fs-8 text-primary"><i class="bi bi-pie-chart-fill me-1"></i>달성률 <span id="completionRate">0</span>%</div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="p-3 bg-danger-subtle rounded-4 border border-danger-subtle">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-danger small fw-bold">마감 임박</span>
+                <span class="badge bg-danger text-white rounded-circle p-1"><i class="bi bi-exclamation-lg"></i></span>
+            </div>
+            <div class="d-flex align-items-baseline mt-1 mb-1">
+                <h3 class="fw-bold mb-0 text-danger me-1" id="urgentTasks">0</h3>
+                <span class="small text-danger">건</span>
+            </div>
+            <div class="fs-8 text-danger fw-medium"><i class="bi bi-clock-history me-1"></i>우선순위 조치 필요</div>
+        </div>
+    </div>    
+</div>
+
+<!-- 전체 업무 진행 현황 게이지 바 -->
+<div class="card border-0 shadow-2xs rounded-4 p-3 mb-3 bg-white">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h6 class="fw-bold text-dark mb-0 fs-7">
+            <i class="bi bi-pie-chart text-primary me-1.5"></i>전체 업무 진행 현황
+        </h6>
+        <span class="fs-8 text-muted">총 <span id="totalTasksCount">0</span>건</span>
+    </div>
+
+    <div class="progress rounded-pill mb-2" style="height: 8px;">
+        <div class="progress-bar bg-primary" id="barCompleted" role="progressbar" style="width: 0%"></div>
+        <div class="progress-bar bg-info" id="barInProgress" role="progressbar" style="width: 0%"></div>
+        <div class="progress-bar bg-secondary" id="barPending" role="progressbar" style="width: 0%"></div>
+        <div class="progress-bar bg-danger" id="barDelayed" role="progressbar" style="width: 0%"></div>
+    </div>
+
+    <div class="d-flex justify-content-between text-center fs-8 mt-1">
+        <div><span class="badge bg-primary rounded-circle p-1 me-1"></span>완료 <br><strong class="text-dark" id="cntCompleted">0 (0%)</strong></div>
+        <div><span class="badge bg-info rounded-circle p-1 me-1"></span>진행중 <br><strong class="text-dark" id="cntInProgress">0 (0%)</strong></div>
+        <div><span class="badge bg-secondary rounded-circle p-1 me-1"></span>예정 <br><strong class="text-dark" id="cntPending">0 (0%)</strong></div>
+        <div><span class="badge bg-danger rounded-circle p-1 me-1"></span>지연 <br><strong class="text-dark" id="cntDelayed">0 (0%)</strong></div>
+    </div>
+</div>
+
+<!-- AI 추천 긴급 액션 -->
+<div class="mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h6 class="fw-bold text-dark mb-0 fs-7"><i class="bi bi-stars text-primary me-1.5"></i>AI 추천 긴급 액션</h6>
+        <a href="/views/calendar" class="text-decoration-none fs-8 text-muted">모두보기 <i class="bi bi-chevron-right"></i></a>
+    </div>
+
+    <div class="d-flex flex-column gap-2" id="urgentTasksList">
+        {% if urgent_action_items is defined and urgent_action_items %}
+            {% for item in urgent_action_items %}
+            <div class="p-3 border rounded-4 bg-white shadow-2xs d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <input type="checkbox" class="form-check-input mt-0" onclick="toggleTaskStatus('{{ item.id }}')">
+                        <span class="fw-bold text-dark fs-7">{{ item.content or item.task }}</span>
+                        {% if item.d_day %}
+                        <span class="badge {% if item.d_day == 'D-Day' or item.d_day == '오늘마감!' %}bg-danger text-white{% else %}bg-danger-subtle text-danger{% endif %} rounded-pill fs-8">
+                            {{ item.d_day }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="fs-8 text-muted">
+                        👤 {{ item.assignee_name or '미정' }} · 📅 마감: {{ item.due_date or '기한없음' }} · 
+                        <span class="badge bg-primary-subtle text-primary">{{ item.status.value if item.status and item.status.value is defined else (item.status or '진행중') }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="p-3 text-center bg-light rounded-4 text-muted fs-8">
+                긴급 조치가 필요한 Action Item이 없습니다.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- 최근 분석된 회의 -->
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h6 class="fw-bold text-dark mb-0 fs-7"><i class="bi bi-file-earmark-text text-primary me-1.5"></i>최근 분석된 회의</h6>
+        <a href="/views/meetings" class="text-decoration-none fs-8 text-muted">전체목록 <i class="bi bi-chevron-right"></i></a>
+    </div>
+
+    {% if meetings is defined and meetings and meetings|length > 0 %}
+        {% for meeting in meetings %}
+        <div class="card border-0 shadow-2xs rounded-4 p-3 mb-2 bg-white {% if loop.first %}border-start border-primary border-4{% endif %}">
+            <div class="d-flex justify-content-between align-items-start mb-1">
+                <h6 class="fw-bold text-dark mb-0 fs-7">{{ meeting.title }}</h6>
+                {% if loop.first %}
+                <span class="badge bg-primary-subtle text-primary rounded-pill fs-8">최신</span>
+                {% endif %}
+            </div>
+            <p class="text-muted fs-8 mb-2">
+                📅 {{ meeting.meeting_date }} | 👥 참석 {{ meeting.attendees_count or (meeting.attendees.split(',')|length if meeting.attendees else '0') }}명
+                {% if meeting.duration_minutes %}| ⏱️ {{ meeting.duration_minutes }}분{% endif %}
+            </p>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-1">
+                    <span class="badge bg-light text-primary border rounded-pill fs-8">✨ AI요약 완료</span>
+                    <span class="badge bg-light text-secondary border rounded-pill fs-8">📋 {{ (meeting.action_items or [])|length }}개 업무 추출</span>
+                </div>
+                <a href="/views/meetings/{{ meeting.id }}" class="text-decoration-none fs-8 fw-bold text-primary">
+                    상세로 이동 <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="p-3 text-center bg-light rounded-4 text-muted fs-8">
+            최근 분석된 회의가 없습니다. 회의를 녹음하거나 등록해 보세요.
+        </div>
+    {% endif %}
+</div>
+
+<!-- 새 회의 녹음 CTA 버튼 -->
+<a href="/views/meetings/new" class="btn btn-primary btn-lg w-100 rounded-4 py-3 fw-bold d-flex justify-content-center align-items-center shadow-sm" style="background-color: #6366f1; border: none;">
+    <i class="bi bi-mic-fill me-2"></i>새 회의 즉시 녹음 및 AI 요약 시작
+</a>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ko-KR', {
+        year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short'
+    });
+
+    function getAuthToken() {
+        return localStorage.getItem('access_token') || 
+               localStorage.getItem('token') || 
+               localStorage.getItem('accessToken');
+    }
+
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // 1. 내 정보 조회 (유효하지 않은 토큰 처리 강화)
+    async function fetchMyInfo() {
+        try {
+            const savedUser = localStorage.getItem('user_name') || localStorage.getItem('userName');
+            if (savedUser) {
+                document.getElementById('userName').innerText = savedUser;
+            }
+
+            const token = getAuthToken();
+            // 토큰이 없거나, 문자열 'null' / 'undefined'인 경우 /auth/me를 호출하지 않음
+            if (!token || token === 'null' || token === 'undefined') {
+                return;
+            }
+
+            const res = await fetch('/auth/me', {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${token}` },
+                credentials: 'include'
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                const name = data.name || data.user_name || data.username;
+                if (name) {
+                    document.getElementById('userName').innerText = name;
+                    localStorage.setItem('user_name', name);
+                }
+            } else if (res.status === 401) {
+                // 토큰이 만료되었거나 유효하지 않으면 스토리지 비우기
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('token');
+                localStorage.removeItem('accessToken');
+            }
+        } catch (e) {
+            console.error("내 정보 조회 오류:", e);
+        }
+    }
+
+    // 2. 대시보드 조회
+    async function loadDashboard() {
+        try {
+            const token = getAuthToken();
+            const headers = {};
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+
+            const projectId = getQueryParam('project_id');
+            let url = '/tasks/dashboard';
+            
+            // project_id가 존재하는 경우에만 쿼리파라미터 부착
+            if (projectId && projectId !== 'undefined' && projectId !== 'null') {
+                url += `?project_id=${encodeURIComponent(projectId)}`;
+            }
+
+            const res = await fetch(url, {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include'
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                
+                const loggedInName = data.user_name || (data.user && data.user.name);
+                if (loggedInName) {
+                    document.getElementById('userName').innerText = loggedInName;
+                    localStorage.setItem('user_name', loggedInName);
+                }
+                
+                document.getElementById('totalMeetings').innerText = data.total_meetings || 0;
+                
+                // --- 업무·일정 페이지와 동일한 카운트 집계 로직 적용 ---
+                const todayStr = new Date().toISOString().split('T')[0];
+                const taskList = data.task_list || data.tasks_items || data.items || [];
+                
+                let completed = 0, inProgress = 0, pending = 0, delayed = 0;
+
+                if (taskList && taskList.length > 0) {
+                    taskList.forEach(task => {
+                        const rawStatus = typeof task.status === 'object' ? task.status.name : task.status;
+                        let st = String(rawStatus || '').toLowerCase();
+                        const taskTitle = task.title || task.content || task.task || '';
+
+                        // 제목에 '완료'가 포함되어 있거나 상태가 completed인 경우 완료로 처리
+                        if (taskTitle.includes('완료') || st === 'completed') {
+                            completed++;
+                        } else if (task.due_date && task.due_date < todayStr) {
+                            delayed++;
+                        } else {
+                            inProgress++;
+                        }
+                    });
+                } else {
+                    // task_list 배열이 없을 경우 기존 서버 전달값 활용 (완료 글자 포함 fallback)
+                    completed = data.tasks?.completed || 0;
+                    inProgress = data.tasks?.in_progress || 0;
+                    pending = data.tasks?.pending || 0;
+                    delayed = data.tasks?.delayed || 0;
+                }
+
+                const totalTasks = completed + inProgress + pending + delayed;
+
+                document.getElementById('completedTasks').innerText = completed;
+                document.getElementById('pendingTasks').innerText = inProgress;
+                document.getElementById('urgentTasks').innerText = data.tasks?.urgent || 0;
+                document.getElementById('totalTasksCount').innerText = totalTasks;
+
+                if (totalTasks > 0) {
+                    const compRate = Math.round((completed / totalTasks) * 100);
+                    const progRate = Math.round((inProgress / totalTasks) * 100);
+                    const pendRate = Math.round((pending / totalTasks) * 100);
+                    const delayRate = Math.round((delayed / totalTasks) * 100);
+
+                    document.getElementById('completionRate').innerText = compRate;
+                    
+                    document.getElementById('barCompleted').style.width = compRate + '%';
+                    document.getElementById('barInProgress').style.width = progRate + '%';
+                    document.getElementById('barPending').style.width = pendRate + '%';
+                    document.getElementById('barDelayed').style.width = delayRate + '%';
+
+                    document.getElementById('cntCompleted').innerText = `${completed} (${compRate}%)`;
+                    document.getElementById('cntInProgress').innerText = `${inProgress} (${progRate}%)`;
+                    document.getElementById('cntPending').innerText = `${pending} (${pendRate}%)`;
+                    document.getElementById('cntDelayed').innerText = `${delayed} (${delayRate}%)`;
+                }
+            } else {
+                console.warn("대시보드 데이터 로드 응답 상태:", res.status);
+            }
+        } catch (e) {
+            console.error('대시보드 데이터를 불러오는데 실패했습니다:', e);
+        }
+    }
+
+    async function toggleTaskStatus(taskId) {
+        try {
+            await fetch(`/tasks/${taskId}/toggle`, { method: 'POST' });
+            loadDashboard();
+        } catch (e) {
+            console.error('업무 상태 변경 실패:', e);
+        }
+    }
+
+    fetchMyInfo();
+    loadDashboard();
+</script>
+{% endblock %}

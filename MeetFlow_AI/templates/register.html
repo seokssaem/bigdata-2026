@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}회원가입 - MeetFlow AI{% endblock %}
+
+{% block content %}
+<div class="py-5">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">MeetFlow AI 회원가입</h3>
+        <p class="text-muted small">새 계정을 생성합니다.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <form id="registerForm">
+            <div class="mb-3">
+                <label class="form-label">이름</label>
+                <input type="text" id="name" class="form-control"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">이메일</label>
+                <input type="email" id="email" class="form-control"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">비밀번호</label>
+                <input type="password" id="password" class="form-control"
+                       required minlength="8">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">비밀번호 확인</label>
+                <input type="password" id="confirmPassword"
+                       class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-3">
+                회원가입
+            </button>
+        </form>
+
+        <a href="/views/login"
+           class="text-center mt-3 text-decoration-none">
+            이미 계정이 있으신가요? 로그인
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (password !== confirmPassword) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+    }
+
+    try {
+        const res = await fetch('/users/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name, email, password})
+        });
+
+        if (res.ok) {
+            alert('회원가입이 완료되었습니다. 로그인해주세요.');
+            window.location.href = '/views/login';
+        } else {
+            const data = await res.json().catch(() => ({}));
+            const detail = data.detail;
+            alert(typeof detail === 'string'
+                ? detail
+                : '회원가입에 실패했습니다. 입력 정보를 확인해주세요.');
+        }
+    } catch (err) {
+        alert('서버 연결 오류가 발생했습니다.');
+    }
+});
+</script>
+{% endblock %}
