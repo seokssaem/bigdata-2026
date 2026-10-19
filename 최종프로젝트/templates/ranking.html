@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "_macros.html" import rank_row %}
+
+{% block title %}가격 랭킹 - 생필품 가격 리포트{% endblock %}
+
+{% block content %}
+<h1>가격 랭킹</h1>
+
+<div class="tabs tabs-primary">
+    <a href="/ranking?basis=prev&direction=up" class="{% if basis=='prev' %}active{% endif %}">직전 대비</a>
+    <a href="/ranking?basis=yoy&direction=up" class="{% if basis=='yoy' %}active{% endif %}">전년동기 대비</a>
+    <a href="/ranking?basis=predict" class="{% if basis=='predict' %}active{% endif %}">다음 예측</a>
+</div>
+
+{% if basis != 'predict' %}
+<div class="tabs tabs-secondary">
+    <a href="/ranking?basis={{ basis }}&direction=up" class="{% if direction=='up' %}active{% endif %}">상승</a>
+    <a href="/ranking?basis={{ basis }}&direction=down" class="{% if direction=='down' %}active{% endif %}">하락</a>
+</div>
+<p class="hint">{{ survey_date }} 조사 기준 · 상위 20개</p>
+{% else %}
+<p class="hint">과거 데이터 기반 예측이며 실제와 다를 수 있어요. 오를 것으로 예상되는 상위 20개예요.</p>
+{% endif %}
+
+<ol class="ranking-list">
+    {% for row in items %}
+    {{ rank_row(row.product_name, row.from_price, row.to_price, row.rate) }}
+    {% endfor %}
+</ol>
+{% endblock %}

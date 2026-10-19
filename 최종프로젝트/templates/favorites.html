@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "_macros.html" import product_card %}
+
+{% block title %}즐겨찾기 - 생필품 가격 리포트{% endblock %}
+
+{% block content %}
+<h1>즐겨찾기</h1>
+<p class="hint">{{ request.session.get('username') }}님이 즐겨찾기한 상품이에요.</p>
+
+<section>
+    {% if products %}
+    <div class="product-grid">
+        {% for p in products %}
+        {{ product_card(p, latest.get(p.id)) }}
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">
+        아직 즐겨찾기한 상품이 없어요.<br>
+        상품 상세 페이지에서 ☆ 버튼을 눌러 추가해보세요.
+    </p>
+    {% endif %}
+</section>
+{% endblock %}

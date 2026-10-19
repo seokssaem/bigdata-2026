@@ -1,0 +1,5 @@
+{# JS가 fetch로 불러가는 상품 카드 묶음 (전체 페이지가 아니라 카드 HTML 조각만 반환) #}
+{% from "_macros.html" import product_card %}
+{% for p in products %}
+{{ product_card(p, latest.get(p.id)) }}
+{% endfor %}

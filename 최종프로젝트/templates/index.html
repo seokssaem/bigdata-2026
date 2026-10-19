@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% from "_macros.html" import product_card, rank_row %}
+
+{% block title %}상품 목록 - 생필품 가격 리포트{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <p class="hero-eyebrow">한국소비자원 참가격 데이터 기반</p>
+    <h1>생필품 가격, 한눈에 추적하세요</h1>
+    <p class="hero-sub">2025년 1월부터 지금까지 조사된 생필품 가격 변동과 다음 조사 예측</p>
+</div>
+
+{# 요약과 TOP5는 검색/필터 없이 첫 페이지를 볼 때만 보여준다 #}
+{% if dashboard %}
+<section class="top-preview">
+    <div class="section-head">
+        <h2>이번 조사 가격 상승 TOP 5</h2>
+        <a href="/ranking">전체 랭킹 보기 →</a>
+    </div>
+    <p class="hint">{{ dashboard.date }} 조사 기준 · 직전 조사 대비</p>
+    <ol class="ranking-list">
+        {% for row in dashboard.top %}
+        {{ rank_row(row.product.product_name, row.prev_price, row.avg_price, row.change_rate) }}
+        {% endfor %}
+    </ol>
+</section>
+
+{# 최근 본 상품이 있을 때만 favorites.js 가 이 영역을 채우고 보여준다 #}
+<section id="recent-section" class="recent-section" hidden>
+    <div class="section-head">
+        <h2>최근 본 상품</h2>
+    </div>
+    <div id="recent-list" class="product-grid"></div>
+</section>
+{% endif %}
+
+<form class="search-bar" method="get" action="/">
+    <input type="text" name="search" placeholder="상품명 검색 (예: 라면)" value="{{ search or '' }}">
+    <select name="category">
+        <option value="">전체 카테고리</option>
+        {% for c in categories %}
+        <option value="{{ c }}" {% if c == category %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">검색</button>
+</form>
+
+<p class="result-count">
+    {% if total %}
+    전체 {{ total }}개 중 {{ range_start }}–{{ range_end }}번째
+    {% else %}
+    0개 상품
+    {% endif %}
+    {% if search or category %}
+    · <a href="/" class="clear-filter">필터 해제</a>
+    {% endif %}
+</p>
+
+{% if products %}
+<div class="product-grid">
+    {% for p in products %}
+    {{ product_card(p, latest.get(p.id)) }}
+    {% endfor %}
+</div>
+
+{% if total_pages > 1 %}
+<nav class="pagination" aria-label="페이지 이동">
+    {% if pagination.prev_url %}
+    <a href="{{ pagination.prev_url }}">이전</a>
+    {% else %}
+    <span class="disabled">이전</span>
+    {% endif %}
+
+    {% for link in pagination.links %}
+        {% if link.gap %}
+        <span class="gap">…</span>
+        {% elif link.active %}
+        <span class="current">{{ link.n }}</span>
+        {% else %}
+        <a href="{{ link.url }}">{{ link.n }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if pagination.next_url %}
+    <a href="{{ pagination.next_url }}">다음</a>
+    {% else %}
+    <span class="disabled">다음</span>
+    {% endif %}
+</nav>
+{% endif %}
+{% else %}
+<p class="empty-state">검색 결과가 없어요. 다른 검색어나 카테고리를 시도해보세요.</p>
+{% endif %}
+
+{% if dashboard %}
+<script src="{{ static_url('js/favorites.js') }}"></script>
+<script>renderRecent("recent-section", "recent-list");</script>
+{% endif %}
+{% endblock %}

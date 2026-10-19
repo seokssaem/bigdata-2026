@@ -1,0 +1,39 @@
+{# 여러 화면에서 같이 쓰는 작은 조각들(매크로) 모음 #}
+
+{# 등락률 배지: 오르면 빨강 ▲, 내리면 파랑 ▼ (색만이 아니라 화살표로도 구분) #}
+{% macro rate_badge(rate) -%}
+  {%- if rate is none -%}
+    <span class="rate-flat">-</span>
+  {%- elif rate > 0 -%}
+    <span class="rate-up">▲ {{ "%.1f"|format(rate) }}%</span>
+  {%- elif rate < 0 -%}
+    <span class="rate-down">▼ {{ "%.1f"|format(rate|abs) }}%</span>
+  {%- else -%}
+    <span class="rate-flat">0.0%</span>
+  {%- endif -%}
+{%- endmacro %}
+
+{# 상품 카드: 목록, 즐겨찾기, 최근 본 상품에서 똑같이 쓴다. latest = 그 상품의 최신 가격/등락률 행 #}
+{% macro product_card(p, latest) %}
+<a href="/product/{{ p.product_name|urlencode }}" class="product-card">
+    <span class="category-tag {{ p.category|tag_class }}">{{ p.category }}</span>
+    <span class="product-name">{{ p.product_name }}</span>
+    {% if latest %}
+    <span class="card-price">
+        <strong>{{ "{:,.0f}".format(latest.avg_price) }}원</strong>
+        {{ rate_badge(latest.change_rate) }}
+    </span>
+    {% endif %}
+</a>
+{% endmacro %}
+
+{# 랭킹 한 줄: 상품명 / 이전가 → 현재가 / 등락률. 숫자는 오른쪽 정렬 #}
+{% macro rank_row(name, from_price, to_price, rate) %}
+<li>
+    <a href="/product/{{ name|urlencode }}">
+        <span class="rank-name">{{ name }}</span>
+        <span class="rank-price">{{ "{:,.0f}".format(from_price) }}원 → {{ "{:,.0f}".format(to_price) }}원</span>
+        <span class="rank-rate">{{ rate_badge(rate) }}</span>
+    </a>
+</li>
+{% endmacro %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}생필품 가격 리포트{% endblock %}</title>
+    {# Pretendard 폰트(인터넷이 안 되면 CSS의 기본 글꼴로 자동 대체됨) #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link rel="stylesheet" href="{{ static_url('css/style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <a href="/" class="logo">생필품 가격 리포트</a>
+        <nav>
+            <a href="/" class="{% if active == 'home' %}active{% endif %}">상품 목록</a>
+            <a href="/ranking" class="{% if active == 'ranking' %}active{% endif %}">가격 랭킹</a>
+            <a href="/favorites" class="{% if active == 'favorites' %}active{% endif %}">즐겨찾기</a>
+
+            {# 로그인 상태에 따라 오른쪽 메뉴가 바뀐다 (이름은 세션에 들어 있다) #}
+            <span class="auth">
+            {% if request.session.get('username') %}
+                <span class="auth-user">{{ request.session.get('username') }}님</span>
+                <form method="post" action="/logout" class="logout-form">
+                    <button type="submit" class="auth-btn">로그아웃</button>
+                </form>
+            {% else %}
+                <a href="/login" class="{% if active == 'login' %}active{% endif %}">로그인</a>
+                <a href="/signup" class="auth-signup">회원가입</a>
+            {% endif %}
+            </span>
+        </nav>
+    </header>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        데이터 출처: 한국소비자원 참가격(price.go.kr) · 공공데이터포털
+    </footer>
+</body>
+</html>

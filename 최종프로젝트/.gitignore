@@ -1,0 +1,14 @@
+# 비밀번호가 들어 있는 파일은 절대 GitHub에 올리지 않는다
+.env
+
+# 가상환경, 캐시
+.venv/
+__pycache__/
+*.pyc
+.vscode/
+
+# 용량이 큰 원본/중간 데이터 (DB에 이미 들어 있고, 서버에서는 필요 없다)
+data/raw_csv/
+data/*.pkl
+data/*.zip
+*.zip

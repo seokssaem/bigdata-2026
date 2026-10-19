@@ -1,0 +1,57 @@
+# 생필품 가격 리포트 - docker-compose.yml
+# db(PostgreSQL) + api(FastAPI) 두 컨테이너를 한 번에 실행한다.
+#
+# 실행:  docker compose up -d --build
+# 접속:  http://서버주소:8005
+# 필요한 값(POSTGRES_*, SESSION_SECRET)은 같은 폴더의 .env 파일에서 읽는다. (.env.example 참고)
+
+services:
+  db:
+    image: postgres:17   # 공식 PostgreSQL 이미지를 그대로 사용 (별도 Dockerfile 불필요)
+    container_name: price-db
+    restart: unless-stopped   # 서버가 재부팅되거나 컨테이너가 죽어도 자동으로 다시 시작
+
+    environment:
+      # 이 이미지가 처음 실행될 때 이 이름의 DB와 계정을 자동으로 만들어 준다
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    volumes:
+      # 컨테이너를 지워도 데이터가 남도록 named volume에 저장
+      - price_pgdata:/var/lib/postgresql/data
+      # initdb 폴더의 .sql 파일은 "DB가 처음 만들어질 때" 자동 실행된다.
+      # --> 내 컴퓨터에서 내보낸 가격 데이터(price_report.sql)가 서버 DB에 그대로 들어간다.
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+
+    healthcheck:
+      # PostgreSQL이 접속을 받을 준비가 되었는지 확인한다.
+      # -h localhost 를 붙여야 "처음 데이터를 넣는 중"일 때가 아니라 "다 끝난 뒤"에 정상으로 판단된다.
+      test: ["CMD-SHELL", "pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: price-api
+    restart: unless-stopped
+
+    ports:
+      - "80:8000"   # "바깥포트:컨테이너포트" --> 바깥에서 80번으로 오면 컨테이너의 8000번(FastAPI)으로 전달
+
+    environment:
+      # 컨테이너 안에서 db에 접속할 때는 localhost가 아니라 서비스 이름 "db"를 주소로 쓴다
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      # 로그인 쿠키를 서명하는 비밀 문자열. 비어 있으면 실행을 막아서 실수로 빼먹는 걸 방지한다.
+      SESSION_SECRET: ${SESSION_SECRET:?.env 파일에 SESSION_SECRET 을 적어주세요}
+
+    depends_on:
+      db:
+        # db가 단순히 "실행"만 된 게 아니라 healthcheck를 통과해 실제로 접속 가능해진 뒤에 api를 실행
+        condition: service_healthy
+
+volumes:
+  price_pgdata:

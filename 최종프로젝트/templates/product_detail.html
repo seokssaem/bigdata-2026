@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% from "_macros.html" import rate_badge %}
+
+{% block title %}{{ product.product_name }} - 생필품 가격 리포트{% endblock %}
+
+{% block content %}
+<a href="/" class="back-link">← 목록으로</a>
+
+<div class="detail-header">
+    <span class="category-tag {{ product.category|tag_class }}">{{ product.category }}</span>
+    <h1>{{ product.product_name }}</h1>
+    {# 처음 모양은 서버가 정하고(내 즐겨찾기 여부), 누르면 favorites.js 가 서버에 저장한다 #}
+    <button id="favorite-btn" class="favorite-btn {% if is_favorite %}active{% endif %}"
+            data-product="{{ product.product_name }}">
+        {% if is_favorite %}★ 즐겨찾기됨{% else %}☆ 즐겨찾기{% endif %}
+    </button>
+</div>
+
+{# 핵심 숫자 4개를 큰 카드로 #}
+<section class="stat-grid">
+    <div class="stat-card">
+        <span class="stat-label">현재가 (평균)</span>
+        {% if change %}
+        <strong class="stat-value">{{ "{:,.0f}".format(change.avg_price) }}원</strong>
+        <span class="stat-sub">{{ change.survey_date }} 조사 기준</span>
+        {% else %}
+        <strong class="stat-value muted">-</strong>
+        {% endif %}
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-label">직전 조사 대비</span>
+        {% if change and change.change_rate is not none %}
+        <strong class="stat-value">{{ rate_badge(change.change_rate) }}</strong>
+        {% if change.price_diff is not none and change.prev_price is not none %}
+        <span class="stat-sub">{{ "{:+,.0f}".format(change.price_diff) }}원 (이전 {{ "{:,.0f}".format(change.prev_price) }}원)</span>
+        {% endif %}
+        {% else %}
+        <strong class="stat-value muted">-</strong>
+        <span class="stat-sub">비교할 이전 조사가 없어요</span>
+        {% endif %}
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-label">전년 같은 시기 대비</span>
+        {% if change and change.yoy_change_rate is not none %}
+        <strong class="stat-value">{{ rate_badge(change.yoy_change_rate) }}</strong>
+        {% if change.yoy_diff is not none and change.yoy_price is not none %}
+        <span class="stat-sub">{{ "{:+,.0f}".format(change.yoy_diff) }}원 (작년 {{ "{:,.0f}".format(change.yoy_price) }}원)</span>
+        {% endif %}
+        {% else %}
+        <strong class="stat-value muted">-</strong>
+        <span class="stat-sub">1년 전 비교 자료가 없어요</span>
+        {% endif %}
+    </div>
+
+    <div class="stat-card stat-predict">
+        <span class="stat-label">다음 조사 예상가</span>
+        {% if prediction %}
+        <strong class="stat-value">{{ "{:,.0f}".format(prediction.predicted_price) }}원</strong>
+        <span class="stat-sub">{{ rate_badge(prediction.expected_change_rate) }} 예상</span>
+        {% else %}
+        <strong class="stat-value muted">-</strong>
+        <span class="stat-sub">예측할 데이터가 부족해요</span>
+        {% endif %}
+    </div>
+</section>
+{% if prediction %}
+<p class="disclaimer">예상가는 과거 가격 흐름으로 계산한 값이라 실제와 다를 수 있어요.</p>
+{% endif %}
+
+<div class="chart-box">
+    <img src="/chart/{{ product.product_name|urlencode }}.png" alt="{{ product.product_name }} 가격 추이 그래프">
+</div>
+
+<div class="history-table">
+    <h2>최근 가격 이력</h2>
+    <p class="hint">전체 추이는 위 그래프를 참고하세요. 아래는 최근 10개 조사시점만 표시해요.</p>
+    <table>
+        <thead><tr><th>조사일</th><th class="num">평균가격</th></tr></thead>
+        <tbody>
+        {% for row in history[-10:] | reverse %}
+            <tr><td>{{ row.survey_date }}</td><td class="num">{{ "{:,.0f}".format(row.avg_price) }}원</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="{{ static_url('js/favorites.js') }}"></script>
+<script>
+  // 이 상품을 '최근 본 상품'에 기록한다
+  addRecent({{ product.product_name | tojson }});
+</script>
+{% endblock %}

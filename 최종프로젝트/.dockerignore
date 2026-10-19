@@ -1,0 +1,11 @@
+.venv
+__pycache__
+*.pyc
+.env
+.git
+.gitignore
+.vscode
+data
+initdb
+*.zip
+export_db_sql.py
