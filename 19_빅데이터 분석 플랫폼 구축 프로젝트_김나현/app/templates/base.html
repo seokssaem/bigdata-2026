@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ title }} · STOCKFLOW</title>
+<link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+<script src="{{ url_for('static', path='app.js') }}" defer></script>
+</head>
+<body data-page="{{ page }}">
+<aside class="sidebar" id="sidebar">
+<a class="brand" href="/ui/overview"><span class="brand-icon">▦</span><span>STOCKFLOW<small>INVENTORY OPERATIONS</small></span></a>
+<div class="workspace"><span class="workspace-icon">S</span><div>재고 운영 워크스페이스<small>B2B 관리</small></div></div>
+<div class="nav-label">WORKSPACE</div>
+<nav aria-label="주 메뉴">{% for key, label, description, icon in pages %}<a href="/ui/{{ key }}" class="nav-item {% if page == key %}active{% endif %}" {% if page == key %}aria-current="page"{% endif %}><span aria-hidden="true">{{ icon }}</span>{{ label }}</a>{% endfor %}</nav>
+<div class="sidebar-footer"><span class="status-dot"></span>데이터로 연결하는 재고 운영<small>STOCKFLOW · B2B</small></div>
+</aside>
+<div class="shell">
+<header class="topbar"><button class="mobile-menu secondary" aria-label="메뉴 열기" aria-expanded="false">☰</button><span>워크스페이스 <span class="crumb">/</span> <strong>{{ title }}</strong></span><span class="date" id="today"></span></header>
+<main><div class="page-heading"><div><div class="eyebrow">INVENTORY WORKSPACE</div><h1>{{ title }}</h1><p>{{ description }}</p></div><button class="secondary" id="refresh">↻ 새로고침</button></div>
+<div id="error" class="notice danger" role="alert" hidden></div>
+{% block content %}{% endblock %}
+</main><footer>STOCKFLOW <span>더 명확한 데이터, 더 여유로운 운영.</span></footer>
+</div>
+<dialog id="modal"><div class="dialog-heading"><h2 id="modal-title"></h2><button type="button" class="icon-button" id="close-modal" aria-label="닫기">×</button></div><form id="modal-form"><div id="modal-fields"></div><div class="notice danger" id="modal-error" role="alert" hidden></div><div class="dialog-actions"><button class="secondary" type="button" id="cancel-modal">취소</button><button type="submit" id="save-modal">등록하기</button></div></form></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+</body></html>
